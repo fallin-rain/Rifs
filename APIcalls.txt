@@ -1,3 +1,9 @@
+Home
+https://api.redgifs.com/v2/home/feeds
+
+Creators
+https://api.redgifs.com/v1/creators/search?order=best&tags=&page=1
+
 Search
 http://api.redgifs.com/v1/creators/search?page=1&order=recent&tags=Natural
 

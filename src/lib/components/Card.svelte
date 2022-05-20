@@ -9,7 +9,7 @@
 	export let gifs: Number = 0
 	export let poster: string = '#'
 	export let src: string = '#'
-	export let autoplay: boolean = false
+	export let autoplay: boolean = true
 
 	let controlsHeight: number = 60
 	let trackHeight: number = 6
@@ -29,10 +29,11 @@
 	let timeDisplay: boolean = true
 </script>
 
-<div class="rounded-xl bg-slate-800 max-w-sm mx-auto w-full">
+<div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto w-full">
 	<div class="flex items-end justify-between p-4">
 		<div>
 			<a
+				data-username
 				href={profileUrl}
 				target="_blank"
 				class="flex items-center font-semibold tracking-wide text-pink-400"
@@ -93,7 +94,9 @@
 	</div>
 	<!-- gif -->
 	<div class="min-h-max w-full overflow-hidden bg-slate-600">
-		<video class="block h-full w-full" muted controls {autoplay} loop {poster} {src} />
+		<video class="block h-full w-full" muted controls loop {autoplay} {poster} {src}>
+			<!-- <source type="video/mp4" /> -->
+		</video>
 	</div>
 	<!-- CTAs -->
 	<div class="flex flex-row-reverse items-center gap-4 p-4">

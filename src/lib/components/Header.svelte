@@ -2,7 +2,7 @@
 	class="fixed top-0 z-50 mb-6 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
 >
 	<a
-		href="#"
+		href="/"
 		class="bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
 		>Rifs</a
 	>

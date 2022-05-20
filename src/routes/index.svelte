@@ -25,7 +25,7 @@
 	import { onMount } from 'svelte'
 
 	import Card from '../lib/components/Card.svelte'
-	import Header from '../lib/components/Header.svelte'
+  import HotCard from '../lib/components/HotCard.svelte'
 
 	onMount(() => {
 		const videos = document.querySelectorAll('video')
@@ -63,9 +63,8 @@
 	export let items
 </script>
 
-<div class="min-h-screen bg-slate-900 text-pink-200">
-	<Header />
 	<main class="px-6 md:px-20 py-24 flex flex-wrap items-center gap-6">
+  <HotCard />
 			{#each items as item}
 				<Card
 					profileName={item.username}
@@ -79,4 +78,3 @@
 				/>
 			{/each}
 	</main>
-</div>

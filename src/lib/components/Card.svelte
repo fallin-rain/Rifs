@@ -75,7 +75,7 @@
     </div>
     <!-- gif -->
     <div class="min-h-max w-full overflow-hidden bg-slate-600">
-      <video class="block min-h-80 w-full" muted controls playsinline loop data-poster={poster} data-src={src} />
+      <video class="block w-full" muted controls playsinline loop data-poster={poster} data-src={src} />
     </div>
     <!-- CTAs -->
     <div class="flex flex-row-reverse items-center gap-4 p-4">

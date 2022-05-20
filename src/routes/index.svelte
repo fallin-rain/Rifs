@@ -3,7 +3,7 @@
 	const log = console.debug
 
 	export async function load({ fetch }) {
-		const res = await fetch('http://api.redgifs.com/v1/creators/search?page=1&order=recent&tags=Natural', {
+		const res = await fetch('/api/fetch.json', {
         headers: {
           "content-type": "application/json",
           "accept": "application/json"
@@ -11,7 +11,6 @@
       })
 
 		const data = await res.json()
-    log(data)
 
 		return {
       status: res.status,

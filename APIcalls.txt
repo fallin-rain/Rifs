@@ -1,0 +1,8 @@
+Search
+http://api.redgifs.com/v1/creators/search?page=1&order=recent&tags=Natural
+
+Trending tags
+http://api.redgifs.com/v1/featured/categories/populated
+
+User
+http://api.redgifs.com/v2/gifs/[id]

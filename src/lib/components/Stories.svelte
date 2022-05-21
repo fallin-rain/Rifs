@@ -1,14 +1,14 @@
 <script lang="ts">
-	let paused: boolean = true
-
 	export let hasAudio: boolean = false
 	export let src: string = ''
 	export let poster: string = ''
 </script>
 
-<div class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
+<div data-stories class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
 	<!-- sound -->
-	<button class="absolute z-10 block bottom-2 right-2 rounded-full bg-pink-800 p-1 text-pink-200">
+	<button
+		class="absolute z-10 block top-2 right-2 rounded-full bg-slate-700 bg-opacity-60 p-1 text-pink-200"
+	>
 		{#if hasAudio}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -37,11 +37,12 @@
 			</svg>
 		{/if}
 	</button>
-	<div class="absolute inset-0 grid place-items-center">
-		{#if !paused}
+	<!-- <div class="absolute inset-0 grid place-items-center">
+		{#if paused}
 			<button
-				on:click={(paused = true)}
-				class="rounded-full bg-gradient-to-br from-pink-400 to-red-600 p-1"
+				data-button-play
+				on:click={handleClick}
+				class="rounded-full bg-opacity-60 bg-red-600 p-1"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +66,9 @@
 			</button>
 		{:else}
 			<button
-				on:click={(paused = false)}
-				class="rounded-full bg-gradient-to-br from-pink-400 to-red-600 p-1"
+				data-button-pause
+				on:click={handleClick}
+				class="rounded-full bg-opacity-60 bg-red-600 p-1"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -84,15 +86,14 @@
 				</svg>
 			</button>
 		{/if}
-	</div>
+	</div> -->
 	<div class="aspect-[9/16] h-60">
 		<video
 			class="block h-full w-full object-cover"
-			bind:paused
-			playsinline
 			muted
 			data-poster={poster}
 			data-src={src}
+			controls
 		/>
 	</div>
 </div>

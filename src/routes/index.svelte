@@ -3,13 +3,7 @@
 	const log = console.debug
 
 	export async function load({ fetch }) {
-		const res = await fetch('/api/home.json', {
-			headers: {
-				'content-type': 'application/json',
-				accept: 'application/json',
-			},
-		})
-
+		const res = await fetch('/api/home')
 		const data = await res.json()
 
 		return {
@@ -27,7 +21,7 @@
 	}
 </script>
 
-<script>
+<script lang="ts">
 	export let stories
 	export let trending
 	export let hotGifs
@@ -40,8 +34,7 @@
 
 	import { onMount } from 'svelte'
 
-	import Card from '../lib/components/Card.svelte'
-	import HotCard from '../lib/components/HotCard.svelte'
+	import Card from '$lib/components/Card.svelte'
 	import Stories from '$lib/components/Stories.svelte'
 
 	onMount(() => {
@@ -57,8 +50,6 @@
 				if (entry.isIntersecting) {
 					video.setAttribute('poster', video.dataset.poster)
 					video.setAttribute('src', video.dataset.src)
-					video.load()
-					video.play()
 					playable = true
 				} else {
 					video.removeAttribute('poster')
@@ -75,13 +66,18 @@
 		//	else videos.forEach(video => video.play())
 		//  })
 	})
+
+	function formatTS(timestamp: number | string) {
+		const date = new Date(timestamp * 1000)
+		return new Intl.DateTimeFormat('en-us', { dateStyle: 'medium' }).format(date)
+	}
 </script>
 
 <!-- Stories -->
 <section id="sotries" class="mt-14 px-6 py-8">
-	<h1 class="mb-6 text-2xl font-light tracking-wide text-pink-300">Stories</h1>
+	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-300">Stories</h1>
 
-	<div class="flex gap-6 overflow-x-scroll pb-2">
+	<div id="overflow" class="flex gap-6 overflow-x-scroll pb-2">
 		{#each stories as story}
 			<Stories hasAudio={story.hasAudio} src={story.urls.sd} poster={story.urls.poster} />
 		{/each}
@@ -90,22 +86,36 @@
 
 <!-- Trending -->
 <section id="trending" class="px-6 py-8">
-	<h1 class="mb-6 text-2xl font-light tracking-wide text-pink-300">Trending</h1>
+	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-300">Trending</h1>
 
 	<div class="space-y-6">
 		{#each trending as data}
-			<HotCard
-				profileUrl={data.user.url}
+			<Card
+				id={data.id}
 				profileName={data.user.username}
 				verified={data.user.verified}
-				date={data.user.creationtime}
+				date={formatTS(data.user.creationtime)}
 				hasAudio={data.hasAudio}
 				gifs={data.user.gifs}
 				views={data.user.views}
 				poster={data.urls.poster}
-				hasTags={data?.tags[0]}
-				src={data.urls.sd}
+				hasTags={data.tags}
+				tags={data.tags}
+				src={data.urls.vthumbnail}
 			/>
 		{/each}
 	</div>
 </section>
+
+<style>
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	#overflow::-webkit-scrollbar {
+		display: none !important;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	#overflow {
+		-ms-overflow-style: none !important; /* IE and Edge */
+		scrollbar-width: none !important; /* Firefox */
+	}
+</style>

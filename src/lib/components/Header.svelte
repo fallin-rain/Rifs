@@ -1,5 +1,5 @@
 <header
-	class="fixed top-0 z-50 mb-6 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
+	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
 >
 	<a
 		href="/"
@@ -76,7 +76,7 @@
 				/>
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 			</svg>
-			<p class="font-medium ml-1 hidden md:block">Theme</p>
+			<p class="font-medium ml-1 hidden md:block">Settings</p>
 		</button>
 	</div>
 </header>

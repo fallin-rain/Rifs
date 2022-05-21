@@ -6,8 +6,8 @@
 	export let profileName: string = loading
 	export let poster: string = '#'
 	export let src: string = '#'
-	export let followers: Number = 0
-	export let gifs: Number = 0
+	export let followers: number = 0
+	export let gifs: number = 0
 	export let verified: boolean = false
 </script>
 

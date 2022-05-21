@@ -1,14 +1,18 @@
-Home
+Home/
 https://api.redgifs.com/v2/home/feeds
 
-Creators
-https://api.redgifs.com/v1/creators/search?order=best&tags=&page=1
+Creators/
+https://api.redgifs.com/v1/creators/search?order=best&page=1&count=20
 
-Search
+Search/
+https://api.redgifs.com/v2/gifs/search?order=trending&count=10&search_text=lesbian
+
+Tags/
 http://api.redgifs.com/v1/creators/search?page=1&order=recent&tags=Natural
 
 Trending tags
 http://api.redgifs.com/v1/featured/categories/populated
+https://api.redgifs.com/v2/gifs/search?order=trending&count=80
 
 User
 http://api.redgifs.com/v2/gifs/[id]

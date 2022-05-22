@@ -124,7 +124,7 @@
 				{#each tags as tag}
 					<a
 						href={'/tags/' + tag}
-						class="px-2 py-1 rounded-full bg-slate-700 text-pink-300 text-xs leading-none tracking-wide"
+						class="px-2.5 py-1.5 rounded-full border border-pink-500 text-pink-300 text-xs leading-none tracking-wide"
 						>{tag}</a
 					>
 				{/each}

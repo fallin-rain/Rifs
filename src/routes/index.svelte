@@ -1,4 +1,3 @@
-<!-- Only for testing -->
 <script context="module" lang="ts">
 	const log = console.debug
 
@@ -74,8 +73,8 @@
 </script>
 
 <!-- Stories -->
-<section id="sotries" class="mt-14 px-6 py-8">
-	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-300">Stories</h1>
+<section id="sotries">
+	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-200">Stories</h1>
 
 	<div id="overflow" class="flex gap-6 overflow-x-scroll pb-2">
 		{#each stories as story}
@@ -85,13 +84,13 @@
 </section>
 
 <!-- Trending -->
-<section id="trending" class="px-6 py-8">
-	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-300">Trending</h1>
+<section id="trending">
+	<h1 class="mb-6 text-2xl font-semibold tracking-wide text-pink-200">Trending</h1>
 
 	<div class="space-y-6">
 		{#each trending as data}
 			<Card
-				id={data.id}
+				username={data.user.username}
 				profileName={data.user.username}
 				verified={data.user.verified}
 				date={formatTS(data.user.creationtime)}

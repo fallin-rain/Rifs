@@ -1,5 +1,5 @@
 <header
-	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
+	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-3"
 >
 	<a
 		href="/"
@@ -10,7 +10,7 @@
 		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
+				class="h-5 w-5 text-pink-200"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -27,7 +27,7 @@
 		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
+				class="h-5 w-5 text-pink-200"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -44,7 +44,7 @@
 		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
+				class="h-5 w-5 text-pink-200"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -63,7 +63,7 @@
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
+				class="h-5 w-5 text-pink-200"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"

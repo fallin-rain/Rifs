@@ -7,7 +7,7 @@
 <div data-stories class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
 	<!-- sound -->
 	<button
-		class="absolute z-10 block top-2 right-2 rounded-full bg-slate-700 bg-opacity-60 p-1 text-pink-200"
+		class="absolute z-10 block top-2 right-2 rounded-full bg-slate-700 bg-opacity-60 p-1 text-slate-400"
 	>
 		{#if hasAudio}
 			<svg

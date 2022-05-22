@@ -4,18 +4,28 @@ https://api.redgifs.com/v2/home/feeds
 Creators/
 https://api.redgifs.com/v1/creators/search?order=best&page=1&count=20
 
-Search/
-https://api.redgifs.com/v2/gifs/search?order=trending&count=10&search_text=lesbian
+Input Search/
+https://api.redgifs.com/v2/gifs/search?order=trending&count=10&search_text=[input_value]
 
-Search by tags
-https://api.redgifs.com/v1/tags/match?query=ebony
+Related/Match
+https://api.redgifs.com/v1/tags/match?query=[tag]
 
-Tags/
+Search by tags/
 http://api.redgifs.com/v1/creators/search?page=1&order=recent&tags=Natural
 
 Trending tags
 http://api.redgifs.com/v1/featured/categories/populated
 https://api.redgifs.com/v2/gifs/search?order=trending&count=80
 
-User
+User/
+get a single gif
 http://api.redgifs.com/v2/gifs/[id]
+
+user's profile
+https://api.redgifs.com/v2/users/[username]/search?order=recent
+
+User's used tags
+https://api.redgifs.com/v1/users/[username]/tags
+
+user's posts filtered by tag
+https://api.redgifs.com/v2/users/[username]/search?order=recent&tags=Ass

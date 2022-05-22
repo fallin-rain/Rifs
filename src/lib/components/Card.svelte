@@ -3,7 +3,7 @@
 
 	export let date: string = loading
 	export let profileName: string = loading
-	export let id: string = ''
+	export let username: string = ''
 	export let poster: string = '#'
 	export let src: string = '#'
 	export let gifs: Number = 0
@@ -19,7 +19,7 @@
 		<div class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
 				<a
-					href={'/creator/' + id}
+					href={'/creator/' + username}
 					class="flex items-center text-base font-semibold tracking-wide text-pink-400"
 				>
 					{profileName}
@@ -124,7 +124,7 @@
 	<!-- CTAs -->
 	<div class="flex justify-between items-center gap-4 p-4">
 		<button
-			class="px-2 py-1 bg-gray-700 opacity-60 text-slate-200 font-semibold leading-none rounded-full text-sm"
+			class="px-2 py-1 bg-gray-700 opacity-60 text-pink-200 font-semibold leading-none rounded-full text-sm"
 			>HD</button
 		>
 		<div class="flex flex-row-reverse gap-4">
@@ -134,11 +134,11 @@
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
 				<span
-					class="relative rounded-full bg-gradient-to-br from-pink-600 to-red-800 px-5 py-2 text-slate-200"
+					class="relative rounded-full bg-gradient-to-br from-pink-600 to-red-800 px-5 py-2 text-pink-20"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
+						class="h-5 w-50"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -155,7 +155,7 @@
 			<button
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
-				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-slate-200">
+				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-pink-200">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5"
@@ -175,7 +175,7 @@
 			<button
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
-				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-slate-200">
+				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-pink-200">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5"

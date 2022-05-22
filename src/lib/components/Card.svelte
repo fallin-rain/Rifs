@@ -1,17 +1,37 @@
 <script lang="ts">
+	import VideoPlayer from 'svelte-video-player-kit'
+
 	const loading = 'loading...'
+
+	function forceHTTP() {
+		if (location.protocol == 'http:') location.href = location.href.replace(/^http:/, 'https:')
+	}
 
 	export let date: string = loading
 	export let profileName: string = loading
 	export let username: string = ''
-	export let poster: string = '#'
-	export let src: string = '#'
 	export let gifs: Number = 0
 	export let views: Number = 0
 	export let verified: boolean = false
 	export let hasAudio: boolean = false
 	export let hasTags: boolean = false
 	export let tags: string[] = []
+
+	// video player attributes
+	export let width: string = ''
+	export let height: string = ''
+	export let poster: string = ''
+	export let src: string = ''
+
+	let color: string = '#DB2777'
+	let focusColor: string = '#DC2626'
+	let barsBgColor: string = '#CBD5E1'
+	let iconColor: string = '#FBCFE8'
+	let bufferedColor: string = '#9D174D'
+	let borderRadius: string = '0px'
+	let chunkBars: boolean = true
+	let loop: boolean = true
+	let timeDisplay: boolean = true
 </script>
 
 <div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto w-full">
@@ -19,15 +39,15 @@
 		<div class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
 				<a
-					href={'/creator/' + username}
-					class="flex items-center text-base font-semibold tracking-wide text-pink-400"
+					href={'/user/' + username}
+					class="mb-1 flex items-center text-base font-semibold tracking-wide text-pink-400"
 				>
 					{profileName}
 					<!-- Only appears if creator is verified -->
 					{#if verified}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5"
+							class="h-4 w-4"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -47,7 +67,7 @@
 						<div class="flex items-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="h-3 w-3"
+								class="h-4 w-4"
 								viewBox="0 0 20 20"
 								fill="currentColor"
 							>
@@ -59,26 +79,28 @@
 							</svg>
 						</div>
 					{/if}
+					{#if gifs}
+						<div class="flex items-center">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-4 w-4"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+							&nbsp;
+							<span>{gifs}</span>
+						</div>
+					{/if}
 					<div class="flex items-center">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="h-3 w-3"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-						&nbsp;
-						<span>{gifs}</span>
-					</div>
-					<div class="flex items-center">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-3 w-3"
+							class="h-4 w-4"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -101,8 +123,8 @@
 			<div class="mt-3 flex flex-wrap items-center gap-2">
 				{#each tags as tag}
 					<a
-						href={tag}
-						class="px-2 py-1 rounded-full bg-slate-700 text-slate-200 text-xs leading-none tracking-wide"
+						href={'/tags/' + tag}
+						class="px-2 py-1 rounded-full bg-slate-700 text-pink-300 text-xs leading-none tracking-wide"
 						>{tag}</a
 					>
 				{/each}
@@ -110,15 +132,23 @@
 		{/if}
 	</div>
 	<!-- gif -->
-	<div class="w-full overflow-hidden bg-slate-600">
-		<video
-			class="block aspect-video w-full"
-			muted
-			controls
-			playsinline
-			loop
-			data-poster={poster}
-			data-src={src}
+	<div class="w-full h-full overflow-hidden bg-slate-600">
+		<!-- <video class="block w-full" muted controls playsinline loop {poster} {src} /> -->
+		<VideoPlayer
+			centerIconSize="50px"
+			{color}
+			{focusColor}
+			{barsBgColor}
+			{iconColor}
+			{bufferedColor}
+			{borderRadius}
+			{chunkBars}
+			{loop}
+			{timeDisplay}
+			{width}
+			{height}
+			{poster}
+			source={src}
 		/>
 	</div>
 	<!-- CTAs -->

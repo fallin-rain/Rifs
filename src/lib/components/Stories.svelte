@@ -1,7 +1,22 @@
 <script lang="ts">
+	import VideoPlayer from 'svelte-video-player-kit'
+
 	export let hasAudio: boolean = false
-	export let src: string = ''
+
+	// video player attributes
+	export let width: string = ''
+	export let height: string = ''
 	export let poster: string = ''
+	export let src: string = ''
+
+	let color: string = '#DB2777'
+	let focusColor: string = '#DC2626'
+	let barsBgColor: string = '#CBD5E1'
+	let iconColor: string = '#FBCFE8'
+	let bufferedColor: string = '#9D174D'
+	let borderRadius: string = '0px'
+	let chunkBars: boolean = false
+	let loop: boolean = false
 </script>
 
 <div data-stories class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
@@ -88,12 +103,29 @@
 		{/if}
 	</div> -->
 	<div class="aspect-[9/16] h-60">
-		<video
+		<!-- <video
 			class="block h-full w-full object-cover"
 			muted
 			data-poster={poster}
 			data-src={src}
 			controls
+		/> -->
+		<VideoPlayer
+			centerIconSize="40px"
+			{color}
+			{focusColor}
+			{barsBgColor}
+			{iconColor}
+			{bufferedColor}
+			{borderRadius}
+			controlsHeight="0px"
+			{chunkBars}
+			{loop}
+			timeDisplay={false}
+			{width}
+			{height}
+			{poster}
+			source={src}
 		/>
 	</div>
 </div>

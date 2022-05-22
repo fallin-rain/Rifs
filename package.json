@@ -33,6 +33,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-video-player": "^1.2.5"
+		"svelte-video-player-kit": "^1.2.8"
 	}
 }

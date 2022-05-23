@@ -210,12 +210,16 @@
 	>
 		Most used tags
 	</h1>
-	<div class="flex flex-wrap items-center gap-x-2 gap-y-3">
+	<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<a
 				href={'/tags/' + tag}
-				class="px-3 py-1 rounded-full bg-gradient-to-br from-pink-500 to-red-600 text-pink-100 text-sm font-semibold leading-none tracking-wide"
-				>{tag}</a
+				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
+				>
+				<span
+					class="relative rounded-full bg-slate-900 px-4 py-2 text-pink-200"
+				>{tag}</span>
+				</a
 			>
 		{/each}
 	</div>

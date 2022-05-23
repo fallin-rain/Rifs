@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script context="module">
 	const log = console.debug
 
 	export async function load({ fetch }) {
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<script lang="ts">
+<script>
 	export let stories
 	export let trending
 	export let hotGifs
@@ -84,7 +84,8 @@
 				poster={data.urls.poster}
 				hasTags={data.tags}
 				tags={data.tags}
-				src={data.urls.sd}
+				sourceHD={data.urls.hd}
+				sourceSD={data.urls.vthumbnail}
 				width={data.width}
 				height={data.height}
 			/>

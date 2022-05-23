@@ -1,14 +1,14 @@
 <script lang="ts">
 	import VideoPlayer from 'svelte-video-player-kit'
 
-	const loading = 'loading...'
-
 	function forceHTTP() {
-		if (location.protocol == 'http:') location.href = location.href.replace(/^http:/, 'https:')
+		if (location.protocol == 'https:') location.href = location.href.replace(/^https:/, 'http:')
 	}
 
-	export let date: string = loading
-	export let profileName: string = loading
+	let requestHD: boolean = false
+
+	export let date: string = ''
+	export let profileName: string = ''
 	export let username: string = ''
 	export let gifs: Number = 0
 	export let views: Number = 0
@@ -21,7 +21,8 @@
 	export let width: string = ''
 	export let height: string = ''
 	export let poster: string = ''
-	export let src: string = ''
+	export let sourceSD: string = ''
+	export let sourceHD: string = ''
 
 	let color: string = '#DB2777'
 	let focusColor: string = '#DC2626'
@@ -148,19 +149,22 @@
 			{width}
 			{height}
 			{poster}
-			source={src}
+			source={requestHD ? sourceHD : sourceSD}
 		/>
 	</div>
 	<!-- CTAs -->
 	<div class="flex justify-between items-center gap-4 p-4">
 		<button
-			class="px-2 py-1 bg-gray-700 opacity-60 text-pink-200 font-semibold leading-none rounded-full text-sm"
-			>HD</button
+			data-quality-btn="inactive"
+			class="{requestHD
+				? 'bg-gradient-to-br from-pink-500 to-red-600 text-pink-200'
+				: 'bg-gray-700 text-slate-300'} rounded-full px-2 py-1 text-sm font-semibold leading-none"
+			on:click={() => (requestHD = !requestHD)}>HD</button
 		>
 		<div class="flex flex-row-reverse gap-4">
 			<a
-				href={src}
-				download="sas.mp4"
+				href={sourceHD}
+				download={username + '.mp4'}
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
 				<span

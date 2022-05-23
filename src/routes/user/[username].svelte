@@ -17,6 +17,14 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
+	import { lazyload } from '$lib/utils/lazyload'
+	import { onMount } from 'svelte'
+
+	onMount(() => {
+		lazyload('[data-card] video', {
+			threshold: 0.8,
+		})
+	})
 
 	export let user: string
 	export let tags: string[]
@@ -215,12 +223,9 @@
 			<a
 				href={'/tags/' + tag}
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
-				>
-				<span
-					class="relative rounded-full bg-slate-900 px-4 py-2 text-pink-200"
-				>{tag}</span>
-				</a
 			>
+				<span class="relative rounded-full bg-slate-900 px-4 py-2 text-pink-200">{tag}</span>
+			</a>
 		{/each}
 	</div>
 </section>
@@ -244,9 +249,8 @@
 				poster={gif.poster}
 				hasTags={gif.tags}
 				tags={gif.tags}
-				src={gif.urls.sd}
-				height={gif.height}
-				width={gif.width}
+				source={gif.urls.sd}
+				autoplay={true}
 			/>
 		{/each}
 	</div>

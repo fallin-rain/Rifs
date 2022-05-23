@@ -1,24 +1,43 @@
-export function lazyload(selector: string) {
-	const elms = document.querySelectorAll(selector)
+// export function lazyload(selector, threshold = 0.2, rootMargin = '0px') {
+// 	if (typeof IntersectionObserver === 'undefined') return
+
+// 	const observer = new IntersectionObserver(
+// 		entries => {
+// 			entries.forEach(entry => {
+// 				const video = entry.target
+
+// 				if (!entry.isIntersecting) return video.pause()
+
+// 				video.src = video.dataset.source
+// 				video.poster = video.dataset.poster
+// 			})
+// 		},
+// 		{
+// 			rootMargin,
+// 			threshold,
+// 		}
+// 	)
+// 	document.querySelectorAll(selector).forEach(card => observer.observe(card))
+// }
+
+export function lazyload(selector, params) {
 	if (typeof IntersectionObserver === 'undefined') return
 
-	let playable = null
+	const observer = new IntersectionObserver(
+		entries => {
+			entries.forEach(entry => {
+				const video = entry.target
 
-	const lazyload = new IntersectionObserver(entries => {
-		entries.forEach(entry => {
-			const video = entry.target
+				if (!entry.isIntersecting) video.pause()
 
-			if (entry.isIntersecting) {
-				video.setAttribute('poster', video.dataset.poster)
-				video.setAttribute('src', video.dataset.src)
-				playable = true
-			} else {
-				video.removeAttribute('poster')
-				video.removeAttribute('src')
-				video.pause()
-				playable = false
-			}
-		})
-	})
-	elms.forEach(elm => lazyload.observe(elm))
+				video.src = video.dataset.source
+				video.poster = video.dataset.poster
+			})
+		},
+		{
+			rootMargin: params.margin,
+			threshold: params.threshold,
+		}
+	)
+	document.querySelectorAll(selector).forEach(card => observer.observe(card))
 }

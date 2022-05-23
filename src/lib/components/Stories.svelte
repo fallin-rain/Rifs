@@ -1,13 +1,12 @@
 <script lang="ts">
-	import VideoPlayer from 'svelte-video-player-kit'
-
 	export let hasAudio: boolean = false
 
 	// video player attributes
 	export let width: string = ''
 	export let height: string = ''
 	export let poster: string = ''
-	export let src: string = ''
+	export let source: string = ''
+	export let autoplay: boolean = false
 
 	let color: string = '#DB2777'
 	let focusColor: string = '#DC2626'
@@ -19,7 +18,7 @@
 	let loop: boolean = false
 </script>
 
-<div data-stories class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
+<div data-card class="relative flex-shrink-0 overflow-hidden rounded-2xl bg-slate-700">
 	<!-- sound -->
 	<button
 		class="absolute z-10 block top-2 right-2 rounded-full bg-slate-700 bg-opacity-60 p-1 text-slate-400"
@@ -103,29 +102,14 @@
 		{/if}
 	</div> -->
 	<div class="aspect-[9/16] h-60">
-		<!-- <video
-			class="block h-full w-full object-cover"
+		<video
+			class="block w-full h-full object-cover"
 			muted
-			data-poster={poster}
-			data-src={src}
 			controls
-		/> -->
-		<VideoPlayer
-			centerIconSize="40px"
-			{color}
-			{focusColor}
-			{barsBgColor}
-			{iconColor}
-			{bufferedColor}
-			{borderRadius}
-			controlsHeight="0px"
-			{chunkBars}
-			{loop}
-			timeDisplay={false}
-			{width}
-			{height}
-			{poster}
-			source={src}
+			loop
+			data-poster={poster}
+			data-source={source}
+			{autoplay}
 		/>
 	</div>
 </div>

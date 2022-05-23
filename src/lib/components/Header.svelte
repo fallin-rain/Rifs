@@ -58,7 +58,8 @@
 			</svg>
 			<p class="font-medium ml-1 hidden md:block">Verified</p>
 		</a>
-		<button
+		<a
+			href="/settings"
 			class="rounded-lg flex items-center justify-center bg-slate-800 p-2 hover:bg-slate-800 active:bg-slate-800"
 		>
 			<svg
@@ -77,6 +78,6 @@
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 			</svg>
 			<p class="font-medium ml-1 hidden md:block">Settings</p>
-		</button>
+		</a>
 	</div>
 </header>

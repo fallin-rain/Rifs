@@ -1,11 +1,7 @@
 <script lang="ts">
-	import VideoPlayer from 'svelte-video-player-kit'
-
 	function forceHTTP() {
 		if (location.protocol == 'https:') location.href = location.href.replace(/^https:/, 'http:')
 	}
-
-	let requestHD: boolean = false
 
 	export let date: string = ''
 	export let profileName: string = ''
@@ -17,25 +13,15 @@
 	export let hasTags: boolean = false
 	export let tags: string[] = []
 
-	// video player attributes
-	export let width: string = ''
-	export let height: string = ''
+	// video attributes
+	// export let width: string = ''
+	// export let height: string = ''
 	export let poster: string = ''
-	export let sourceSD: string = ''
-	export let sourceHD: string = ''
-
-	let color: string = '#DB2777'
-	let focusColor: string = '#DC2626'
-	let barsBgColor: string = '#CBD5E1'
-	let iconColor: string = '#FBCFE8'
-	let bufferedColor: string = '#9D174D'
-	let borderRadius: string = '0px'
-	let chunkBars: boolean = true
-	let loop: boolean = true
-	let timeDisplay: boolean = true
+	export let source: string = ''
+	export let autoplay: boolean = false
 </script>
 
-<div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto w-full">
+<div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
 	<div class="flex flex-col p-4">
 		<div class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
@@ -133,37 +119,23 @@
 		{/if}
 	</div>
 	<!-- gif -->
-	<div class="w-full h-full overflow-hidden bg-slate-600">
-		<!-- <video class="block w-full" muted controls playsinline loop {poster} {src} /> -->
-		<VideoPlayer
-			centerIconSize="50px"
-			{color}
-			{focusColor}
-			{barsBgColor}
-			{iconColor}
-			{bufferedColor}
-			{borderRadius}
-			{chunkBars}
-			{loop}
-			{timeDisplay}
-			{width}
-			{height}
-			{poster}
-			source={requestHD ? sourceHD : sourceSD}
+	<div class="w-full h-full overflow-hidden bg-slate-600 relative">
+		<div class="absolute inset-0 bg-black bg-opacity-30" />
+		<video
+			class="block w-full h-full"
+			muted
+			controls
+			loop
+			{autoplay}
+			data-poster={poster}
+			data-source={source}
 		/>
 	</div>
 	<!-- CTAs -->
-	<div class="flex justify-between items-center gap-4 p-4">
-		<button
-			data-quality-btn="inactive"
-			class="{requestHD
-				? 'bg-gradient-to-br from-pink-500 to-red-600 text-pink-200'
-				: 'bg-gray-700 text-slate-300'} rounded-full px-2 py-1 text-sm font-semibold leading-none"
-			on:click={() => (requestHD = !requestHD)}>HD</button
-		>
+	<div class="flex justify-end items-center gap-4 p-4">
 		<div class="flex flex-row-reverse gap-4">
 			<a
-				href={sourceHD}
+				href={source}
 				download={username + '.mp4'}
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>

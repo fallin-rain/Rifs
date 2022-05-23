@@ -13,8 +13,10 @@ https://api.redgifs.com/v1/tags/match?query=[tag]
 Search by tags/
 http://api.redgifs.com/v1/creators/search?tags=[tag]&order=recent
 
-Trending tags
+All tags
 http://api.redgifs.com/v1/featured/categories/populated
+
+Trending gifs
 https://api.redgifs.com/v2/gifs/search?order=trending&count=80
 
 User/

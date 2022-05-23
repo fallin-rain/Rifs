@@ -17,6 +17,7 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
+	import { formatViews } from '$lib/utils/formatViews'
 	import { lazyload } from '$lib/utils/lazyload'
 	import { onMount } from 'svelte'
 
@@ -237,7 +238,7 @@
 		Recent posts
 	</h1>
 	<!-- user's posts -->
-	<div class="space-y-6">
+	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each gifs as gif}
 			<Card
 				username={gif.userName}
@@ -245,7 +246,7 @@
 				verified={gif.verified}
 				date={formatTS(gif.createDate)}
 				hasAudio={gif.hasAudio}
-				views={gif.views}
+				views={formatViews(gif.views)}
 				poster={gif.poster}
 				hasTags={gif.tags}
 				tags={gif.tags}

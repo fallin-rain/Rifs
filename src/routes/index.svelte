@@ -33,10 +33,12 @@
 
 	import { onMount } from 'svelte'
 
-	import ard from '$lib/components/Card.svelte'
+	import Card from '$lib/components/Card.svelte'
 	import Stories from '$lib/components/Stories.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
+	import { formatViews } from '$lib/utils/formatViews'
 	import { lazyload } from '$lib/utils/lazyload'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
 	onMount(() => {
 		lazyload('[data-card] video', {
@@ -79,7 +81,7 @@
 		Trending
 	</h1>
 
-	<div class="columns-1 md:columns-2 2xl:columns-4 gap-3 max-w-full space-y-6">
+	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each trending as data}
 			<Card
 				username={data.user.username}
@@ -87,14 +89,23 @@
 				verified={data.user.verified}
 				date={formatTS(data.user.creationtime)}
 				hasAudio={data.hasAudio}
-				gifs={data.user.gifs}
-				views={data.user.views}
+				gifs={formatViews(data.user.gifs)}
+				views={formatViews(data.user.views)}
 				poster={data.urls.poster}
 				hasTags={data.tags}
 				tags={data.tags}
 				autoplay={true}
 				source={data.urls.hd}
 			/>
+			<!-- <MasonryCard
+				username={data.user.username}
+				profileName={data.user.username}
+				verified={data.user.verified}
+				views={formatViews(data.user.views)}
+				poster={data.urls.poster}
+				autoplay={true}
+				source={data.urls.hd}
+			/> -->
 		{/each}
 	</div>
 </section>

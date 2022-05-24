@@ -222,7 +222,7 @@
 	<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<a
-				href={'/tags/' + tag}
+				href={'/tags/related/' + tag}
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
 				<span class="relative rounded-full bg-slate-900 px-4 py-2 text-pink-200">{tag}</span>

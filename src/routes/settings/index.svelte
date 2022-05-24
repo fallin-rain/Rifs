@@ -8,6 +8,12 @@
 	>
 		Settings
 	</h1>
+	<div>
+    <a href="/settings/profile"
+    class="font-bold text-blue-400"
+    >Edit your profile
+    </a>
+	</div>
 	<div class="flex items-center justify-between w-max gap-6">
 		<button
 			on:click={() => (autoplay = !autoplay)}

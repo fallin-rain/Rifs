@@ -110,7 +110,7 @@
 			<div class="mt-3 flex flex-wrap items-center gap-2">
 				{#each tags as tag}
 					<a
-						href={'/related/' + tag}
+						href={'/tags/related/' + tag}
 						class="px-2.5 py-1.5 rounded-full border border-pink-500 text-pink-300 text-xs leading-none tracking-wide"
 						>{tag}</a
 					>

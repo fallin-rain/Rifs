@@ -7,7 +7,7 @@
 		>Rifs</a
 	>
 	<div class="flex items-center space-x-3 text-base">
-		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
+		<a href="/tags" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"

@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { browser } from '$app/env'
+	import { goto } from '$app/navigation'
+
+	const isProfileSetup = browser && localStorage.getItem('profileSetup')
 	let autoplay = true
 </script>
 
@@ -9,10 +13,11 @@
 		Settings
 	</h1>
 	<div>
-    <a href="/settings/profile"
-    class="font-bold text-blue-400"
-    >Edit your profile
-    </a>
+		{#if $isProfileSetup == 'Completed'}
+			<a href="/settings/profile" class="font-bold text-blue-400">Edit your profile </a>
+		{:else}
+			<a href="/settings/profile" class="font-bold text-blue-400">Create your profile </a>
+		{/if}
 	</div>
 	<div class="flex items-center justify-between w-max gap-6">
 		<button

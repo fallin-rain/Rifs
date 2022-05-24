@@ -1,6 +1,4 @@
 <script context="module">
-	const log = console.debug
-
 	export async function load({ fetch }) {
 		const res = await fetch('/api/home')
 		const data = await res.json()
@@ -8,37 +6,40 @@
 		return {
 			status: res.status,
 			props: {
-				stories: data.verticalGifs,
-				trending: data.horizontalGifs,
 				hotGifs: data.hotGifs,
-				hotCreators: data.hotCreators,
-				newCreators: data.newCreators,
 				oneMGifs: data.longGifs,
 				soundGifs: data.soundGifs,
+				stories: data.verticalGifs,
+				hotCreators: data.hotCreators,
+				newCreators: data.newCreators,
+				trending: data.horizontalGifs,
 			},
 		}
 	}
 </script>
 
 <script>
-	export let stories
-	export let trending
 	export let hotGifs
+	export let stories
+	export let oneMGifs
+	export let trending
+	export let soundGifs
 	export let hotCreators
 	export let newCreators
-	export let oneMGifs
-	export let soundGifs
-
-	// const log = console.debug
 
 	import { onMount } from 'svelte'
+	import { browser } from '$app/env'
+	import { goto } from '$app/navigation'
+	import { formatTS } from '$lib/utils/formatTS'
+	import { lazyload } from '$lib/utils/lazyload'
+	import { formatViews } from '$lib/utils/formatViews'
+	import { first_time_visit } from '$lib/stores/persistWelcome'
 
 	import Card from '$lib/components/Card.svelte'
 	import Stories from '$lib/components/Stories.svelte'
-	import { formatTS } from '$lib/utils/formatTS'
-	import { formatViews } from '$lib/utils/formatViews'
-	import { lazyload } from '$lib/utils/lazyload'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
+
+	if ($first_time_visit == 'yes') browser && goto('/welcome')
 
 	onMount(() => {
 		lazyload('[data-card] video', {
@@ -51,52 +52,54 @@
 	<title>Rifs</title>
 </svelte:head>
 
-<!-- Stories -->
-<section id="sotries">
-	<h1
-		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-	>
-		Stories
-	</h1>
+{#if $first_time_visit !== 'yes'}
+	<!-- Stories -->
+	<section id="sotries">
+		<h1
+			class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
+		>
+			Stories
+		</h1>
 
-	<div id="overflow" class="flex gap-6 overflow-x-scroll pb-2">
-		{#each stories as story}
-			<Stories
-				hasAudio={story.hasAudio}
-				source={story.urls.sd}
-				height={story.height}
-				width={story.width}
-				poster={story.urls.poster}
-				autoplay={false}
-			/>
-		{/each}
-	</div>
-</section>
+		<div id="overflow" class="flex gap-6 overflow-x-scroll pb-2">
+			{#each stories as story}
+				<Stories
+					hasAudio={story.hasAudio}
+					source={story.urls.sd}
+					height={story.height}
+					width={story.width}
+					poster={story.urls.poster}
+					autoplay={false}
+				/>
+			{/each}
+		</div>
+	</section>
 
-<!-- Trending -->
-<section id="trending">
-	<h1
-		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-	>
-		Trending
-	</h1>
+	<!-- Trending -->
+	<section id="trending">
+		<h1
+			class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
+		>
+			Trending
+		</h1>
 
-	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-		{#each trending as data}
-			<Card
-				username={data.user.username}
-				profileName={data.user.username}
-				verified={data.user.verified}
-				date={formatTS(data.user.creationtime)}
-				hasAudio={data.hasAudio}
-				gifs={formatViews(data.user.gifs)}
-				views={formatViews(data.user.views)}
-				poster={data.urls.poster}
-				hasTags={data.tags}
-				tags={data.tags}
-				autoplay={true}
-				source={data.urls.hd}
-			/>
+		<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+			{#each trending as data}
+				<Card
+					username={data.user.username}
+					profileName={data.user.username}
+					verified={data.user.verified}
+					date={formatTS(data.user.creationtime)}
+					hasAudio={data.hasAudio}
+					gifs={formatViews(data.user.gifs)}
+					views={formatViews(data.user.views)}
+					poster={data.urls.poster}
+					hasTags={data.tags}
+					tags={data.tags}
+					autoplay={true}
+					source={data.urls.hd}
+				/>
+			{/each}
 			<!-- <MasonryCard
 				username={data.user.username}
 				profileName={data.user.username}
@@ -106,9 +109,9 @@
 				autoplay={true}
 				source={data.urls.hd}
 			/> -->
-		{/each}
-	</div>
-</section>
+		</div>
+	</section>
+{/if}
 
 <style>
 	/* Custom scrollbar */

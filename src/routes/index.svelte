@@ -19,14 +19,6 @@
 </script>
 
 <script>
-	export let hotGifs
-	export let stories
-	export let oneMGifs
-	export let trending
-	export let soundGifs
-	export let hotCreators
-	export let newCreators
-
 	import { onMount } from 'svelte'
 	import { browser } from '$app/env'
 	import { goto } from '$app/navigation'
@@ -39,8 +31,14 @@
 	import Heading from '$lib/layouts/Heading.svelte'
 	import Stories from '$lib/components/Stories.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
-	import Header from '$lib/components/Header.svelte'
 
+	export let hotGifs
+	export let stories
+	export let oneMGifs
+	export let trending
+	export let soundGifs
+	export let hotCreators
+	export let newCreators
 	if ($first_time_visit == 'yes') browser && goto('/welcome')
 
 	onMount(() => {
@@ -93,7 +91,7 @@
 					poster={data.urls.poster}
 					hasTags={data.tags}
 					tags={data.tags}
-					autoplay={false}
+					autoplay={true}
 					src={data.urls.sd}
 				/>
 			{/each}

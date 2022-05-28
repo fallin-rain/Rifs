@@ -142,7 +142,7 @@
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>
 				<span
-					class="relative rounded-full bg-gradient-to-br from-pink-600 to-red-800 px-5 py-2 text-pink-20"
+					class="relative rounded-full bg-gradient-to-br from-pink-600 to-red-800 px-5 py-2 text-pink-200"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

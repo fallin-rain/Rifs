@@ -3,6 +3,7 @@
 >
 	<a
 		href="/"
+		sveltekit:prefetch
 		class="bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
 		>Rifs</a
 	>
@@ -24,7 +25,10 @@
 			</svg>
 			<p class="font-medium ml-1 hidden md:block">Tags</p>
 		</a>
-		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
+		<a
+			href="/creators"
+			sveltekit:prefetch
+			class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"
@@ -41,7 +45,11 @@
 			</svg>
 			<p class="font-medium ml-1 hidden md:block">Creators</p>
 		</a>
-		<a href="#" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
+		<a
+			href="#"
+			sveltekit:prefetch
+			class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"
@@ -60,6 +68,7 @@
 		</a>
 		<a
 			href="/settings"
+			sveltekit:prefetch
 			class="rounded-lg flex items-center justify-center bg-slate-800 p-2 hover:bg-slate-800 active:bg-slate-800"
 		>
 			<svg

@@ -1,5 +1,5 @@
 export async function get() {
-	const res = await fetch('https://api.redgifs.com/v2/home/feeds')
+	const res = await fetch(import.meta.env.VITE_HOME)
 	const data = await res.json()
 
 	if (!res.ok)

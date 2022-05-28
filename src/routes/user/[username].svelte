@@ -216,7 +216,7 @@
 
 <section id="user-tags">
 	<Heading title="Most used tags" />
-	<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
+	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<a
 				href={'/tags/related/' + tag}

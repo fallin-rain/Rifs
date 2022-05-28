@@ -5,7 +5,7 @@
 	export let width: string = ''
 	export let height: string = ''
 	export let poster: string = ''
-	export let source: string = ''
+	export let src: string = ''
 	export let autoplay: boolean = false
 
 	let color: string = '#DB2777'
@@ -108,7 +108,7 @@
 			controls
 			loop
 			data-poster={poster}
-			data-source={source}
+			data-src={src}
 			{autoplay}
 		/>
 	</div>

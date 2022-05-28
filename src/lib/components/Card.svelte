@@ -3,22 +3,22 @@
 		if (location.protocol == 'https:') location.href = location.href.replace(/^https:/, 'http:')
 	}
 
-	export let date: string = ''
-	export let profileName: string = ''
-	export let username: string = ''
-	export let gifs: Number = 0
-	export let views: Number = 0
-	export let verified: boolean = false
-	export let hasAudio: boolean = false
-	export let hasTags: boolean = false
+	export let date = ''
+	export let profileName = ''
+	export let username = ''
+	export let gifs = ''
+	export let views = ''
+	export let verified = false
+	export let hasAudio = false
+	export let hasTags = false
 	export let tags: string[] = []
 
 	// video attributes
 	// export let width: string = ''
 	// export let height: string = ''
-	export let poster: string = ''
-	export let source: string = ''
-	export let autoplay: boolean = false
+	export let poster = ''
+	export let src = ''
+	export let autoplay = false
 </script>
 
 <div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
@@ -27,6 +27,7 @@
 			<div class="flex flex-col">
 				<a
 					href={'/user/' + username}
+					sveltekit:prefetch
 					class="mb-1 flex items-center text-base font-semibold tracking-wide text-pink-400"
 				>
 					{profileName}
@@ -110,6 +111,7 @@
 			<div class="mt-3 flex flex-wrap items-center gap-2">
 				{#each tags as tag}
 					<a
+						sveltekit:prefetch
 						href={'/tags/related/' + tag}
 						class="px-2.5 py-1.5 rounded-full border border-pink-500 text-pink-300 text-xs leading-none tracking-wide"
 						>{tag}</a
@@ -128,14 +130,14 @@
 			loop
 			{autoplay}
 			data-poster={poster}
-			data-source={source}
+			data-src={src}
 		/>
 	</div>
 	<!-- CTAs -->
 	<div class="flex justify-end items-center gap-4 p-4">
 		<div class="flex flex-row-reverse gap-4">
 			<a
-				href={source}
+				href={src}
 				download={username + '.mp4'}
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 			>

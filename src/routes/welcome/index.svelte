@@ -1,13 +1,10 @@
-<script lang="ts">
+<script>
+	import Heading from '$lib/layouts/Heading.svelte'
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 </script>
 
 <section class="text-pink-200 space-y-8">
-	<h1
-		class="text-center bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-4xl font-extrabold italic tracking-wide text-transparent"
-	>
-		Welcome
-	</h1>
+	<Heading title="Welcome" />
 
 	<div class="text-center text-slate-400">
 		<p>
@@ -29,7 +26,7 @@
 		</a>
 
 		<a
-			href="/settings/profile/create"
+			href="/settings/profile"
 			on:click={() => first_time_visit.set('visited')}
 			class="w-full text-center tracking-wide rounded-xl bg-gradient-to-br from-pink-600 to-red-800 py-2 text-sm font-medium"
 		>

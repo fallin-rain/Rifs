@@ -5,7 +5,8 @@
 
 	let acc = 'sunglasses'
 	let haircolor = 'gray'
-	let seed = 'happy'
+	let name = 'happy'
+	let seed = name
 	let skincolor = 'variant02'
 	let mouth = 'variant25'
 	let hair = 'long12'
@@ -13,11 +14,15 @@
 
 	const hairstyles = new Array(9).fill().map((_, i) => (i = i + 1))
 
-	$: url = `https://avatars.dicebear.com/api/adventurer/${
+	$: customizeURL = `https://avatars.dicebear.com/api/adventurer/${
 		seed || 'happy'
 	}.svg?flip=true&mouth=variant25&eyebrows=variant09&accessoires=${acc}&hair=${hair}&hairColor=${haircolor}&skinColor=${skincolor}&eyes=${eye}`
 
-	$: console.log(url)
+	$: defaultURl = `https://avatars.dicebear.com/api/adventurer/${
+		seed || 'happy'
+	}.svg?flip=true&accessoires=${acc}`
+
+	$: console.log(defaultURl)
 
 	// https://play.tailwindcss.com/JrV9jwAJVU
 
@@ -40,25 +45,27 @@
 				class="bg-slate-200 shadow-md shadow-slate-800 w-36 h-36 overflow-hidden rounded-2xl mx-auto mb-2"
 			>
 				<img
-					src={url}
+					src={seed !== 'happy' ? defaultURl : customizeURL}
 					alt="create your profile like this"
 					class="block w-full h-full object-cover object-top"
 				/>
 			</div>
 			<h3 class="text-xl capitalize h-max font-semibold tracking-wide text-pink-300">
-				{seed || 'happy'}
+				{name || 'happy'}
 			</h3>
 		</div>
 
 		<label for="username" class="text-left mb-3 inline-block">
 			<p class="mb-2 text-pink-400">Your name</p>
-			<input
-				id="username"
-				class="w-full bg-slate-800 rounded-lg px-6 py-2 focus:ring-2 focus:ring-pink-600 outline-none"
-				placeholder="Name"
-				type="text"
-				bind:value={seed}
-			/>
+			<form method="post" on:submit|preventDefault={() => (seed = name)}>
+				<input
+					id="username"
+					class="w-full bg-slate-800 rounded-lg px-6 py-2 focus:ring-2 focus:ring-pink-600 outline-none"
+					placeholder="Name"
+					type="text"
+					bind:value={name}
+				/>
+			</form>
 			<span class="mt-2 text-xs text-slate-400 inline-block"
 				>Name could be anything. Don't use sensitive data as name.</span
 			>

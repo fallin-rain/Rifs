@@ -6,12 +6,12 @@
 		return {
 			status: res.status,
 			props: {
-				hotGifs: data.hotGifs,
-				oneMGifs: data.longGifs,
-				soundGifs: data.soundGifs,
+				// hotGifs: data.hotGifs,
+				// oneMGifs: data.longGifs,
+				// soundGifs: data.soundGifs,
 				stories: data.verticalGifs,
-				hotCreators: data.hotCreators,
-				newCreators: data.newCreators,
+				// hotCreators: data.hotCreators,
+				// newCreators: data.newCreators,
 				trending: data.horizontalGifs,
 			},
 		}
@@ -36,8 +36,10 @@
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 
 	import Card from '$lib/components/Card.svelte'
+	import Heading from '$lib/layouts/Heading.svelte'
 	import Stories from '$lib/components/Stories.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
+	import Header from '$lib/components/Header.svelte'
 
 	if ($first_time_visit == 'yes') browser && goto('/welcome')
 
@@ -46,6 +48,9 @@
 			threshold: 0.8,
 		})
 	})
+
+	let count = 5
+	$: t = trending.slice(0, count)
 </script>
 
 <svelte:head>
@@ -55,13 +60,9 @@
 {#if $first_time_visit !== 'yes'}
 	<!-- Stories -->
 	<section id="sotries">
-		<h1
-			class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-		>
-			Stories
-		</h1>
+		<Heading title="Stories" />
 
-		<div id="overflow" class="flex gap-6 overflow-x-scroll pb-2">
+		<div id="overflow" class="mt-6 flex gap-6 overflow-x-scroll pb-2">
 			{#each stories as story}
 				<Stories
 					hasAudio={story.hasAudio}
@@ -77,13 +78,9 @@
 
 	<!-- Trending -->
 	<section id="trending">
-		<h1
-			class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-		>
-			Trending
-		</h1>
+		<Heading title="Trending" />
 
-		<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 			{#each trending as data}
 				<Card
 					username={data.user.username}
@@ -96,8 +93,8 @@
 					poster={data.urls.poster}
 					hasTags={data.tags}
 					tags={data.tags}
-					autoplay={true}
-					source={data.urls.hd}
+					autoplay={false}
+					src={data.urls.sd}
 				/>
 			{/each}
 			<!-- <MasonryCard
@@ -107,9 +104,18 @@
 				views={formatViews(data.user.views)}
 				poster={data.urls.poster}
 				autoplay={true}
-				source={data.urls.hd}
+				src={data.urls.hd}
 			/> -->
 		</div>
+		<button
+			type="button"
+			on:click={() => {
+				count--
+				console.log(t)
+			}}
+			class="mx-auto py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
+			>Load more</button
+		>
 	</section>
 {/if}
 

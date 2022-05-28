@@ -32,6 +32,9 @@ export function lazyload(selector, params) {
 
 				video.src = video.dataset.source
 				video.poster = video.dataset.poster
+
+				video.removeAttribute('data-src')
+				video.removeAttribute('data-poster')
 			})
 		},
 		{

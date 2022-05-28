@@ -16,6 +16,7 @@
 
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte'
+	import Heading from '$lib/layouts/Heading.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
 	import { formatViews } from '$lib/utils/formatViews'
 	import { lazyload } from '$lib/utils/lazyload'
@@ -214,11 +215,7 @@
 </section>
 
 <section id="user-tags">
-	<h1
-		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-	>
-		Most used tags
-	</h1>
+	<Heading title="Most used tags" />
 	<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<a

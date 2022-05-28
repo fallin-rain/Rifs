@@ -247,7 +247,7 @@
 				poster={gif.poster}
 				hasTags={gif.tags}
 				tags={gif.tags}
-				source={gif.urls.sd}
+				src={gif.urls.sd}
 				autoplay={true}
 			/>
 		{/each}

@@ -1,25 +1,3 @@
-// export function lazyload(selector, threshold = 0.2, rootMargin = '0px') {
-// 	if (typeof IntersectionObserver === 'undefined') return
-
-// 	const observer = new IntersectionObserver(
-// 		entries => {
-// 			entries.forEach(entry => {
-// 				const video = entry.target
-
-// 				if (!entry.isIntersecting) return video.pause()
-
-// 				video.src = video.dataset.source
-// 				video.poster = video.dataset.poster
-// 			})
-// 		},
-// 		{
-// 			rootMargin,
-// 			threshold,
-// 		}
-// 	)
-// 	document.querySelectorAll(selector).forEach(card => observer.observe(card))
-// }
-
 export function lazyload(selector, params) {
 	if (typeof IntersectionObserver === 'undefined') return
 
@@ -28,13 +6,15 @@ export function lazyload(selector, params) {
 			entries.forEach(entry => {
 				const video = entry.target
 
-				if (!entry.isIntersecting) video.pause()
+				if (entry.isIntersecting) {
+					video.src = video.dataset.src
+					video.poster = video.dataset.poster
 
-				video.src = video.dataset.source
-				video.poster = video.dataset.poster
+					video.removeAttribute('data-src')
+					video.removeAttribute('data-poster')
 
-				video.removeAttribute('data-src')
-				video.removeAttribute('data-poster')
+					observer.unobserve(video)
+				}
 			})
 		},
 		{

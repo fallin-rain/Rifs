@@ -66,7 +66,7 @@
 			{#each stories as story}
 				<Stories
 					hasAudio={story.hasAudio}
-					source={story.urls.sd}
+					src={story.urls.sd}
 					height={story.height}
 					width={story.width}
 					poster={story.urls.poster}

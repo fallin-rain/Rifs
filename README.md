@@ -1,3 +1,20 @@
+# **Rifs**
+
+Yet another adult content delivery client.
+
+#### _This is a work in progress site so expect bugs and lack of features._
+
+## Currently not working
+- Download option
+(_It will only work in public release_)
+- Share option
+- Save option
+- Autoplay option
+- ... And many more. LoL :')
+
+#### _This site should be used responsibly_
+
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).

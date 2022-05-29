@@ -9,7 +9,7 @@
 </script>
 
 <div data-card class="mx-auto max-w-xs break-inside-avoid">
-	<div class="w-full bg-slate-400 overflow-hidden rounded-xl">
+	<div class="max-h-96 w-full bg-slate-400 overflow-hidden rounded-xl">
 		<video
 			class="block w-full h-full"
 			muted
@@ -22,7 +22,7 @@
 	</div>
 	<div class="mt-2 flex items-end justify-between gap-x-3 text-sm font-semibold">
 		<div>
-			<a href={'/user/' + username} class="mt-2 w-[5px] truncate tracking-wide text-pink-400">
+			<a href={'/user/' + username} class="mt-2 max-w-[5px] truncate tracking-wide text-pink-400">
 				{profileName}
 			</a>
 			{#if verified}

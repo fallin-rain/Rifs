@@ -7,12 +7,12 @@
 			status: res.status,
 			props: {
 				hotGifs: data.hotGifs,
-				oneMGifs: data.longGifs,
+				oneMGifs: data.longGifs.slice(0, 9),
 				soundGifs: data.soundGifs,
-				stories: data.verticalGifs,
+				stories: data.verticalGifs.slice(0, 9),
 				hotCreators: data.hotCreators,
 				newCreators: data.newCreators,
-				trending: data.horizontalGifs,
+				trending: data.horizontalGifs.slice(0, 9),
 			},
 		}
 	}
@@ -96,15 +96,6 @@
 					src={data.urls.sd}
 				/>
 			{/each}
-			<!-- <MasonryCard
-				username={data.user.username}
-				profileName={data.user.username}
-				verified={data.user.verified}
-				views={formatViews(data.user.views)}
-				poster={data.urls.poster}
-				autoplay={true}
-				src={data.urls.hd}
-			/> -->
 		</div>
 		<button
 			type="button"
@@ -131,6 +122,29 @@
 					username={c.username}
 					profileName={c.name}
 					autoplay={true}
+				/>
+			{/each}
+		</div>
+	</section>
+
+	<!-- 1 M gifs -->
+	<section>
+		<Heading title="1 minute gifs" />
+		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+			{#each oneMGifs as data}
+				<Card
+					username={data.user.username}
+					profileName={data.user.username}
+					verified={data.user.verified}
+					date={formatTS(data.user.creationtime)}
+					hasAudio={data.hasAudio}
+					gifs={formatViews(data.user.gifs)}
+					views={formatViews(data.user.views)}
+					poster={data.urls.poster}
+					hasTags={data.tags}
+					tags={data.tags}
+					autoplay={true}
+					src={data.urls.sd}
 				/>
 			{/each}
 		</div>

@@ -93,6 +93,7 @@
 					tags={data.tags}
 					autoplay={true}
 					src={data.urls.sd}
+					id={data.id}
 				/>
 			{/each}
 		</div>
@@ -145,6 +146,7 @@
 					tags={data.tags}
 					autoplay={true}
 					src={data.urls.sd}
+					id={data.id}
 				/>
 			{/each}
 		</div>

@@ -2,6 +2,7 @@
 	import Toast from '$lib/layouts/Toast.svelte'
 
 	export let date = ''
+	export let id = ''
 	export let profileName = ''
 	export let username = ''
 	export let gifs = ''
@@ -27,7 +28,7 @@
 	export let shared = true
 </script>
 
-<div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
+<a href={'/creators/' + id} class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
 	<div class="flex flex-col p-4">
 		<div class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
@@ -218,4 +219,4 @@
 			</button>
 		</div>
 	</div>
-</div>
+</a>

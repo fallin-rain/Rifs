@@ -1,15 +1,15 @@
 <script lang="ts">
 	export let autoplay: boolean
 	export let poster: string
-	export let source: string
+	export let src: string
 	export let username: string
 	export let profileName: string
 	export let verified: boolean
-	export let views: number
+	export let views: string
 </script>
 
 <div data-card class="mx-auto max-w-xs break-inside-avoid">
-	<div class="max-h-40 w-full bg-slate-400 overflow-hidden rounded-xl">
+	<div class="w-full bg-slate-400 overflow-hidden rounded-xl">
 		<video
 			class="block w-full h-full"
 			muted
@@ -17,7 +17,7 @@
 			loop
 			{autoplay}
 			data-poster={poster}
-			data-source={source}
+			data-src={src}
 		/>
 	</div>
 	<div class="mt-2 flex items-end justify-between gap-x-3 text-sm font-semibold">

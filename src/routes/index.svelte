@@ -6,12 +6,12 @@
 		return {
 			status: res.status,
 			props: {
-				// hotGifs: data.hotGifs,
-				// oneMGifs: data.longGifs,
-				// soundGifs: data.soundGifs,
+				hotGifs: data.hotGifs,
+				oneMGifs: data.longGifs,
+				soundGifs: data.soundGifs,
 				stories: data.verticalGifs,
-				// hotCreators: data.hotCreators,
-				// newCreators: data.newCreators,
+				hotCreators: data.hotCreators,
+				newCreators: data.newCreators,
 				trending: data.horizontalGifs,
 			},
 		}
@@ -39,7 +39,8 @@
 	export let soundGifs
 	export let hotCreators
 	export let newCreators
-	if ($first_time_visit == 'yes') browser && goto('/welcome')
+
+	$first_time_visit == 'yes' && browser && goto('/welcome')
 
 	onMount(() => {
 		lazyload('[data-card] video', {
@@ -115,49 +116,23 @@
 			>Load more</button
 		>
 	</section>
+
+	<!-- Hot creators -->
+	<section>
+		<Heading title="Hot creators" />
+
+		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+			{#each hotCreators as c}
+				<MasonryCard
+					poster={c.poster}
+					src={c.preview}
+					views={formatViews(c.views)}
+					verified={c.verified}
+					username={c.username}
+					profileName={c.name}
+					autoplay={true}
+				/>
+			{/each}
+		</div>
+	</section>
 {/if}
-
-<style>
-	/* Custom scrollbar */
-	/* Colour generated from https://cssgradient.io/ */
-
-	section#trending::-webkit-scrollbar-track {
-		border-radius: 5px !important;
-		background-color: #0f172a !important;
-	}
-
-	section#trending::-webkit-scrollbar {
-		width: 10px !important;
-		border-radius: 5px !important;
-		background-color: #0f172a !important;
-	}
-
-	section#trending::-webkit-scrollbar-thumb {
-		border-radius: 5px !important;
-		background: rgb(232, 36, 90) !important;
-		background: -moz-linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		);
-		background: -webkit-linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		);
-		background: linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		) !important;
-	}
-</style>

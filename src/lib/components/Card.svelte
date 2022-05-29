@@ -1,7 +1,5 @@
 <script lang="ts">
-	function forceHTTP() {
-		if (location.protocol == 'https:') location.href = location.href.replace(/^https:/, 'http:')
-	}
+	import Toast from '$lib/layouts/Toast.svelte'
 
 	export let date = ''
 	export let profileName = ''
@@ -19,6 +17,14 @@
 	export let poster = ''
 	export let src = ''
 	export let autoplay = false
+
+	const shareData = {
+		title: 'Rifs',
+		text: 'Found this awesome creator on Rifs',
+		url: '/user/' + username,
+	}
+
+	export let shared = true
 </script>
 
 <div data-card class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
@@ -182,6 +188,16 @@
 			</button>
 			<button
 				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
+				on:click={async () => {
+					try {
+						await navigator.share(shareData)
+						shared = true
+						console.log('shared')
+					} catch (error) {
+						shared = false
+						console.error(error)
+					}
+				}}
 			>
 				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-pink-200">
 					<svg

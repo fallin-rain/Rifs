@@ -7,3 +7,11 @@
 		<slot />
 	</main>
 </div>
+
+<style>
+	* {
+		user-select: none;
+		-moz-user-select: -moz-none;
+		-webkit-user-select: none;
+	}
+</style>

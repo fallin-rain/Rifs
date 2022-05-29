@@ -88,7 +88,7 @@
 			{/each}
 		</div>
 		<Heading title="Related posts" />
-		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
 			{#each related_gifs as data}
 				<Card
 					username={data.userName}

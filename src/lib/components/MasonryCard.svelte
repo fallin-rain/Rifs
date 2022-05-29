@@ -13,9 +13,9 @@
 	href={'/creators/' + id}
 	sveltekit:prefetch
 	data-card
-	class="mx-auto max-w-[200px] break-inside-avoid"
+	class="mx-auto my-6 max-w-[200px] break-inside-avoid"
 >
-	<div class="max-h-[450px] md:max-w-none w-full bg-slate-400 overflow-hidden rounded-xl">
+	<div class="max-h-[450px] md:max-h-full w-full bg-slate-400 overflow-hidden rounded-xl">
 		<video class="block w-full h-full" muted loop {autoplay} data-poster={poster} data-src={src} />
 	</div>
 	<div class="mt-2 flex items-end justify-between gap-x-3 text-sm font-semibold">

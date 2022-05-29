@@ -111,7 +111,7 @@
 	<section>
 		<Heading title="Hot creators" />
 
-		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
 			{#each hotCreators as c}
 				<MasonryCard
 					poster={c.poster}

@@ -49,7 +49,6 @@
 	})
 
 	let count = 5
-	$: t = trending.slice(0, count)
 </script>
 
 <svelte:head>
@@ -100,8 +99,8 @@
 		<button
 			type="button"
 			on:click={() => {
-				count--
-				console.log(t)
+				count++
+				console.log(count)
 			}}
 			class="mx-auto py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
 			>Load more</button
@@ -119,6 +118,7 @@
 					src={c.preview}
 					views={formatViews(c.views)}
 					verified={c.verified}
+					id={c.thumbnail}
 					username={c.username}
 					profileName={c.name}
 					autoplay={true}

@@ -17,6 +17,7 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
+	import Tags from '$lib/layouts/Tags.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
 	import { formatViews } from '$lib/utils/formatViews'
 	import { lazyload } from '$lib/utils/lazyload'
@@ -39,7 +40,8 @@
 		<div class="w-36 h-36 overflow-hidden rounded-2xl">
 			<img
 				class="block bg-slate-600 w-full h-full object-cover object-top"
-				src={user.profileImageUrl}
+				src={user.profileImageUrl ||
+					'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
 				alt={(user.profileImageUrl && user.name) || 'No profile image'}
 			/>
 		</div>
@@ -218,12 +220,7 @@
 	<Heading title="Most used tags" />
 	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
-			<a
-				href={'/tags/related/' + tag}
-				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
-			>
-				<span class="relative rounded-full bg-slate-900 px-4 py-2 text-pink-200">{tag}</span>
-			</a>
+			<Tags linkPath={'/tags/related/'} {tag} />
 		{/each}
 	</div>
 </section>

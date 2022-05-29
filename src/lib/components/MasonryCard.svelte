@@ -6,23 +6,25 @@
 	export let profileName: string
 	export let verified: boolean
 	export let views: string
+	export let id: string
 </script>
 
-<div data-card class="mx-auto max-w-xs break-inside-avoid">
-	<div class="max-h-96 w-full bg-slate-400 overflow-hidden rounded-xl">
-		<video
-			class="block w-full h-full"
-			muted
-			controls
-			loop
-			{autoplay}
-			data-poster={poster}
-			data-src={src}
-		/>
+<a
+	href={'/creators/' + id}
+	sveltekit:prefetch
+	data-card
+	class="mx-auto max-w-[200px] break-inside-avoid"
+>
+	<div class="max-h-[450px] md:max-w-none w-full bg-slate-400 overflow-hidden rounded-xl">
+		<video class="block w-full h-full" muted loop {autoplay} data-poster={poster} data-src={src} />
 	</div>
 	<div class="mt-2 flex items-end justify-between gap-x-3 text-sm font-semibold">
 		<div>
-			<a href={'/user/' + username} class="mt-2 max-w-[5px] truncate tracking-wide text-pink-400">
+			<a
+				href={'/user/' + username}
+				sveltekit:prefetch
+				class="mt-2 max-w-[8px] truncate tracking-wide text-pink-400"
+			>
 				{profileName}
 			</a>
 			{#if verified}
@@ -58,4 +60,4 @@
 			{views}
 		</p>
 	</div>
-</div>
+</a>

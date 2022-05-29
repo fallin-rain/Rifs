@@ -6,3 +6,5 @@ export let timeout = writable(false)
 
 cached.subscribe(data => browser && localStorage.setItem('cached', JSON.stringify(data)))
 timeout.subscribe(time => browser && localStorage.setItem('timeout', JSON.stringify(time)))
+
+// TODO lets see what can i do with these

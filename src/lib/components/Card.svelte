@@ -28,7 +28,12 @@
 	export let shared = true
 </script>
 
-<a href={'/creators/' + id} class="rounded-xl bg-slate-800 max-w-sm mx-auto break-inside-avoid">
+<a
+	href={'/creators/' + id}
+	data-card
+	sveltekit:prefetch
+	class="rounded-xl block bg-slate-800 max-w-sm mx-auto break-inside-avoid"
+>
 	<div class="flex flex-col p-4">
 		<div class="flex w-full items-end justify-between">
 			<div class="flex flex-col">

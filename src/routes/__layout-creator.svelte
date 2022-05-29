@@ -5,7 +5,7 @@
 
 <div class="min-h-screen bg-slate-900 text-pink-200">
 	<Header />
-	<main class="py-[60px] md:py-16 md:px-20">
+	<main class="py-[60px] md:py-24 md:px-24">
 		<slot />
 	</main>
 </div>

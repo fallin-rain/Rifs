@@ -22,6 +22,7 @@
 	import { onMount } from 'svelte'
 	import { browser } from '$app/env'
 	import { goto } from '$app/navigation'
+	import { fly, fade } from 'svelte/transition'
 	import { formatTS } from '$lib/utils/formatTS'
 	import { lazyload } from '$lib/utils/lazyload'
 	import { formatViews } from '$lib/utils/formatViews'
@@ -57,7 +58,7 @@
 
 {#if $first_time_visit !== 'yes'}
 	<!-- Stories -->
-	<section id="sotries">
+	<section id="sotries" in:fly={{ y: 500, duration: 250 }}>
 		<Heading title="Stories" />
 
 		<div id="overflow" class="mt-6 flex gap-6 overflow-x-scroll pb-2">
@@ -75,7 +76,7 @@
 	</section>
 
 	<!-- Trending -->
-	<section id="trending">
+	<section id="trending" in:fly={{ y: 500, duration: 250 }}>
 		<Heading title="Trending" />
 
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
@@ -109,7 +110,7 @@
 	</section>
 
 	<!-- Hot creators -->
-	<section>
+	<section in:fly={{ y: 500, duration: 250 }}>
 		<Heading title="Hot creators" />
 
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
@@ -129,7 +130,7 @@
 	</section>
 
 	<!-- 1 M gifs -->
-	<section>
+	<section in:fly={{ y: 500, duration: 250 }}>
 		<Heading title="1 minute gifs" />
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 			{#each oneMGifs as data}

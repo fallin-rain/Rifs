@@ -246,6 +246,7 @@
 				tags={gif.tags}
 				src={gif.urls.sd}
 				autoplay={true}
+				id={gif.id}
 			/>
 		{/each}
 	</div>

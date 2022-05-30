@@ -13,6 +13,8 @@ export function lazyload(selector, params) {
 					video.removeAttribute('data-src')
 					video.removeAttribute('data-poster')
 
+					video.load() && video.play()
+
 					observer.unobserve(video)
 				}
 			})
@@ -30,7 +32,7 @@ export function lazyload(selector, params) {
 			entries.forEach(entry => {
 				const video = entry.target
 
-				if (entry.isIntersecting) return
+				if (entry.isIntersecting) return video.load() && video.play()
 				video.pause()
 			})
 		},

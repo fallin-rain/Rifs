@@ -27,7 +27,7 @@
 
 	onMount(() => {
 		lazyload('[data-card] video', {
-			threshold: 0.8,
+			threshold: 0.4,
 		})
 	})
 	export let searchedTag
@@ -54,6 +54,7 @@
 				tags={gif.tags}
 				src={gif.urls.sd}
 				autoplay={true}
+				id={gif.id}
 			/>
 		{/each}
 	</div>

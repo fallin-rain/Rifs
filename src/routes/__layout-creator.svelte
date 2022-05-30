@@ -3,7 +3,7 @@
 	import Header from '$lib/components/Header.svelte'
 </script>
 
-<div class="min-h-screen bg-slate-900 text-pink-200">
+<div class="min-h-screen select-none bg-slate-900 text-pink-200">
 	<Header />
 	<main class="py-[60px] md:py-24 md:px-24">
 		<slot />
@@ -11,27 +11,27 @@
 </div>
 
 <style>
-	* {
-		user-select: none;
-		-moz-user-select: -moz-none;
-		-webkit-user-select: none;
-	}
 	/* Custom scrollbar */
 	/* Colour generated from https://cssgradient.io/ */
 
-	section::-webkit-scrollbar-track {
-		border-radius: 5px !important;
+	:global(html) {
+		scrollbar-color: rgba(233, 30, 99, 1) #0f172a;
+		scrollbar-width: initial;
+	}
+
+	:global(html)::-webkit-scrollbar-track {
+		border-radius: 0px !important;
 		background-color: #0f172a !important;
 	}
 
-	section::-webkit-scrollbar {
+	:global(html)::-webkit-scrollbar {
 		width: 10px !important;
-		border-radius: 5px !important;
+		border-radius: 0px !important;
 		background-color: #0f172a !important;
 	}
 
-	section::-webkit-scrollbar-thumb {
-		border-radius: 5px !important;
+	:global(html)::-webkit-scrollbar-thumb {
+		border-radius: 10px !important;
 		background: rgb(232, 36, 90) !important;
 		background: -moz-linear-gradient(
 			38deg,

@@ -134,16 +134,7 @@
 	</div>
 	<!-- gif -->
 	<div class="w-full h-full overflow-hidden bg-slate-600 relative">
-		<div class="absolute inset-0 bg-black bg-opacity-30" />
-		<video
-			class="block w-full h-full"
-			muted
-			controls
-			loop
-			{autoplay}
-			data-poster={poster}
-			data-src={src}
-		/>
+		<video class="block w-full h-full" muted controls loop data-poster={poster} data-src={src} />
 	</div>
 	<!-- CTAs -->
 	<div class="flex justify-end items-center gap-4 p-4">

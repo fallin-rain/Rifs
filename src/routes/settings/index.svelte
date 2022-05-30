@@ -4,8 +4,13 @@
 
 	import { browser } from '$app/env'
 	import { profileSetup } from '$lib/stores/profileSetup'
+	import { autoplay } from '$lib/stores/autoplay'
 
-	let autoplay = true
+	let aply = false
+	function setAutoplay() {
+		console.log($autoplay)
+		$autoplay == 'false' ? autoplay.set('true') : autoplay.set('false')
+	}
 </script>
 
 <section>
@@ -98,11 +103,11 @@
 		<Divider />
 		<div class="flex items-center justify-between w-max gap-6">
 			<button
-				on:click={() => (autoplay = !autoplay)}
+				on:click={setAutoplay}
 				class="px-5 py-2 font-semibold text-sm bg-pink-600 text-pink-200 rounded-lg"
 				>Autoplay</button
 			>
-			<p class="text-pink-200">{autoplay ? 'On' : 'Off'}</p>
+			<p class="text-pink-200">{JSON.parse($autoplay) ? 'On' : 'Off'}</p>
 		</div>
 		<pre class="mt-3 text-gray-400 text-sm">this does not work as of now</pre>
 	</div>

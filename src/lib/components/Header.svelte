@@ -1,3 +1,7 @@
+<script>
+	import { page } from '$app/stores'
+</script>
+
 <header
 	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-3"
 >
@@ -7,8 +11,12 @@
 		class="bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
 		>Rifs</a
 	>
-	<div class="flex items-center space-x-3 text-base">
-		<a href="/tags" class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800">
+	<div class="flex items-center space-x-2 text-base">
+		<a
+			href="/tags"
+			class="rounded-lg p-2 flex items-center hover:bg-slate-800 active:bg-slate-800"
+			class:selected={$page.url.pathname === '/tags'}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"
@@ -28,7 +36,8 @@
 		<a
 			href="/creators"
 			sveltekit:prefetch
-			class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
+			class="rounded-lg p-2 flex items-center hover:bg-slate-800 active:bg-slate-800"
+			class:selected={$page.url.pathname === '/creators'}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"
@@ -48,7 +57,8 @@
 		<a
 			href="#"
 			sveltekit:prefetch
-			class="rounded-lg p-1 flex items-center hover:bg-slate-800 active:bg-slate-800"
+			class="rounded-lg p-2 flex items-center hover:bg-slate-800 active:bg-slate-800"
+			class:selected={$page.url.pathname === '/verified'}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -90,3 +100,9 @@
 		</a>
 	</div>
 </header>
+
+<style>
+	.selected {
+		background-color: rgb(30, 41, 59);
+	}
+</style>

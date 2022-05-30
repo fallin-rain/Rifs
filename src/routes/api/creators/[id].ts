@@ -1,5 +1,5 @@
 export async function get({ params }) {
-	const res = await fetch(import.meta.env.VITE_SINGLE_GIF + params.id)
+	const res = await fetch(import.meta.env.VITE_API_V2 + '/gifs/' + params.id)
 	const data = await res.json()
 
 	if (!res.ok)

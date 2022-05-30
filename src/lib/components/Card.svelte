@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Toast from '$lib/layouts/Toast.svelte'
+	import { count } from '$lib/stores/queryParams'
 
 	export let date = ''
 	export let id = ''
@@ -124,7 +125,7 @@
 				{#each tags as tag}
 					<a
 						sveltekit:prefetch
-						href={'/tags/related/' + tag}
+						href={`/tags/related/${$count.toString()}/${tag}`}
 						class="px-2.5 py-1.5 rounded-full border border-pink-500 text-pink-300 text-xs leading-none tracking-wide"
 						>{tag}</a
 					>

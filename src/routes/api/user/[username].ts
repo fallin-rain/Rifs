@@ -1,5 +1,7 @@
 export async function get({ params }) {
-	const res = await fetch(import.meta.env.VITE_USER + params.username + '/search?order=recent')
+	const res = await fetch(
+		import.meta.env.VITE_API_V2 + '/users/' + params.username + '/search?order=recent'
+	)
 	const data = await res.json()
 
 	if (!res.ok)

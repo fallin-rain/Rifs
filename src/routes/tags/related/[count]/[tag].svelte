@@ -2,7 +2,9 @@
 	const log = console.debug
 
 	export async function load({ fetch, params }) {
-		const res = await fetch('/api/related/' + params.tag)
+		if (!params.count) params.count = 10
+
+		const res = await fetch(`/api/related/${params.count}/${params.tag}`)
 		const data = await res.json()
 
 		return {
@@ -18,20 +20,30 @@
 </script>
 
 <script>
-	import Card from '$lib/components/Card.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
 	import { formatViews } from '$lib/utils/formatViews'
 	import { lazyload } from '$lib/utils/lazyload'
-
 	import { onMount } from 'svelte'
+
+	import Card from '$lib/components/Card.svelte'
+	import { page } from '$app/stores'
+	import { goto } from '$app/navigation'
+	import { count } from '$lib/stores/queryParams'
+
+	export let searchedTag
+	export let gifs
 
 	onMount(() => {
 		lazyload('[data-card] video', {
 			threshold: 0.4,
 		})
 	})
-	export let searchedTag
-	export let gifs
+
+	function loadmore() {
+		if ($count >= 80) return
+
+		count.update(inc => (inc += 5))
+	}
 </script>
 
 <section id="tags">
@@ -58,4 +70,11 @@
 			/>
 		{/each}
 	</div>
+	<a
+		href={`/tags/related/${$count.toString()}/${$page.params.tag}`}
+		sveltekit:prefetch
+		sveltekit:noscroll
+		on:click={loadmore}
+		class="block mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg">Load more</a
+	>
 </section>

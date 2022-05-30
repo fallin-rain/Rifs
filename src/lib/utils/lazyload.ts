@@ -32,7 +32,7 @@ export function lazyload(selector, params) {
 			entries.forEach(entry => {
 				const video = entry.target
 
-				if (entry.isIntersecting) return video.load() && video.play()
+				if (entry.isIntersecting) return video.play()
 				video.pause()
 			})
 		},

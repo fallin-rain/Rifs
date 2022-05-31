@@ -102,6 +102,9 @@
 					width={story.width}
 					poster={story.urls.poster}
 					autoplay={false}
+					id={story.id}
+					username={story.user.username}
+					verified={story.verified}
 				/>
 			{/each}
 		</div>

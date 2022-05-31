@@ -7,11 +7,11 @@ export function lazyload(selector, params) {
 				const video = entry.target
 
 				if (entry.isIntersecting) {
-					video.src = video.dataset.src
-					video.poster = video.dataset.poster
+					// video.src = video.dataset.src
+					// video.poster = video.dataset.poster
 
-					video.removeAttribute('data-src')
-					video.removeAttribute('data-poster')
+					// video.removeAttribute('data-src')
+					// video.removeAttribute('data-poster')
 
 					video.load() && video.play()
 

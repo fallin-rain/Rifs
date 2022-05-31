@@ -1,6 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
+
+	import { page } from '$app/stores'
+
 	import Toast from '$lib/layouts/Toast.svelte'
 	import { count } from '$lib/stores/queryParams'
+	import VideoPlayer from 'svelte-video-player-kit'
 
 	export let date = ''
 	export let id = ''
@@ -29,14 +34,9 @@
 	export let shared = true
 </script>
 
-<a
-	href={'/creators/' + id}
-	data-card
-	sveltekit:prefetch
-	class="rounded-xl block bg-slate-800 max-w-sm mx-auto break-inside-avoid"
->
+<div data-card class="rounded-xl block bg-slate-800 max-w-sm mx-auto break-inside-avoid">
 	<div class="flex flex-col p-4">
-		<div class="flex w-full items-end justify-between">
+		<a href={'/creators/' + id} class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
 				<a
 					href={'/user/' + username}
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 			<time class="text-xs text-slate-400">{date}</time>
-		</div>
+		</a>
 		<!-- tags -->
 		{#if hasTags}
 			<div class="mt-3 flex flex-wrap items-center gap-2">
@@ -135,7 +135,7 @@
 	</div>
 	<!-- gif -->
 	<div class="w-full h-full overflow-hidden bg-slate-600 relative">
-		<video class="block w-full h-full" muted controls loop data-poster={poster} data-src={src} />
+		<video class="block w-full h-full" muted controls loop {poster} {src} />
 	</div>
 	<!-- CTAs -->
 	<div class="flex justify-end items-center gap-4 p-4">
@@ -216,4 +216,4 @@
 			</button>
 		</div>
 	</div>
-</a>
+</div>

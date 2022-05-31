@@ -31,7 +31,6 @@
 				{/if}
 			</div>
 		</div>
-
-		<video class="block w-full h-full" muted loop {autoplay} data-poster={poster} data-src={src} />
+		<video class="block w-full h-full" muted loop {autoplay} {poster} {src} />
 	</div>
 </a>

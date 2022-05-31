@@ -27,7 +27,6 @@
 
 	import Card from '$lib/components/Card.svelte'
 	import { page } from '$app/stores'
-	import { goto } from '$app/navigation'
 	import { count } from '$lib/stores/queryParams'
 
 	export let searchedTag
@@ -42,7 +41,8 @@
 	function loadmore() {
 		if ($count >= 80) return
 
-		count.update(inc => (inc += 5))
+		count.update(inc => (inc += 10))
+		log($page.params)
 	}
 </script>
 
@@ -75,6 +75,7 @@
 		sveltekit:prefetch
 		sveltekit:noscroll
 		on:click={loadmore}
-		class="block mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg">Load more</a
+		class="block w-max mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg"
+		>Load more</a
 	>
 </section>

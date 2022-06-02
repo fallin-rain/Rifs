@@ -1,8 +1,8 @@
-<script>
-	import { fly, fade } from 'svelte/transition'
-</script>
-
-<div in:fly={{ duration: 200, delay: 1000 }} out:fly={{ x: 1000, duration: 100 }}>
+{JSON.stringify(data)}
+<form >
+	<input type="text" />
+</form>
+<div>
 	<p>
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla facilis ducimus numquam, rerum
 		temporibus asperiores quaerat deserunt doloribus aperiam praesentium repudiandae neque
@@ -12,7 +12,7 @@
 		commodi.
 	</p>
 </div>
-<div in:fly={{ duration: 200, delay: 1000 }} out:fly={{ x: 1000, duration: 100 }}>
+<div>
 	<p>
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla facilis ducimus numquam, rerum
 		temporibus asperiores quaerat deserunt doloribus aperiam praesentium repudiandae neque
@@ -22,7 +22,7 @@
 		commodi.
 	</p>
 </div>
-<div in:fly={{ duration: 200, delay: 1000 }} out:fly={{ x: 1000, duration: 100 }}>
+<div}>
 	<p>
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla facilis ducimus numquam, rerum
 		temporibus asperiores quaerat deserunt doloribus aperiam praesentium repudiandae neque
@@ -32,7 +32,7 @@
 		commodi.
 	</p>
 </div>
-<div in:fly={{ duration: 200, delay: 1000 }} out:fly={{ x: 1000, duration: 100 }}>
+<div >
 	<p>
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla facilis ducimus numquam, rerum
 		temporibus asperiores quaerat deserunt doloribus aperiam praesentium repudiandae neque
@@ -42,7 +42,7 @@
 		commodi.
 	</p>
 </div>
-<div in:fly={{ duration: 200, delay: 1000 }} out:fly={{ x: 1000, duration: 100 }}>
+<div>
 	<p>
 		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla facilis ducimus numquam, rerum
 		temporibus asperiores quaerat deserunt doloribus aperiam praesentium repudiandae neque

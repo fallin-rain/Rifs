@@ -12,6 +12,8 @@
 </script>
 
 <script>
+	import { page } from '$app/stores'
+
 	export let error
 	export let status
 </script>
@@ -41,7 +43,7 @@
 						>
 					</a>
 					<a
-						href="/test"
+						href={$page.url}
 						sveltekit:reload
 						class="inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
 					>

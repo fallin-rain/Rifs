@@ -19,6 +19,7 @@
 	:global(html) {
 		scrollbar-color: rgba(233, 30, 99, 1) #0f172a;
 		scrollbar-width: none;
+		user-select: none !important;
 	}
 
 	:global(html)::-webkit-scrollbar-track {

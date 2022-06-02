@@ -1,8 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation'
-
-	import { page } from '$app/stores'
-
 	import Toast from '$lib/layouts/Toast.svelte'
 	import { count } from '$lib/stores/queryParams'
 	import VideoPlayer from 'svelte-video-player-kit'
@@ -19,8 +15,8 @@
 	export let tags: string[] = []
 
 	// video attributes
-	// export let width: string = ''
-	// export let height: string = ''
+	export let width: string = ''
+	export let height: string = ''
 	export let poster = ''
 	export let src = ''
 	export let autoplay = false
@@ -135,7 +131,7 @@
 	</div>
 	<!-- gif -->
 	<div class="w-full h-full overflow-hidden bg-slate-600 relative">
-		<video class="block w-full h-full" muted controls loop {poster} {src} />
+		<video class="block w-full h-full" muted controls loop {width} {height} {poster} {src} />
 	</div>
 	<!-- CTAs -->
 	<div class="flex justify-end items-center gap-4 p-4">

@@ -20,7 +20,7 @@
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte'
 	import { browser } from '$app/env'
 	import { goto } from '$app/navigation'
@@ -43,14 +43,7 @@
 	export let hotCreators
 	export let newCreators
 
-	// let trending = []
-	// let stories = []
-	// let oneMGifs = []
-	// let hotCreators = []
-
 	$first_time_visit == 'yes' && browser && goto('/welcome')
-
-	// let count = 5
 
 	onMount(() => {
 		lazyload('[data-card] video', {
@@ -153,7 +146,8 @@
 					verified={c.verified}
 					id={c.thumbnail}
 					username={c.username}
-					autoplay={true}
+					width={c.width}
+					height={c.height}
 				/>
 			{/each}
 		</div>

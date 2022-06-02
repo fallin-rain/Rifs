@@ -42,7 +42,6 @@
 		if ($count >= 80) return
 
 		count.update(inc => (inc += 10))
-		log($page.params)
 	}
 </script>
 

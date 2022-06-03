@@ -7,13 +7,13 @@ export function lazyload(selector, params) {
 				const video = entry.target
 
 				if (entry.isIntersecting) {
-					// video.src = video.dataset.src
-					// video.poster = video.dataset.poster
+					video.src = video.dataset.src
+					video.poster = video.dataset.poster
 
 					// video.removeAttribute('data-src')
 					// video.removeAttribute('data-poster')
 
-					video.load() && video.play()
+					video.load()
 
 					observer.unobserve(video)
 				}
@@ -25,14 +25,14 @@ export function lazyload(selector, params) {
 		}
 	)
 
-	document.querySelectorAll(selector).forEach(card => observer.observe(card))
+	// document.querySelectorAll(selector).forEach(card => observer.observe(card))
 
 	const newObserver = new IntersectionObserver(
 		entries => {
 			entries.forEach(entry => {
 				const video = entry.target
 
-				if (entry.isIntersecting) return video.play()
+				if (entry.isIntersecting) return
 				video.pause()
 			})
 		},
@@ -41,5 +41,8 @@ export function lazyload(selector, params) {
 			threshold: params.threshold,
 		}
 	)
-	document.querySelectorAll(selector).forEach(card => newObserver.observe(card))
+	document.querySelectorAll(selector).forEach(card => {
+		observer.observe(card)
+		newObserver.observe(card)
+	})
 }

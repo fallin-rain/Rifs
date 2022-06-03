@@ -40,14 +40,10 @@
 		searchQueryResults = data.data
 	}
 
-	let searchValue = ''
-
 	async function searchText() {
 		if (!query) return
 
-		searchValue = query
-
-		await goto('/search?search_text=' + encodeURIComponent(searchValue))
+		await goto('/search?search_text=' + encodeURIComponent(query))
 	}
 
 	// debounce
@@ -66,7 +62,7 @@
 	}
 
 	onMount(() => {
-		lazyload('[data-card] video', {
+		lazyload('video', {
 			threshold: 0.4,
 		})
 	})

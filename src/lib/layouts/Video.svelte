@@ -48,6 +48,7 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <video
 	class="block w-full h-full object-cover object-center"
+	data-lazyvideo
 	data-poster={poster}
 	data-src={src}
 	{height}

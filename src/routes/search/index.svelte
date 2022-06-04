@@ -57,7 +57,7 @@
 	}
 
 	onMount(() => {
-		lazyload('video', {
+		lazyload('[data-lazyvideo]', {
 			threshold: 0.4,
 		})
 	})

@@ -17,7 +17,7 @@
 	import { onMount } from 'svelte'
 
 	onMount(() =>
-		lazyload('video', {
+		lazyload('[data-lazyvideo]', {
 			threshold: 0,
 			rootMargin: '200px',
 		})
@@ -25,18 +25,18 @@
 	export let stories
 </script>
 
-<div class="w-full h-screen grid min-h-screen place-items-center bg-black py-6">
-	<div class="space-y-6">
+<div class="w-full h-screen grid min-h-screen place-items-center bg-black p-6">
+	<div class="space-y-4">
 		<!-- exit -->
 		<a
 			href="/"
 			sveltekit:prefetch
-			class="-mt-4 px-6 flex items-center gap-0.5 font-medium text-slate-400"
+			class="w-max flex items-center gap-0.5 font-medium text-slate-400"
 		>
 			Close
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="mt-1 h-5 w-5"
+				class="h-5 w-5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -47,7 +47,7 @@
 		</a>
 		<div
 			id="noscrollbar"
-			class="flex h-[80vh] w-full snap-y snap-mandatory flex-col gap-4 overflow-y-scroll"
+			class="flex h-[90vh] w-full snap-y snap-mandatory flex-col gap-4 overflow-y-scroll"
 		>
 			{#each stories as story}
 				<div

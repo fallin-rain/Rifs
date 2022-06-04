@@ -47,7 +47,7 @@
 	$first_time_visit == 'yes' && browser && goto('/welcome')
 
 	onMount(() => {
-		lazyload('video', {
+		lazyload('[data-lazyvideo]', {
 			threshold: 0.4,
 		})
 	})

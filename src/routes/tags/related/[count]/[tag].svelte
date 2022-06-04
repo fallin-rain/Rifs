@@ -33,7 +33,7 @@
 	export let gifs
 
 	onMount(() => {
-		lazyload('[data-card] video', {
+		lazyload('[data-lazyvideo]', {
 			threshold: 0.4,
 		})
 	})

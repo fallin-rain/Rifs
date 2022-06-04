@@ -16,6 +16,6 @@
 	sveltekit:noscroll
 	sveltekit:prefetch
 	on:click={loadmore}
-	class="block cursor-pointer w-max mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg"
+	class="block cursor-pointer w-max mx-auto mt-6 bg-slate-800 px-6 py-3 text-sm font-semibold rounded-lg"
 	>{text}</a
 >

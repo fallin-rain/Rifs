@@ -19,7 +19,7 @@
 	import Divider from '$lib/layouts/Divider.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
 	import Tags from '$lib/layouts/Tags.svelte'
-	import { count } from '$lib/stores/queryParams'
+	import { count, search_text } from '$lib/stores/queryParams'
 
 	import { lazyload } from '$lib/utils/lazyload'
 	import { onMount } from 'svelte'
@@ -28,6 +28,7 @@
 
 	let query: string
 	let searchQueryResults = ''
+	let searched = 'Searching...'
 
 	async function searchQuery() {
 		if (!query) return
@@ -36,15 +37,17 @@
 
 		if (query.trim() == currentQuery?.trim()) return
 
-		await goto('/search?query=' + encodeURIComponent(query), { keepfocus: true })
+		await goto('/search?query=' + encodeURIComponent($search_text), { keepfocus: true })
 
 		searchQueryResults = data.data
+
+		if (searchQueryResults.length === 0) searched = 'Not found'
 	}
 
 	async function searchText() {
-		if (!query) return
+		if (searchQueryResults.length === 0) return
 
-		await goto('/search?search_text=' + encodeURIComponent(query))
+		await goto('/search?search_text=' + encodeURIComponent(searchQueryResults[0].text))
 	}
 
 	// debounce
@@ -52,6 +55,7 @@
 
 	function debounce(delay = 750) {
 		clearTimeout(timer)
+		search_text.set(query)
 
 		timer = setTimeout(searchQuery, delay)
 	}
@@ -65,35 +69,40 @@
 
 <section class="space-y-6">
 	<Heading title="Search" />
-	<form
-		on:submit|preventDefault={searchText}
+	<div
 		class="flex w-full max-w-sm items-center justify-between overflow-hidden rounded-lg bg-slate-800"
 	>
 		<input
 			type="text"
 			placeholder="Search tags and creators"
 			bind:value={query}
-			on:keyup={() => debounce(550)}
-			class="flex-shrink bg-inherit pl-6 focus:outline-none"
+			on:keyup={() => debounce()}
+			class="flex-shrink w-min bg-inherit pl-6 focus:outline-none"
 		/>
 		<button
 			on:click={searchText}
-			class="inline-block flex-shrink rounded-lg bg-slate-700 px-6 py-3"
+			class="inline-block text-sm flex-shrink-0 rounded-lg bg-slate-700 px-6 py-4"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-					clip-rule="evenodd"
-				/>
-			</svg>
+			{#if !query}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			{:else if searchQueryResults.length === 0}
+				{searched}
+			{:else}
+				Go
+			{/if}
 		</button>
-	</form>
+	</div>
 
 	{#if searchQueryResults}
 		<div class="space-y-6 rounded-lg bg-slate-800 bg-opacity-40 p-6">
@@ -161,5 +170,9 @@
 			/>
 		{/each}
 	</div>
-	<LinkBtn url={`${$page.url}&count=${$count}`} />
+	<LinkBtn
+		url={`${$page.url.pathname}?search_text=${$page.url.searchParams.get(
+			'search_text'
+		)}&count=${$count}`}
+	/>
 </section>

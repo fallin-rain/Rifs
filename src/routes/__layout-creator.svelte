@@ -1,6 +1,7 @@
 <script>
 	import '../tailwind.css'
 	import Header from '$lib/components/Header.svelte'
+	import Nav from '$lib/components/Nav.svelte'
 </script>
 
 <div class="min-h-screen select-none bg-slate-900 text-pink-200">
@@ -8,6 +9,7 @@
 	<main class="py-[60px] md:py-24 md:px-24">
 		<slot />
 	</main>
+	<Nav />
 </div>
 
 <style>

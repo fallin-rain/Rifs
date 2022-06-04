@@ -46,14 +46,13 @@
 	$first_time_visit == 'yes' && browser && goto('/welcome')
 
 	onMount(() => {
-		lazyload('[data-card] video', {
+		lazyload('video', {
 			threshold: 0.4,
 		})
 	})
 
 	function loadmore() {
 		count += 5
-		console.log(count)
 
 		getdata(count)
 	}
@@ -109,20 +108,14 @@
 
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 			{#each trending as data}
-				<Card
-					username={data.user.username}
-					profileName={data.user.username}
-					verified={data.user.verified}
-					date={formatTS(data.user.creationtime)}
-					hasAudio={data.hasAudio}
-					gifs={formatViews(data.user.gifs)}
-					views={formatViews(data.user.views)}
+				<MasonryCard
 					poster={data.urls.poster}
-					hasTags={data.tags}
-					tags={data.tags}
-					autoplay={true}
-					src={data.urls.sd}
+					src={data.urls.vthumbnail}
+					verified={data.user.verified}
+					username={data.user.username}
 					id={data.id}
+					width={data.width}
+					height={data.height}
 				/>
 			{/each}
 		</div>
@@ -158,20 +151,14 @@
 		<Heading title="1 minute gifs" />
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 			{#each oneMGifs as data}
-				<Card
-					username={data.user.username}
-					profileName={data.user.username}
-					verified={data.user.verified}
-					date={formatTS(data.user.creationtime)}
-					hasAudio={data.hasAudio}
-					gifs={formatViews(data.user.gifs)}
-					views={formatViews(data.user.views)}
+				<MasonryCard
 					poster={data.urls.poster}
-					hasTags={data.tags}
-					tags={data.tags}
-					autoplay={true}
-					src={data.urls.sd}
+					src={data.urls.vthumbnail}
+					verified={data.user.verified}
+					username={data.user.username}
 					id={data.id}
+					width={data.width}
+					height={data.height}
 				/>
 			{/each}
 		</div>

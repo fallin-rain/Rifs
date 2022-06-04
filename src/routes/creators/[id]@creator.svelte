@@ -11,8 +11,8 @@
 			props: {
 				gif: singleResData.gif,
 				user: singleResData.user,
+				tags: singleResData.gif.tags,
 				related_gifs: relatedResData.gifs,
-				related_tags: relatedResData.tags.slice(0, 10),
 			},
 		}
 	}
@@ -31,8 +31,8 @@
 
 	export let gif
 	export let user
+	export let tags
 	export let related_gifs
-	export let related_tags
 
 	onMount(() => {
 		lazyload('[data-card] video', {
@@ -83,7 +83,7 @@
 		<Divider />
 		<Heading title="Related tags" />
 		<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
-			{#each related_tags as tag}
+			{#each tags as tag}
 				<Tags linkPath={'/tags/related/'} {tag} />
 			{/each}
 		</div>

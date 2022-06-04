@@ -38,7 +38,8 @@
 			sveltekit:prefetch
 			class="rounded-lg p-2 flex items-center hover:bg-slate-800 active:bg-slate-800"
 			class:selected={$page.url.pathname === '/creators'}
-			><svg
+		>
+			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5 text-pink-200"
 				fill="none"
@@ -49,10 +50,10 @@
 				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+					d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
 				/>
 			</svg>
-			<p class="font-medium ml-1 hidden md:block">Creators</p>
+			<p class="font-medium ml-1 hidden md:block">Images</p>
 		</a>
 		<a
 			href="#"

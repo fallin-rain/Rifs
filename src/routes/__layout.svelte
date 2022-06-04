@@ -1,6 +1,7 @@
 <script>
 	import '../tailwind.css'
 	import Header from '$lib/components/Header.svelte'
+	import Nav from '$lib/components/Nav.svelte'
 </script>
 
 <div
@@ -10,6 +11,7 @@
 	<main class="px-6 scrollbar py-20 space-y-10 md:px-20">
 		<slot />
 	</main>
+	<Nav />
 </div>
 
 <style>

@@ -157,7 +157,7 @@
 		{#each data.searchResults.gifs as gif}
 			<MasonryCard
 				poster={gif.urls.poster}
-				src={gif.urls.sd}
+				src={gif.urls.vthumbnail}
 				verified={gif.verified}
 				username={gif.userName}
 				id={gif.id}
@@ -170,6 +170,7 @@
 	<a
 		href={`${$page.url}&count=${$count}`}
 		sveltekit:noscroll
+		sveltekit:prefetch
 		on:click={loadmore}
 		class="block cursor-pointer w-max mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg"
 		>Load more</a

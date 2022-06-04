@@ -13,7 +13,7 @@ export function lazyload(selector, params) {
 					// video.removeAttribute('data-src')
 					// video.removeAttribute('data-poster')
 
-					video.load()
+					// video.load()
 
 					observer.unobserve(video)
 				}

@@ -39,7 +39,7 @@
 	<div class="max-w-sm mx-auto flex flex-col gap-4 items-center text-pink-200">
 		<div class="w-36 h-36 overflow-hidden rounded-2xl">
 			<img
-				class="block bg-slate-600 w-full h-full object-cover object-top"
+				class="block bg-slate-600 w-full h-full object-cover object-center"
 				src={user.profileImageUrl ||
 					'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
 				alt={(user.profileImageUrl && user.name) || 'No profile image'}

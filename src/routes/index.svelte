@@ -34,6 +34,7 @@
 	import Heading from '$lib/layouts/Heading.svelte'
 	import Stories from '$lib/components/Stories.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
+	import LinkBtn from '$lib/components/LinkBtn.svelte'
 
 	export let hotGifs
 	export let stories
@@ -50,30 +51,6 @@
 			threshold: 0.4,
 		})
 	})
-
-	function loadmore() {
-		count += 5
-
-		getdata(count)
-	}
-	async function getdata(count = 5) {
-		const res = await fetch('/api/home')
-		const data = await res.json()
-
-		// posts[0].trending?.push(data.horizontalGifs.slice(0, count))
-		// posts[1].stories?.push(data.verticalGifs.slice(0, count))
-		// posts[2].oneMGifs?.push(data.longGifs.slice(0, count))
-
-		trending = [...data.horizontalGifs.slice(0, count)]
-		hotCreators = [...data.hotCreators.slice(0, count)]
-		stories = [...data.verticalGifs.slice(0, count)]
-		oneMGifs = [...data.longGifs.slice(0, count)]
-
-		console.log(trending)
-		console.log(hotCreators)
-		console.log('stories', stories)
-		console.log(oneMGifs)
-	}
 </script>
 
 <svelte:head>
@@ -101,7 +78,8 @@
 			{/each}
 		</div>
 	</section>
-
+	<!-- test stories -->
+	<LinkBtn url={'/stories/test'} text={'Try the new stories'} />
 	<!-- Trending -->
 	<section id="trending" in:fly={{ y: -500, duration: 450, delay: 250, opacity: 0 }}>
 		<Heading title="Trending" />
@@ -119,12 +97,6 @@
 				/>
 			{/each}
 		</div>
-		<button
-			type="button"
-			on:click={loadmore}
-			class="mx-auto py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
-			>Load more</button
-		>
 	</section>
 
 	<!-- Hot creators -->

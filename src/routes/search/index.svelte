@@ -13,6 +13,7 @@
 	import { goto } from '$app/navigation'
 
 	import { page } from '$app/stores'
+	import LinkBtn from '$lib/components/LinkBtn.svelte'
 
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Divider from '$lib/layouts/Divider.svelte'
@@ -53,12 +54,6 @@
 		clearTimeout(timer)
 
 		timer = setTimeout(searchQuery, delay)
-	}
-
-	function loadmore() {
-		if ($count >= 80) return
-
-		count.update(inc => (inc += 10))
 	}
 
 	onMount(() => {
@@ -166,13 +161,5 @@
 			/>
 		{/each}
 	</div>
-	<!-- svelte-ignore a11y-missing-attribute -->
-	<a
-		href={`${$page.url}&count=${$count}`}
-		sveltekit:noscroll
-		sveltekit:prefetch
-		on:click={loadmore}
-		class="block cursor-pointer w-max mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg"
-		>Load more</a
-	>
+	<LinkBtn url={`${$page.url}&count=${$count}`} />
 </section>

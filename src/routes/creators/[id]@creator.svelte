@@ -28,6 +28,7 @@
 	import Card from '$lib/components/Card.svelte'
 	import Divider from '$lib/layouts/Divider.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
 	export let gif
 	export let user
@@ -35,7 +36,7 @@
 	export let related_gifs
 
 	onMount(() => {
-		lazyload('[data-card] video', {
+		lazyload('video', {
 			threshold: 0.4,
 		})
 	})
@@ -90,19 +91,14 @@
 		<Heading title="Related posts" />
 		<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
 			{#each related_gifs as data}
-				<Card
+				<MasonryCard
 					username={data.userName}
-					profileName={data.userName}
 					verified={data.verified}
-					date={formatTS(data.createDate)}
-					hasAudio={data.hasAudio}
-					views={formatViews(data.views)}
 					poster={data.urls.poster}
-					hasTags={data.tags}
-					tags={data.tags}
-					autoplay={true}
 					src={data.urls.sd}
 					id={data.id}
+					width={data.width}
+					height={data.height}
 				/>
 			{/each}
 		</div>

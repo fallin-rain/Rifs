@@ -16,6 +16,7 @@
 
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
 	import Tags from '$lib/layouts/Tags.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
@@ -234,19 +235,14 @@
 	<!-- user's posts -->
 	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each gifs as gif}
-			<Card
+			<MasonryCard
 				username={gif.userName}
-				profileName={gif.userName}
 				verified={gif.verified}
-				date={formatTS(gif.createDate)}
-				hasAudio={gif.hasAudio}
-				views={formatViews(gif.views)}
 				poster={gif.poster}
-				hasTags={gif.tags}
-				tags={gif.tags}
 				src={gif.urls.sd}
-				autoplay={true}
 				id={gif.id}
+				height={gif.height}
+				width={gif.width}
 			/>
 		{/each}
 	</div>

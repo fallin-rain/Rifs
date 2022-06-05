@@ -18,8 +18,8 @@
 
 	onMount(() =>
 		lazyload('[data-lazyvideo]', {
-			threshold: 0,
-			rootMargin: '200px',
+			autoplay: true,
+			threshold: 0.5,
 		})
 	)
 	export let stories
@@ -51,7 +51,7 @@
 		>
 			{#each stories as story}
 				<div
-					class="relative w-full h-[80vh] flex-shrink-0 snap-center overflow-hidden rounded-xl text-pink-400"
+					class="relative w-full h-full flex-shrink-0 snap-center overflow-hidden rounded-xl text-pink-400"
 				>
 					<Video
 						id={story.id}

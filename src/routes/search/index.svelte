@@ -9,6 +9,9 @@
 	}
 </script>
 
+<!--
+	### TAILWIND NEW REDESIGN QUERY PARAMS
+	https://play.tailwindcss.com/EctFk79Ted -->
 <script lang="ts">
 	import { goto } from '$app/navigation'
 

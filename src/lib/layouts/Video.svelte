@@ -13,16 +13,17 @@
 	let paused = true
 	let showControls = false
 	let showControlsTimeout: NodeJS.Timeout | undefined
-	let isBuffering = true
-	let buffered: TimeRanges
-	let buffer: number = 0
 	let duration: number
 	let currentTime: number
+	let buffered
+	let a: string | number
 
 	function seekvideo(e) {
-		if (!duration) return
-
 		clearInterval(showControlsTimeout)
+		showControlsTimeout = setInterval(() => (showControls = false), 2500)
+		showControls = true
+
+		if (!duration) return
 
 		return (currentTime = e.target.value)
 	}
@@ -36,6 +37,21 @@
 			paused = !paused
 		}
 		return
+	}
+
+	// function buffer(e) {
+	// 	let i
+
+	// 	for (i = 0; i < e.target.buffered.length; i++) {
+	// 		if (e.target.buffered.length - 1 - i < currentTime) {
+	// 			buffered = (e.target.buffered.end(e.target.buffered.length - 1 - i) / duration) * 100 + '%'
+	// 			console.log(buffered)
+	// 		}
+	// 	}
+
+	function buffer(e) {
+		a = (e.target.buffered.end(e.target.length) / duration) * 100
+		console.log(a + '%')
 	}
 </script>
 
@@ -60,6 +76,7 @@
 	bind:muted
 	bind:paused
 	on:click={handleClick}
+	on:progress={e => buffer(e)}
 />
 <!-- absolute play/pause -->
 <button
@@ -68,7 +85,7 @@
 	style={paused ? 'opacity: 1;' : 'opacity: 0;'}
 	on:click={() => (paused = !paused)}
 >
-	<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+	<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20" fill="currentColor">
 		<path
 			fill-rule="evenodd"
 			d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
@@ -187,12 +204,13 @@
 	<!-- progress bar -->
 	<div class="relative -mt-2 w-full">
 		<div
-			class="absolute top-2/4 left-0 h-1 rounded-full bg-pink-400 pointer-events-none"
-			style="width: 0%;"
+			id="buffer-bar"
+			class="absolute top-2/4 left-0 h-1.5 rounded-full bg-pink-400 pointer-events-none"
+			style="width: {a}%"
 		/>
 		<input
 			type="range"
-			class="h-1.5 appearance-none bg-slate-800"
+			class="h-1 appearance-none bg-slate-800"
 			min="0"
 			max={duration ? duration : '0'}
 			value={currentTime}
@@ -264,39 +282,73 @@
 		background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 90%);
 	}
 
+	/* custom input range */
 	input[type='range'] {
 		-webkit-appearance: none;
 		width: 100%;
-		border-radius: 99px;
 	}
 	input[type='range']:focus {
 		outline: none;
 	}
-	input[type='range']::-webkit-slider-thumb {
-		border-radius: 999px;
-		background: rgb(244 114 182 / 1);
-		width: 1.5rem;
-		height: 1.5rem;
+	input[type='range']::-webkit-slider-runnable-track {
+		width: 100%;
+		height: 8.4px;
 		cursor: pointer;
+		background-color: rgb(30 41 59 / 1);
+		border-radius: 999px;
+	}
+	input[type='range']::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		margin-top: -7.4px;
+		height: 1.5rem;
+		width: 1.5rem;
+		border-radius: 999px;
+		background-color: rgb(244 114 182 / 1);
+		cursor: pointer;
+	}
+	input[type='range']::-moz-range-track {
+		width: 100%;
+		height: 8px;
+		cursor: pointer;
+		background: rgb(30 41 59 / 1);
+		border-radius: 999px;
 	}
 	input[type='range']::-moz-range-thumb {
+		height: 1.5rem;
+		width: 1.5rem;
 		border-radius: 999px;
-		background: rgb(244 114 182 / 1);
-		width: 1.25rem;
-		height: 1.25rem;
+		background-color: rgb(244 114 182 / 1);
 		cursor: pointer;
+	}
+	input[type='range']::-ms-track {
+		width: 100%;
+		height: 1.5rem;
+		cursor: pointer;
+
+		/* Hides the slider so custom styles can be added */
+		background: transparent;
+		border-color: transparent;
+		color: transparent;
+	}
+	input[type='range']::-ms-fill-lower {
+		width: 100%;
+		height: 8.4px;
+		cursor: pointer;
+		background-color: rgb(30 41 59 / 1);
+		border-radius: 999px;
+	}
+	input[type='range']::-ms-fill-upper {
+		width: 100%;
+		height: 8.4px;
+		cursor: pointer;
+		background-color: rgb(30 41 59 / 1);
+		border-radius: 999px;
 	}
 	input[type='range']::-ms-thumb {
+		height: 1.5rem;
+		width: 1.5rem;
 		border-radius: 999px;
-		background: rgb(244 114 182 / 1);
-		width: 30px;
-		height: 30px;
+		background-color: rgb(244 114 182 / 1);
 		cursor: pointer;
-	}
-	input[type='range']:focus::-ms-fill-lower {
-		background: rgb(244 114 182 / 1);
-	}
-	input[type='range']:focus::-ms-fill-upper {
-		background: rgb(244 114 182 / 1);
 	}
 </style>

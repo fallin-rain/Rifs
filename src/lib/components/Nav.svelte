@@ -1,8 +1,13 @@
 <script>
 	import { page } from '$app/stores'
+	import { onMount } from 'svelte'
+
+	let shouldHide = false
+
+	onMount(() => (onscroll = () => (scrollY > 50 ? (shouldHide = true) : (shouldHide = false))))
 </script>
 
-<nav class="fixed left-0 bottom-0 z-50 w-full">
+<nav class:hide={shouldHide} class="fixed left-0 bottom-0 z-50 w-full">
 	<div class="md:max-w-xs mx-auto bg-slate-800 text-pink-200 overflow-hidden p-3">
 		<div class="flex items-center justify-between">
 			<!-- home -->
@@ -76,7 +81,14 @@
 </nav>
 
 <style>
+	nav {
+		transition: transform 450ms ease-out, opacity 100ms linear;
+	}
 	.active {
 		background-color: rgb(15 23 42 / 1);
+	}
+	.hide {
+		transform: translateY(200px);
+		opacity: 0;
 	}
 </style>

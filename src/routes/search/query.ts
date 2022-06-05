@@ -4,8 +4,7 @@ export async function get({ url }) {
 	const data = await res.json()
 
 	const search_text = url.searchParams.get('search_text')
-	let count = url.searchParams.get('count')
-	if (!count) count = '10'
+	let count = url.searchParams.get('count') || '10'
 
 	const searchData = await fetch(
 		import.meta.env.VITE_API_V2 +

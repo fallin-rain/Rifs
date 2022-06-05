@@ -3,12 +3,18 @@
 	import { onMount } from 'svelte'
 
 	let shouldHide = false
+	let oldScrollPos = 0
 
-	onMount(() => (onscroll = () => (scrollY > 50 ? (shouldHide = true) : (shouldHide = false))))
+	onMount(() => {
+		onscroll = () => {
+			oldScrollPos < scrollY ? (shouldHide = true) : (shouldHide = false)
+			oldScrollPos = scrollY
+		}
+	})
 </script>
 
 <nav class:hide={shouldHide} class="fixed left-0 bottom-0 z-50 w-full">
-	<div class="md:max-w-xs mx-auto bg-slate-800 text-pink-200 overflow-hidden p-3">
+	<div class="md:max-w-xs mx-auto bg-slate-800 text-slate-400 overflow-hidden p-3">
 		<div class="flex items-center justify-between">
 			<!-- home -->
 			<a
@@ -36,7 +42,7 @@
 			<a
 				href="/search"
 				sveltekit:prefetch
-				class="flex-shrink-0 bg-opacity-50 px-6 py-2 rounded-full"
+				class="flex-shrink-0 px-6 py-2 rounded-full"
 				class:active={$page.url.pathname === '/search'}
 			>
 				<svg
@@ -82,13 +88,15 @@
 
 <style>
 	nav {
-		transition: transform 450ms ease-out, opacity 100ms linear;
+		transition: transform 450ms ease-out;
 	}
 	.active {
-		background-color: rgb(15 23 42 / 1);
+		background-color: rgb(15 23 42 / 0.6);
+	}
+	.active > svg {
+		color: rgb(251 207 232 / 1);
 	}
 	.hide {
 		transform: translateY(200px);
-		opacity: 0;
 	}
 </style>

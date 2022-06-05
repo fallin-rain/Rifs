@@ -1,17 +1,27 @@
 <script>
+	// @ts-nocheck
+
 	import '../tailwind.css'
 	import Header from '$lib/components/Header.svelte'
 	import Nav from '$lib/components/Nav.svelte'
+
+	let loaded = false
+
+	function pageLoaded() {
+		loaded = true
+	}
 </script>
 
-<div
-	class="min-h-screen select-none scrollbar-thin scrollbar-thumb-pink-900 scrollbar-track-blue-600 bg-slate-900 text-pink-200"
->
-	<Header />
-	<main class="px-6 scrollbar py-20 space-y-10 md:px-20">
-		<slot />
-	</main>
-	<Nav />
+<div class="min-h-screen bg-slate-900 text-pink-200">
+	{#if loaded}
+		<Header />
+		<main class="px-6 py-20 space-y-10 md:px-20">
+			<slot />
+		</main>
+		<Nav />
+	{:else}
+		<div use:pageLoaded class="min-h-screen grid place-items-center">loading...</div>
+	{/if}
 </div>
 
 <style>

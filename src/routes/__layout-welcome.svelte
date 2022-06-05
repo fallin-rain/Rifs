@@ -1,11 +1,23 @@
 <script>
+	// @ts-nocheck
+
 	import '../tailwind.css'
+
+	let loaded = false
+
+	function pageLoaded() {
+		loaded = true
+	}
 </script>
 
 <div class="min-h-screen select-none bg-slate-900 text-pink-200">
-	<main class="p-6 space-y-10 md:p-20">
-		<slot />
-	</main>
+	{#if loaded}
+		<main class="p-6 space-y-10 md:p-20">
+			<slot />
+		</main>
+	{:else}
+		<div use:pageLoaded class="min-h-screen grid place-items-center">loading...</div>
+	{/if}
 </div>
 
 <style>

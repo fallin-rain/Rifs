@@ -19,7 +19,7 @@
 	onMount(() =>
 		lazyload('[data-lazyvideo]', {
 			autoplay: true,
-			threshold: 0.5,
+			threshold: 0.2,
 		})
 	)
 	export let stories

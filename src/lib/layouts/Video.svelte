@@ -6,6 +6,7 @@
 	export let verified: boolean
 	export let poster: string
 	export let src: string
+	export let onlyControls = false
 
 	// video controls
 	let saved = false
@@ -15,43 +16,30 @@
 	let showControlsTimeout: NodeJS.Timeout | undefined
 	let duration: number
 	let currentTime: number
-	let buffered
 	let a: string | number
 
 	function seekvideo(e) {
-		clearInterval(showControlsTimeout)
-		showControlsTimeout = setInterval(() => (showControls = false), 2500)
-		showControls = true
-
 		if (!duration) return
 
-		return (currentTime = e.target.value)
+		currentTime = e.target.value
+
+		clearInterval(showControlsTimeout)
+		showControlsTimeout = setInterval(() => (showControls = false), 2500)
 	}
 
 	function handleClick(e) {
 		if (e.detail === 1) {
 			clearInterval(showControlsTimeout)
 			showControlsTimeout = setInterval(() => (showControls = false), 2500)
-			showControls = true
+			showControls = !showControls
 		} else if (e.detail === 2) {
 			paused = !paused
 		}
 		return
 	}
 
-	// function buffer(e) {
-	// 	let i
-
-	// 	for (i = 0; i < e.target.buffered.length; i++) {
-	// 		if (e.target.buffered.length - 1 - i < currentTime) {
-	// 			buffered = (e.target.buffered.end(e.target.buffered.length - 1 - i) / duration) * 100 + '%'
-	// 			console.log(buffered)
-	// 		}
-	// 	}
-
 	function buffer(e) {
 		a = (e.target.buffered.end(e.target.length) / duration) * 100
-		console.log(a + '%')
 	}
 </script>
 
@@ -70,7 +58,6 @@
 	{height}
 	{width}
 	loop
-	bind:buffered
 	bind:currentTime
 	bind:duration
 	bind:muted
@@ -94,66 +81,68 @@
 	</svg>
 </button>
 <!-- username -->
-<div
-	id="username"
-	class="absolute inset-x-0 top-0 flex items-center justify-between p-3"
-	style={showControls || paused
-		? 'transform: translateY(0px); opacity: 1;'
-		: 'transform: translateY(-100px); opacity: 0;'}
->
-	<a
-		href={'/creators/' + id}
-		sveltekit:prefetch
-		class="flex w-max items-center gap-1 font-bold tracking-wide truncate"
+{#if !onlyControls}
+	<div
+		id="username"
+		class="absolute inset-x-0 top-0 flex items-center justify-between p-3"
+		style={showControls || paused
+			? 'transform: translateY(0px); opacity: 1;'
+			: 'transform: translateY(-100px); opacity: 0;'}
 	>
-		{username}
-		{#if verified}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="mt-1 h-4 w-4"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-					clip-rule="evenodd"
-				/>
-			</svg>
-		{/if}
-	</a>
-	<!-- save -->
-	<button>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-6 w-6 flex-shrink-0"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor"
-			stroke-width="2"
+		<a
+			href={'/creators/' + id}
+			sveltekit:prefetch
+			class="flex w-max items-center gap-1 font-bold tracking-wide truncate"
 		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-			/>
-		</svg>
-		{#if saved}
+			{username}
+			{#if verified}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="mt-1 h-4 w-4"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			{/if}
+		</a>
+		<!-- save -->
+		<button>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-6 w-6 flex-shrink-0"
-				viewBox="0 0 20 20"
-				fill="currentColor"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
 				<path
-					fill-rule="evenodd"
-					d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-					clip-rule="evenodd"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
 				/>
 			</svg>
-		{/if}
-	</button>
-</div>
+			{#if saved}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6 flex-shrink-0"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			{/if}
+		</button>
+	</div>
+{/if}
 <!-- video controls -->
 <div
 	id="controls"
@@ -205,7 +194,7 @@
 	<div class="relative -mt-2 w-full">
 		<div
 			id="buffer-bar"
-			class="absolute top-2/4 left-0 h-1.5 rounded-full bg-pink-400 pointer-events-none"
+			class="absolute top-2/4 left-0 translate-y-[1.5px] h-1.5 rounded-full bg-pink-400 pointer-events-none"
 			style="width: {a}%"
 		/>
 		<input

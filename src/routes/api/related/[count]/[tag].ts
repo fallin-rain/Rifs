@@ -1,4 +1,4 @@
-export async function get({ params, url }) {
+export async function get({ params, url }: { params: any; url: any }) {
 	url.searchParams.set('count', params.count)
 
 	const res = await fetch(import.meta.env.VITE_API_V2 + '/gifs/search' + url.search)

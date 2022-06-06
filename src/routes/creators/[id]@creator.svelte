@@ -29,6 +29,7 @@
 	import Divider from '$lib/layouts/Divider.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
+	import Video from '$lib/layouts/Video.svelte'
 
 	export let gif
 	export let user
@@ -43,13 +44,15 @@
 </script>
 
 <section>
-	<video
-		class="mx-auto block w-full md:rounded-xl aspect-video bg-black"
-		controls
-		loop
-		muted
-		src={gif.urls.hd}
-	/>
+	<div class="mx-auto block w-full md:rounded-xl aspect-video bg-black">
+		<Video
+			onlyControls={true}
+			src={gif.urls.hd}
+			poster={gif.urls.poster}
+			width={gif.width}
+			height={gif.height}
+		/>
+	</div>
 	<div class="p-6 md:px-0 space-y-6">
 		<div class="flex items-center justify-between">
 			<div>

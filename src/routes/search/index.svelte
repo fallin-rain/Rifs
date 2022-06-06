@@ -11,49 +11,56 @@
 
 <!--
 	### TAILWIND NEW REDESIGN QUERY PARAMS
-	https://play.tailwindcss.com/EctFk79Ted -->
+	https://play.tailwindcss.com/CNWhvlah6i -->
 <script lang="ts">
+	import { onMount } from 'svelte'
+	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import { lazyload } from '$lib/utils/lazyload'
+	import { count, order, search_text } from '$lib/stores/queryParams'
 
-	import { navigating, page } from '$app/stores'
-	import LinkBtn from '$lib/components/LinkBtn.svelte'
-
-	import MasonryCard from '$lib/components/MasonryCard.svelte'
+	import Tags from '$lib/layouts/Tags.svelte'
 	import Divider from '$lib/layouts/Divider.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
-	import Tags from '$lib/layouts/Tags.svelte'
-	import { count, search_text } from '$lib/stores/queryParams'
-
-	import { lazyload } from '$lib/utils/lazyload'
-	import { onMount } from 'svelte'
+	import LinkBtn from '$lib/components/LinkBtn.svelte'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
 	export let data: object
 
-	let query = ''
-	let searchResults = ''
 	let searching = false
+	let searchResults = ''
+
+	// set query params at first from store
+	$page.url.searchParams.set('search_text', $search_text)
+	$page.url.searchParams.set('count', $count.toString())
+	$page.url.searchParams.set('order', $order)
+
+	console.log($page.url.search)
 
 	async function searchQuery() {
 		searching = true
 
-		if (!query) return
+		if (!$search_text) return
 
-		let currentQuery = $page.url.searchParams.get('query')
+		let inputVal = $search_text?.trim() || ''
+		let currentQuery = $page.url.searchParams.get('query')?.trim()
 
-		if ($search_text.trim() == currentQuery?.trim()) return
+		if (inputVal == currentQuery) return
 
-		await goto('/search?query=' + encodeURIComponent($search_text.trim()), { keepfocus: true })
+		await goto('/search?query=' + encodeURIComponent(inputVal), { keepfocus: true })
 
 		searchResults = data.data
 
 		searching = false
-		console.log(searchResults)
 	}
 
 	async function searchText() {
 		if (searchResults.length === 0) return
 
-		await goto('/search?search_text=' + encodeURIComponent(searchResults[0].text))
+		$page.url.searchParams.set('search_text', encodeURIComponent(searchResults[0].text))
+		count.set(10) // reset count when doing a search
+
+		await goto('/search?search_text=' + $page.url.searchParams.get('search_text'))
 	}
 
 	// debounce
@@ -67,13 +74,17 @@
 		timer = setTimeout(searchQuery, delay)
 	}
 
+	function loadmorePosts() {
+		if ($count >= 80) return
+
+		count.update(inc => (inc += 20))
+	}
+
 	onMount(() => {
 		lazyload('[data-lazyvideo]', {
 			threshold: 0.4,
 		})
 	})
-
-	console.log(navigating)
 </script>
 
 <section class="space-y-6">
@@ -83,15 +94,12 @@
 		<input
 			type="text"
 			placeholder="Search tags and creators"
-			bind:value={query}
-			on:keypress={() => {
-				search_text.set(query)
-				debounce()
-			}}
+			bind:value={$search_text}
+			on:keypress={debounce}
 			class="flex-shrink w-min bg-transparent pl-6 focus:outline-none"
 		/>
 		<button class="inline-block text-sm flex-shrink-0 rounded-lg bg-slate-800 p-4">
-			{#if !query}
+			{#if !$search_text}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-5 w-5"
@@ -119,7 +127,7 @@
 				</svg>
 			{:else if searchResults.length === 0}
 				<svg
-					on:click={() => (query = '')}
+					on:click={() => ($search_text = '')}
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-5 w-5"
 					fill="none"
@@ -147,7 +155,7 @@
 		</button>
 	</div>
 
-	{#if query}
+	{#if $search_text}
 		<div class="space-y-6 rounded-lg bg-slate-800 bg-opacity-40 p-6">
 			{#if searchResults.length > 0}
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
@@ -199,6 +207,34 @@
 	</div>
 	<Divider />
 	<Heading title="Recent posts" />
+	<div class="rounded-xl flex items-center justify-between bg-slate-800">
+		<div class="px-6 py-4">
+			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-0.5">
+				<option value="">Order</option>
+				<option value="recent">Recent</option>
+				<option value="trending">Trending</option>
+				<option value="best">Best</option>
+				<option value="top28">Top 30</option>
+			</select>
+		</div>
+		<div class="px-6 py-4">
+			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-1">
+				<option value="">Type</option>
+				<option value="Gif">Gifs</option>
+				<option value="Images">Images</option>
+			</select>
+		</div>
+		<div class="px-6 py-4">
+			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-1">
+				<option value="">Filter</option>
+				<option value="&verified=y">Verified</option>
+				<option value="&sound=y">Sound gifs</option>
+				<option value="&long=y">Long gifs</option>
+				<option value="&ratio=v">Vertical</option>
+				<option value="&ratio=h">Horizontal</option>
+			</select>
+		</div>
+	</div>
 	<!-- user's posts -->
 	<div class="columns-2 lg:columns-3 xl:columns-4 gap-3 w-full mx-auto space-y-3">
 		{#each data.searchResults.gifs as gif}
@@ -214,8 +250,9 @@
 		{/each}
 	</div>
 	<LinkBtn
-		url={`${$page.url.pathname}?search_text=${$page.url.searchParams.get(
-			'search_text'
-		)}&count=${$count}`}
+		url={`${$page.url.pathname}?search_text=${
+			$page.url.searchParams.get('search_text') || ''
+		}&count=${$count}`}
+		on:loadmore={loadmorePosts}
 	/>
 </section>

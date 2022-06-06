@@ -1,20 +1,18 @@
 <script context="module">
-	let count = 20
 	export async function load({ fetch }) {
 		const res = await fetch('/api/home/')
 		const data = await res.json()
-		console.log(count)
 
 		return {
 			status: res.status,
 			props: {
 				hotGifs: data.hotGifs,
-				oneMGifs: data.longGifs.slice(0, count),
+				oneMGifs: data.longGifs.slice(0, 20),
 				soundGifs: data.soundGifs,
-				stories: data.verticalGifs.slice(0, count),
+				stories: data.verticalGifs.slice(0, 10),
 				hotCreators: data.hotCreators,
 				newCreators: data.newCreators,
-				trending: data.horizontalGifs.slice(0, count),
+				trending: data.horizontalGifs.slice(0, 20),
 			},
 		}
 	}

@@ -17,7 +17,7 @@
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 	import { lazyload } from '$lib/utils/lazyload'
-	import { count, order, search_text } from '$lib/stores/queryParams'
+	import { count, filter, order, search_text, type } from '$lib/stores/queryParams'
 
 	import Tags from '$lib/layouts/Tags.svelte'
 	import Divider from '$lib/layouts/Divider.svelte'
@@ -33,9 +33,12 @@
 	// set query params at first from store
 	$page.url.searchParams.set('search_text', $search_text)
 	$page.url.searchParams.set('count', $count.toString())
-	$page.url.searchParams.set('order', $order)
 
-	console.log($page.url.search)
+	$: $page.url.searchParams.set('order', $order)
+	$: $page.url.searchParams.set('type', $type)
+	$: $page.url.searchParams.set('filter', $filter)
+
+	$: console.log($page.url.search)
 
 	async function searchQuery() {
 		searching = true
@@ -209,7 +212,10 @@
 	<Heading title="Recent posts" />
 	<div class="rounded-xl flex items-center justify-between bg-slate-800">
 		<div class="px-6 py-4">
-			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-0.5">
+			<select
+				on:change={e => order.set(e.target?.value)}
+				class="border-b border-pink-300 bg-transparent pb-0.5"
+			>
 				<option value="">Order</option>
 				<option value="recent">Recent</option>
 				<option value="trending">Trending</option>
@@ -218,14 +224,20 @@
 			</select>
 		</div>
 		<div class="px-6 py-4">
-			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-1">
+			<select
+				on:change={e => type.set(e.target?.value)}
+				class="border-b border-pink-300 bg-transparent pb-1"
+			>
 				<option value="">Type</option>
-				<option value="Gif">Gifs</option>
-				<option value="Images">Images</option>
+				<option value="&type=g">Gifs</option>
+				<option value="&type=i">Images</option>
 			</select>
 		</div>
 		<div class="px-6 py-4">
-			<select name="cars" id="cars" class="border-b border-pink-300 bg-transparent pb-1">
+			<select
+				on:change={e => filter.set(e.target?.value)}
+				class="border-b border-pink-300 bg-transparent pb-1"
+			>
 				<option value="">Filter</option>
 				<option value="&verified=y">Verified</option>
 				<option value="&sound=y">Sound gifs</option>

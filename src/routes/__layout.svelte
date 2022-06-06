@@ -15,7 +15,7 @@
 <div class="min-h-screen bg-slate-900 text-pink-200">
 	{#if loaded}
 		<Header />
-		<main class="px-6 py-20 space-y-10 md:px-20">
+		<main class="px-6 pb-20 md:px-20">
 			<slot />
 		</main>
 		<Nav />
@@ -32,6 +32,7 @@
 		scrollbar-color: rgba(233, 30, 99, 1) #0f172a;
 		scrollbar-width: none;
 		user-select: none !important;
+		scroll-behavior: smooth;
 	}
 
 	:global(html)::-webkit-scrollbar-track {

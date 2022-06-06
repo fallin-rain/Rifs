@@ -5,15 +5,17 @@
 	let shouldHide = false
 	let oldScrollPos = 0
 
-	onMount(() => {
-		onscroll = () => {
-			oldScrollPos < scrollY ? (shouldHide = true) : (shouldHide = false)
-			oldScrollPos = scrollY
-		}
-	})
+	let testing = true // hide the old one
+
+	// onMount(() => {
+	// 	onscroll = () => {
+	// 		oldScrollPos < scrollY ? (shouldHide = true) : (shouldHide = false)
+	// 		oldScrollPos = scrollY
+	// 	}
+	// })
 </script>
 
-<nav class:hide={shouldHide} class="fixed left-0 bottom-0 z-50 w-full">
+<nav class="fixed left-0 bottom-0 z-50 w-full">
 	<div class="md:max-w-xs mx-auto bg-slate-800 text-slate-400 overflow-hidden p-3">
 		<div class="flex items-center justify-between">
 			<!-- home -->
@@ -91,12 +93,9 @@
 		transition: transform 450ms ease-out;
 	}
 	.active {
-		background-color: rgb(15 23 42 / 0.6);
-	}
-	.active > svg {
+		font-weight: 600;
 		color: rgb(251 207 232 / 1);
-	}
-	.hide {
-		transform: translateY(200px);
+		border-bottom: 2px solid;
+		border-color: rgb(251 207 232 / 1);
 	}
 </style>

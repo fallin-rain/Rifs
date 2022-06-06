@@ -8,13 +8,20 @@
 	export let id: string
 	export let height: string
 	export let width: string
+	export let image = false
 </script>
 
-<div class="relative overflow-hidden rounded-xl text-pink-400">
-	<!-- video -->
-	<!-- svelte-ignore a11y-media-has-caption -->
-	<Video {id} {username} {verified} {poster} {src} {height} {width} />
-</div>
+{#if image}
+	<div class="relative overflow-hidden rounded-xl text-pink-400">
+		<img {src} alt="user's id is {id}" {width} {height} />
+	</div>
+{:else}
+	<div class="relative overflow-hidden rounded-xl text-pink-400">
+		<!-- video -->
+		<!-- svelte-ignore a11y-media-has-caption -->
+		<Video {id} {username} {verified} {poster} {src} {height} {width} />
+	</div>
+{/if}
 
 <style>
 	button#absolute-playpause {

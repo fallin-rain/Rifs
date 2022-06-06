@@ -3,7 +3,7 @@
 </script>
 
 <header
-	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-3"
+	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
 >
 	<a
 		href="/"
@@ -12,7 +12,12 @@
 		>Rifs</a
 	>
 	<div class="flex items-center justify-between gap-6 text-sm text-slate-400">
-		<a href="/tags">
+		<a
+			href="/tags"
+			sveltekit:prefetch
+			class="flex-shrink-0 p-1.5 rounded-lg"
+			class:selected={$page.url.pathname === '/tags'}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -28,7 +33,8 @@
 				/>
 			</svg>
 		</a>
-		<a href="#"
+		<!-- VERIFIED link -->
+		<!-- <a href="#" class="flex-shrink-0 p-1.5 rounded-lg"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -43,8 +49,13 @@
 					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 				/></svg
 			></a
+		> -->
+		<a
+			href="/stories/test"
+			sveltekit:prefetch
+			class="flex-shrink-0 p-1.5 rounded-lg"
+			class:selected={$page.url.pathname === '/stories/test'}
 		>
-		<a href="/stories/test" sveltekit:prefetch class:selected={$page.url.pathname === '/verified'}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -60,23 +71,13 @@
 				/>
 			</svg>
 		</a>
-		<a href="/search" sveltekit:prefetch class:selected={$page.url.pathname === '/search'}
-			><svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-				/></svg
-			></a
+
+		<a
+			href="/settings"
+			sveltekit:prefetch
+			class="flex-shrink-0 p-1.5 rounded-lg"
+			class:selected={$page.url.pathname === '/settings'}
 		>
-		<a href="/settings" sveltekit:prefetch class:selected={$page.url.pathname === '/settings'}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -205,8 +206,6 @@
 
 <style>
 	.selected {
-		background-color: rgb(30, 41, 59);
-		padding: 0.25em;
-		border-radius: 5px;
+		background-color: rgb(30 41 59);
 	}
 </style>

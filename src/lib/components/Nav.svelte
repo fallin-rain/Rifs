@@ -44,7 +44,7 @@
 			<a
 				href="/search"
 				sveltekit:prefetch
-				class="flex-shrink-0 px-6 py-2 rounded-full"
+				class="flex-shrink-0 bg-opacity-50 px-6 py-2 rounded-full"
 				class:active={$page.url.pathname === '/search'}
 			>
 				<svg
@@ -93,9 +93,7 @@
 		transition: transform 450ms ease-out;
 	}
 	.active {
-		font-weight: 600;
-		color: rgb(251 207 232 / 1);
-		border-bottom: 2px solid;
-		border-color: rgb(251 207 232 / 1);
+		--color: 15 23 42;
+		background-color: rgb(var(--color) / 1);
 	}
 </style>

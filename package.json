@@ -34,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"daisyui": "^2.15.2",
 		"svelte-video-player-kit": "^1.2.8"
 	}
 }

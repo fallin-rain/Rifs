@@ -156,108 +156,94 @@
 		</a>
 	</div>
 
-	<div class="flex items-start w-full snap-x mt-14 snap-proximity gap-6 overflow-x-scroll">
-		<section
-			id="trend"
-			in:fly={{ y: -500, duration: 450 }}
-			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
-		>
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each trending as data}
-					<MasonryCard
-						poster={data.urls.poster}
-						src={data.urls.vthumbnail}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-		</section>
-		<section
-			id="hot"
-			in:fly={{ y: -500, duration: 450 }}
-			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
-		>
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each hotGifs as data}
-					<MasonryCard
-						poster={data.urls.poster}
-						src={data.urls.vthumbnail}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-		</section>
-		<section
-			id="creators"
-			in:fly={{ y: -500, duration: 450 }}
-			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
-		>
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each creators as data}
-					<MasonryCard
-						poster={data.poster}
-						src={data.preview}
-						verified={data.verified}
-						id={data.thumbnail}
-						username={data.username}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-		</section>
-		<section
-			id="long-gifs"
-			in:fly={{ y: -500, duration: 450 }}
-			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
-		>
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each longGifs as data}
-					<MasonryCard
-						poster={data.urls.poster}
-						src={data.urls.vthumbnail}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-		</section>
-		<section
-			id="images"
-			in:fly={{ y: -500, duration: 450 }}
-			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
-		>
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each images as data}
-					<MasonryCard
-						image={true}
-						src={data.urls.sd}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-		</section>
-	</div>
+	<section class="p-6 md:p-60">
+		<div class="flex items-start w-full snap-xsnap-proximity gap-x-6 overflow-x-scroll">
+			<section
+				id="trend"
+				in:fly={{ y: -500, duration: 450 }}
+				class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
+			>
+				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+					{#each trending as data}
+						<MasonryCard
+							poster={data.urls.poster}
+							src={data.urls.vthumbnail}
+							verified={data.user.verified}
+							username={data.user.username}
+							id={data.id}
+							width={data.width}
+							height={data.height}
+						/>
+					{/each}
+				</div>
+				<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+			</section>
+			<section id="hot" class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64">
+				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+					{#each hotGifs as data}
+						<MasonryCard
+							poster={data.urls.poster}
+							src={data.urls.vthumbnail}
+							verified={data.user.verified}
+							username={data.user.username}
+							id={data.id}
+							width={data.width}
+							height={data.height}
+						/>
+					{/each}
+				</div>
+				<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+			</section>
+			<section id="creators" class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64">
+				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+					{#each creators as data}
+						<MasonryCard
+							poster={data.poster}
+							src={data.preview}
+							verified={data.verified}
+							id={data.thumbnail}
+							username={data.username}
+							width={data.width}
+							height={data.height}
+						/>
+					{/each}
+				</div>
+				<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+			</section>
+			<section id="long-gifs" class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64">
+				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+					{#each longGifs as data}
+						<MasonryCard
+							poster={data.urls.poster}
+							src={data.urls.vthumbnail}
+							verified={data.user.verified}
+							username={data.user.username}
+							id={data.id}
+							width={data.width}
+							height={data.height}
+						/>
+					{/each}
+				</div>
+				<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+			</section>
+			<section id="images" class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64">
+				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+					{#each images as data}
+						<MasonryCard
+							image={true}
+							src={data.urls.sd}
+							verified={data.user.verified}
+							username={data.user.username}
+							id={data.id}
+							width={data.width}
+							height={data.height}
+						/>
+					{/each}
+				</div>
+				<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+			</section>
+		</div>
+	</section>
 {/if}
 
 <style>

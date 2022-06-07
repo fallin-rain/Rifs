@@ -35,22 +35,25 @@
 	export let gifs: string[]
 </script>
 
-<section id="about-user">
+<section class="p-6 md:p-60">
 	<!-- about user -->
-	<div class="max-w-sm mx-auto flex flex-col gap-4 items-center text-pink-200">
-		<div class="w-36 h-36 overflow-hidden rounded-2xl">
-			<img
-				class="block bg-slate-600 w-full h-full object-cover object-center"
-				src={user.profileImageUrl ||
-					'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
-				alt={(user.profileImageUrl && user.name) || 'No profile image'}
-			/>
+	<div class="max-w-sm mx-auto flex flex-col gap-4 items-center">
+		<div class="avatar">
+			<div class="w-36 mask mask-squircle text-xs">
+				<img
+					class="block bg-slate-600 w-full h-full object-cover object-center"
+					src={user.profileImageUrl ||
+						'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
+					alt={(user.profileImageUrl && user.name) || 'No profile image'}
+				/>
+			</div>
 		</div>
+
 		<div class="text-center">
 			<h3
-				class="flex max-h-min text-center items-center justify-center text-lg font-semibold tracking-wide text-pink-400"
+				class="flex max-h-min text-center items-center justify-center text-lg font-semibold tracking-wide text-accent"
 			>
-				{user.name}
+				{user.name || 'No name'}
 				{#if user.verified}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -67,19 +70,20 @@
 					</svg>
 				{/if}
 			</h3>
-			<p class="text-sm text-slate-600">@{user.username}</p>
-			<span class="text-sm text-slate-600">Since <time>{formatTS(user.creationtime)}</time></span>
+			<p class="text-sm">@{user.username}</p>
+			<span class="text-sm">Since <time>{formatTS(user.creationtime)}</time></span>
 		</div>
-		<div class="flex divide-x divide-slate-800 items-center justify-between">
+		<div class="flex items-center justify-between">
 			<!-- followers -->
-			<div class="text-center pr-10">
+			<div class="text-center pr-5">
 				<p class="">{user.followers}</p>
-				<p class="text-sm text-slate-600">Followers</p>
+				<p class="text-sm text-info">Followers</p>
 			</div>
+			<div class="divider divider-horizontal" />
 			<!-- gifs -->
-			<div class="text-center pl-10">
+			<div class="text-center pl-5">
 				<p class="">{user.gifs}</p>
-				<p class="text-sm text-slate-600">Total gifs</p>
+				<p class="text-sm text-info">Total gifs</p>
 			</div>
 		</div>
 		<p class="{user.description || 'hidden'} min-w-full">
@@ -88,7 +92,7 @@
 		<!-- social links -->
 		<div class="min-w-full flex items-center flex-wrap gap-x-4 gap-y-1">
 			<a
-				class="{user.socialUrl1 || 'hidden'} flex items-center font-semibold text-pink-400"
+				class="{user.socialUrl1 || 'hidden'} btn btn-outline btn-xs"
 				href={user.socialUrl1}
 				target="_blank"
 			>
@@ -215,18 +219,14 @@
 			</a>
 		</div>
 	</div>
-</section>
 
-<section id="user-tags">
 	<Heading title="Most used tags" />
 	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<Tags linkPath={'/tags/related/'} {tag} />
 		{/each}
 	</div>
-</section>
 
-<section id="user-posts" class="mt-3">
 	<h1
 		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
 	>

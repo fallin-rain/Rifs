@@ -12,12 +12,11 @@
 	}
 </script>
 
-<div class="min-h-screen bg-slate-900 text-pink-200">
+<div class="min-h-screen bg-base-300">
 	{#if loaded}
 		<Header />
-		<main class="px-6 pb-20 md:px-20">
-			<slot />
-		</main>
+		<slot />
+		<div class="h-[66px] w-full" />
 		<Nav />
 	{:else}
 		<div use:pageLoaded class="min-h-screen grid place-items-center">loading...</div>

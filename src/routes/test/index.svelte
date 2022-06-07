@@ -62,15 +62,19 @@
 	]
 </script>
 
-<h1>Search</h1>
-<form on:submit|preventDefault={searchTag}>
+<h1 class="mt-20" />
+<form class=" form-control max-w-sm" on:submit|preventDefault={searchTag}>
+	<label for="search" class="label">
+		<span class="label-text">Search tags and creators</span>
+	</label>
 	<input
-		class="bg-slate-800 px-6 py-3"
+		placeholder="Search"
+		class="input input-bordered"
 		type="search"
 		name="search"
 		bind:value={query}
 		on:keyup={() => debounce(1200)}
-	/><button type="submit" class="bg-pink-600 px-4 py-1.5 text-sm">Search</button>
+	/><button type="submit" class="mt-3 btn btn-secondary w-max ">Search</button>
 </form>
 
 {JSON.stringify(data)}

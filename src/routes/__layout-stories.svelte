@@ -10,7 +10,7 @@
 	}
 </script>
 
-<main class="min-h-screen bg-slate-900 text-pink-200">
+<main class="min-h-screen bg-base-300">
 	{#if loaded}
 		<slot />
 	{:else}

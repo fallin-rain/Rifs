@@ -12,7 +12,7 @@
 	}
 </script>
 
-<div class="min-h-screen bg-slate-900 text-pink-200">
+<div class="min-h-screen bg-base-300">
 	{#if loaded}
 		<Header />
 		<main class="py-[60px] md:p-24">

@@ -2,20 +2,18 @@
 	import { page } from '$app/stores'
 </script>
 
-<header
-	class="fixed top-0 z-50 flex w-full items-center justify-between border-b border-slate-800 bg-slate-900 px-6 md:px-20 py-4"
->
+<header class="sticky top-0 z-50 pl-6 navbar navbar-center border-b-2 border-neutral bg-base-100">
 	<a
 		href="/"
 		sveltekit:prefetch
-		class="bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
+		class="flex-1 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
 		>Rifs</a
 	>
-	<div class="flex items-center justify-between gap-6 text-sm text-slate-400">
+	<div class="text-sm space-x-3 text-slate-400">
 		<a
 			href="/tags"
 			sveltekit:prefetch
-			class="flex-shrink-0 p-1.5 rounded-lg"
+			class="btn btn-ghost"
 			class:selected={$page.url.pathname === '/tags'}
 		>
 			<svg
@@ -34,7 +32,7 @@
 			</svg>
 		</a>
 		<!-- VERIFIED link -->
-		<!-- <a href="#" class="flex-shrink-0 p-1.5 rounded-lg"
+		<!-- <a href="#" class="btn btn-ghost"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -53,7 +51,7 @@
 		<a
 			href="/stories/test"
 			sveltekit:prefetch
-			class="flex-shrink-0 p-1.5 rounded-lg"
+			class="btn btn-ghost"
 			class:selected={$page.url.pathname === '/stories/test'}
 		>
 			<svg
@@ -75,7 +73,7 @@
 		<a
 			href="/settings"
 			sveltekit:prefetch
-			class="flex-shrink-0 p-1.5 rounded-lg"
+			class="btn btn-ghost"
 			class:selected={$page.url.pathname === '/settings'}
 		>
 			<svg

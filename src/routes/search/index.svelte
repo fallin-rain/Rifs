@@ -90,85 +90,85 @@
 	})
 </script>
 
-<section class="space-y-6">
-	<div
-		class="flex w-full max-w-sm items-center justify-between overflow-hidden rounded-lg bg-slate-800 bg-opacity-40"
-	>
-		<input
-			type="text"
-			placeholder="Search tags and creators"
-			bind:value={$search_text}
-			on:keypress={debounce}
-			class="flex-shrink w-min bg-transparent pl-6 focus:outline-none"
-		/>
-		<button class="inline-block text-sm flex-shrink-0 rounded-lg bg-slate-800 p-4">
-			{#if !$search_text}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			{:else if searching}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5 animate-spin"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			{:else if searchResults.length === 0}
-				<svg
-					on:click={() => ($search_text = '')}
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-				</svg>
-			{:else}
-				<svg
-					on:click={searchText}
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			{/if}
-		</button>
+<section class="space-y-6 p-6 pb-24">
+	<div class="form-control">
+		<div class="input-group">
+			<input
+				bind:value={$search_text}
+				on:keypress={() => debounce()}
+				type="text"
+				placeholder="Search tags and creators"
+				class="input w-full focus:outline-none"
+			/>
+			<button class="btn" class:btn-active={$search_text} class:btn-primary={$search_text}>
+				{#if !$search_text}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{:else if searching}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5 animate-spin"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{:else if searchResults.length === 0}
+					<svg
+						on:click={() => ($search_text = '')}
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				{:else}
+					<svg
+						on:click={searchText}
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-5 w-5"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{/if}
+			</button>
+		</div>
 	</div>
 
 	{#if $search_text}
-		<div class="space-y-6 rounded-lg bg-slate-800 bg-opacity-40 p-6">
+		<div class="space-y-6 rounded-lg bg-base-100 p-6">
 			{#if searchResults.length > 0}
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 					{#each searchResults as searchResult}
 						{#if searchResult.type == 'tag'}
-							<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
+							<div class="flex flex-wrap items-center y-3 gap-x-3 gap-y-4">
 								<a
 									sveltekit:prefetch
 									href={'/search?search_text=' + searchResult?.text}
-									class="rounded-full border border-pink-500 px-4 py-1.5 text-sm font-medium"
+									class="badge badge-outlinetext-sm font-medium"
 								>
 									{searchResult?.text}
 								</a>
@@ -180,16 +180,19 @@
 								href={'/user/' + searchResult?.username}
 								class="flex items-center justify-start gap-3"
 							>
-								<img
-									src={searchResult?.userpic
-										? searchResult?.userpic
-										: 'https://avatars.dicebear.com/api/initials/' +
-										  searchResult?.username +
-										  '.svg?backgroundColors=pink'}
-									class="block h-10 w-10 rounded-full bg-slate-600 object-cover"
-									alt="Found creator {searchResult?.username}"
-								/>
-								<h5 class="text-lg font-semibold text-pink-400">@{searchResult?.username}</h5>
+								<div class="avatar">
+									<div class="w-14 mask mask-squircle">
+										<img
+											src={searchResult?.userpic
+												? searchResult?.userpic
+												: 'https://avatars.dicebear.com/api/initials/' +
+												  searchResult?.username +
+												  '.svg?backgroundColors=pink'}
+											alt="#"
+										/>
+									</div>
+								</div>
+								<h5 class="text-lg font-semibold text-primary">@{searchResult?.username}</h5>
 							</a>
 						{/if}
 					{/each}
@@ -197,7 +200,7 @@
 			{:else if searching}
 				<p class="text-center">Searching...</p>
 			{:else}
-				<p class="text-center">No results found!</p>
+				<p class="text-center text-warning">No results found!</p>
 			{/if}
 		</div>
 	{/if}
@@ -206,49 +209,39 @@
 	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each data.searchResults.tags as tag}
 			<Tags linkPath={'/search?search_text='} {tag} />
+			<!-- <a href={'/search?search_text=' + tag} class="badge">{tag}</a> -->
 		{/each}
 	</div>
-	<Divider />
+	<div class="divider" />
 	<Heading title="Recent posts" />
-	<div class="rounded-xl flex items-center justify-between bg-slate-800">
-		<div class="px-6 py-4">
-			<select
-				on:change={e => order.set(e.target?.value)}
-				class="border-b border-pink-300 bg-transparent pb-0.5"
-			>
-				<option value="">Order</option>
-				<option value="recent">Recent</option>
-				<option value="trending">Trending</option>
-				<option value="best">Best</option>
-				<option value="top28">Top 30</option>
-			</select>
-		</div>
-		<div class="px-6 py-4">
-			<select
-				on:change={e => type.set(e.target?.value)}
-				class="border-b border-pink-300 bg-transparent pb-1"
-			>
-				<option value="">Type</option>
-				<option value="&type=g">Gifs</option>
-				<option value="&type=i">Images</option>
-			</select>
-		</div>
-		<div class="px-6 py-4">
-			<select
-				on:change={e => filter.set(e.target?.value)}
-				class="border-b border-pink-300 bg-transparent pb-1"
-			>
-				<option value="">Filter</option>
-				<option value="&verified=y">Verified</option>
-				<option value="&sound=y">Sound gifs</option>
-				<option value="&long=y">Long gifs</option>
-				<option value="&ratio=v">Vertical</option>
-				<option value="&ratio=h">Horizontal</option>
-			</select>
-		</div>
+	<p>The select options are work in progress.</p>
+	<div class="w-full max-w-md flex items-center justify-start flex-wrap gap-3">
+		<!-- Order -->
+		<select on:change={e => order.set(e.target?.value)} class="select">
+			<option disabled selected value="">Order</option>
+			<option value="recent">Recent</option>
+			<option value="trending">Trending</option>
+			<option value="best">Best</option>
+			<option value="top28">Top 28</option>
+		</select>
+		<!-- Filter -->
+		<select on:change={e => filter.set(e.target?.value)} class="select">
+			<option disabled selected value="">Filter</option>
+			<option value="verified=y">Verified</option>
+			<option value="sound=y">Sounded</option>
+			<option value="long=y">1 minute</option>
+			<option value="ratio=v">Vertical</option>
+			<option value="ratio=h">16x9</option>
+		</select>
+		<!-- Type -->
+		<select on:change={e => filter.set(e.target?.value)} class="select">
+			<option disabled selected value="">Type</option>
+			<option value="type=g">gifs</option>
+			<option value="type=i">Images</option>
+		</select>
 	</div>
 	<!-- user's posts -->
-	<div class="columns-2 lg:columns-3 xl:columns-4 gap-3 w-full mx-auto space-y-3">
+	<div class="columns-1 lg:columns-3 xl:columns-4 gap-3 w-full mx-auto space-y-3">
 		{#each data.searchResults.gifs as gif}
 			<MasonryCard
 				poster={gif.urls.poster}
@@ -262,7 +255,7 @@
 		{/each}
 	</div>
 	<LinkBtn
-		url={`${$page.url.pathname}?search_text=${
+		href={`${$page.url.pathname}?search_text=${
 			$page.url.searchParams.get('search_text') || ''
 		}&count=${$count}`}
 		on:loadmore={loadmorePosts}

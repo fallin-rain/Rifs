@@ -7,7 +7,7 @@
 			status: res.status,
 			props: {
 				trending: [...data.horizontalGifs, ...data.verifiedGifs],
-				hotGifs: [...hotGifs, ...data.soundGifs],
+				hotGifs: [...data.hotGifs, ...data.soundGifs],
 				creators: [...data.hotCreators, ...data.newCreators],
 				longGifs: [...data.longGifs, ...data.verticalGifs],
 				images: [...data.hotImages, ...data.verifiedImages],
@@ -28,8 +28,8 @@
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 
 	// import Card from '$lib/components/Card.svelte'
-	import Heading from '$lib/layouts/Heading.svelte'
-	import Stories from '$lib/components/Stories.svelte'
+	// import Heading from '$lib/layouts/Heading.svelte'
+	// import Stories from '$lib/components/Stories.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import LinkBtn from '$lib/components/LinkBtn.svelte'
 
@@ -39,7 +39,6 @@
 	export let longGifs
 	export let images
 
-	let testing = true
 	let shouldHide = false
 	let oldScrollPos = 0
 
@@ -64,15 +63,16 @@
 <!-- https://play.tailwindcss.com/DNorBkRrQs -->
 
 {#if $first_time_visit !== 'yes'}
-	<!-- TEST STARTS -->
-	<nav
+	<!-- TAB BAR -->
+	<div
+		id="tab-bar"
 		class:hide={shouldHide}
-		class="sticky top-[65px] z-10 flex items-center justify-between border-b border-slate-800 bg-slate-900 text-slate-400"
+		class="sticky top-[66px] w-full z-50 tabs justify-between p-2 border-b-2 border-neutral bg-base-100"
 	>
 		<a
 			href="#trend"
-			class="py-4 w-full place-items-center grid"
-			class:active={$page.url.hash.length === 0 || $page.url.hash.includes('trend')}
+			class="tab"
+			class:tab-active={$page.url.hash.length === 0 || $page.url.hash.includes('trend')}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -83,13 +83,9 @@
 				stroke-width="2"
 			>
 				<path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-			</svg>
-		</a>
-		<a
-			href="#hot"
-			class="py-4 w-full place-items-center grid"
-			class:active={$page.url.hash.includes('hot')}
+			</svg></a
 		>
+		<a href="#hot" class="tab" class:tab-active={$page.url.hash.includes('hot')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -110,10 +106,7 @@
 				/>
 			</svg>
 		</a>
-		<a
-			href="#creators"
-			class="px-3 py-4 w-full place-items-center grid"
-			class:active={$page.url.hash.includes('creators')}
+		<a href="#creators" class="tab" class:tab-active={$page.url.hash.includes('creators')}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -129,10 +122,7 @@
 				/></svg
 			></a
 		>
-		<a
-			href="#long-gifs"
-			class="px-3 py-4 w-full place-items-center grid"
-			class:active={$page.url.hash.includes('long-gifs')}
+		<a href="#long-gifs" class="tab" class:tab-active={$page.url.hash.includes('long-gifs')}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -148,11 +138,7 @@
 				/></svg
 			></a
 		>
-		<a
-			href="#images"
-			class="px-3 py-4 w-full place-items-center grid"
-			class:active={$page.url.hash.includes('images')}
-		>
+		<a href="#images" class="tab" class:tab-active={$page.url.hash.includes('images')}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -168,10 +154,9 @@
 				/>
 			</svg>
 		</a>
-	</nav>
+	</div>
 
 	<div class="flex items-start w-full snap-x mt-14 snap-proximity gap-6 overflow-x-scroll">
-		<!-- home -->
 		<section
 			id="trend"
 			in:fly={{ y: -500, duration: 450 }}
@@ -192,7 +177,6 @@
 			</div>
 			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 		</section>
-		<!-- hot -->
 		<section
 			id="hot"
 			in:fly={{ y: -500, duration: 450 }}
@@ -213,7 +197,6 @@
 			</div>
 			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 		</section>
-		<!-- creaotrs -->
 		<section
 			id="creators"
 			in:fly={{ y: -500, duration: 450 }}
@@ -234,14 +217,13 @@
 			</div>
 			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 		</section>
-		<!-- Long gifs -->
 		<section
 			id="long-gifs"
 			in:fly={{ y: -500, duration: 450 }}
 			class="w-full flex-shrink-0 snap-start space-y-6 scroll-mt-64"
 		>
 			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each oneMGifs as data}
+				{#each longGifs as data}
 					<MasonryCard
 						poster={data.urls.poster}
 						src={data.urls.vthumbnail}
@@ -255,7 +237,6 @@
 			</div>
 			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 		</section>
-		<!-- images -->
 		<section
 			id="images"
 			in:fly={{ y: -500, duration: 450 }}
@@ -277,86 +258,6 @@
 			<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 		</section>
 	</div>
-	<!-- TEST ENDS -->
-	{#if !testing}
-		<!-- Stories -->
-		<section id="sotries" in:fly={{ y: -500, duration: 450 }}>
-			<Heading title="Stories" />
-
-			<div id="overflow" class="mt-6 flex gap-6 overflow-x-scroll pb-2">
-				{#each stories as story}
-					<Stories
-						hasAudio={story.hasAudio}
-						src={story.urls.sd}
-						height={story.height}
-						width={story.width}
-						poster={story.urls.poster}
-						autoplay={false}
-						id={story.id}
-						username={story.user.username}
-						verified={story.verified}
-					/>
-				{/each}
-			</div>
-		</section>
-		<!-- test stories -->
-		<LinkBtn url={'/stories/test'} text={'Try the new stories'} />
-		<!-- Trending -->
-		<section id="trending" in:fly={{ y: -500, duration: 450, delay: 250, opacity: 0 }}>
-			<Heading title="Trending" />
-
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each trending as data}
-					<MasonryCard
-						poster={data.urls.poster}
-						src={data.urls.vthumbnail}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-		</section>
-
-		<!-- Hot creators -->
-		<section in:fly={{ y: 500, duration: 250 }}>
-			<Heading title="Hot creators" />
-
-			<div class="mt-6 columns-2 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
-				{#each hotCreators as data}
-					<MasonryCard
-						poster={data.poster}
-						src={data.preview}
-						verified={data.verified}
-						id={data.thumbnail}
-						username={data.username}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-		</section>
-
-		<!-- 1 M gifs -->
-		<section in:fly={{ y: 500, duration: 250 }}>
-			<Heading title="1 minute gifs" />
-			<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-				{#each oneMGifs as data}
-					<MasonryCard
-						poster={data.urls.poster}
-						src={data.urls.vthumbnail}
-						verified={data.user.verified}
-						username={data.user.username}
-						id={data.id}
-						width={data.width}
-						height={data.height}
-					/>
-				{/each}
-			</div>
-		</section>
-	{/if}
 {/if}
 
 <style>
@@ -414,16 +315,10 @@
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
 	}
-	nav {
+	#tab-bar {
 		transition: transform 450ms ease-out;
 	}
 	.hide {
 		transform: translateY(-200px);
-	}
-	.active {
-		font-weight: 600;
-		color: rgb(251 207 232 / 1);
-		border-bottom: 2px solid;
-		border-color: rgb(251 207 232 / 1);
 	}
 </style>

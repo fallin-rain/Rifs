@@ -3,10 +3,10 @@
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 </script>
 
-<section class="text-pink-200 space-y-8">
-	<Heading title="Welcome" />
+<section class="min-h-screen flex flex-col items-center justify-between p-6 md:p-60">
+	<Heading title="Welcome to Rifs" />
 
-	<div class="text-center text-slate-400">
+	<div class="text-center">
 		<p>
 			<span class="italic font-serif font-semibold">Rifs</span> is an adult web app and not intended
 			for any kind of misuse.
@@ -14,26 +14,16 @@
 		<p>Use this site responsibly. Enjoy!</p>
 	</div>
 
-	<div class="flex items-center fixed bottom-20 left-0 px-6 md:px-20 w-full justify-between gap-6">
-		<a
-			href="/welcome/denied"
-			class="w-full text-center tracking-wide rounded-xl bg-slate-800 py-2 text-sm font-medium"
-		>
-			<span class="block w-full text-center tracking-normal leading-tight text-base font-bold"
-				>Nope!</span
-			>
-			I'm a weeb
-		</a>
-
+	<div class="space-y-6 w-full">
 		<a
 			href="/settings/profile"
+			sveltekit:prefetch
 			on:click={() => first_time_visit.set('visited')}
-			class="w-full text-center tracking-wide rounded-xl bg-gradient-to-br from-pink-600 to-red-800 py-2 text-sm font-medium"
+			class="btn btn-block btn-primary"
 		>
-			<span class="block w-full text-center tracking-normal leading-tight text-base font-bold"
-				>Okay!</span
-			>
-			I understand
+			Okay
 		</a>
+
+		<a href="/welcome/denied" class="btn btn-block btn-ghost"> Take me back</a>
 	</div>
 </section>

@@ -10,11 +10,9 @@
 	}
 </script>
 
-<div class="min-h-screen select-none bg-slate-900 text-pink-200">
+<div class="min-h-screen">
 	{#if loaded}
-		<main class="p-6 space-y-10 md:p-20">
-			<slot />
-		</main>
+		<slot />
 	{:else}
 		<div use:pageLoaded class="min-h-screen grid place-items-center">loading...</div>
 	{/if}

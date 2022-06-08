@@ -14,7 +14,7 @@
 <div class="min-h-screen bg-base-300">
 	{#if loaded}
 		<Nav />
-		<div class="my-28">
+		<div class="my-[66px]">
 			<slot />
 		</div>
 	{:else}

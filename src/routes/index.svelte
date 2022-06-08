@@ -10,7 +10,7 @@
 				trending: [...data.horizontalGifs, ...data.verifiedGifs],
 				hotGifs: [...data.hotGifs, ...data.soundGifs],
 				creators: [...data.hotCreators, ...data.newCreators],
-				longGifs: [...data.longGifs, ...data.verticalGifs],
+				reels: [...data.longGifs, ...data.verticalGifs],
 				images: [...data.hotImages, ...data.verifiedImages],
 			},
 		}
@@ -38,20 +38,17 @@
 	export let trending: string[]
 	export let hotGifs: string[]
 	export let creators: string[]
-	export let longGifs: string[]
+	export let reels: string[]
 	export let images: string[]
+
+	let data = [trending, hotGifs, creators, reels, images]
 
 	$first_time_visit == 'yes' && browser && goto('/welcome')
 
 	//TODO: make use of it
 	if (fetched) {
-		temp.set({
-			trending,
-			hotGifs,
-			creators,
-			longGifs,
-			images,
-		})
+		if ($temp.length == 0) browser && localStorage.setItem('temp', JSON.stringify(data))
+		else console.log($temp)
 	}
 
 	onMount(() => {
@@ -126,7 +123,7 @@
 			</section>
 			<section id="long-gifs" class="w-full flex-shrink-0 snap-start space-y-6">
 				<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
-					{#each longGifs as data}
+					{#each reels as data}
 						<MasonryCard
 							poster={data.urls.poster}
 							src={data.urls.vthumbnail}

@@ -110,18 +110,14 @@
 	</div>
 </header>
 
-{#if $page.url.pathname.includes('/#') || $page.url.pathname === '/'}
+{#if $page.url.pathname.includes('home') || $page.url.pathname === '/'}
 	<!-- TAB BAR -->
 	<div
 		id="tab-bar"
 		class:scroll-tab-bar={shouldHide}
 		class="fixed top-0 translate-y-[66px] w-full z-10 tabs justify-between p-2 border-b-2 border-neutral bg-base-100"
 	>
-		<a
-			href="#trend"
-			class="tab"
-			class:tab-active={$page.url.hash.length === 0 || $page.url.hash.includes('trend')}
-		>
+		<a href="/" sveltekit:prefetch class="tab" class:tab-active={$page.url.pathname === '/'}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -133,7 +129,7 @@
 				<path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
 			</svg></a
 		>
-		<a href="#hot" class="tab" class:tab-active={$page.url.hash.includes('hot')}>
+		<a href="/hot" sveltekit:prefetch class="tab" class:tab-active={$page.url.pathname === 'hot'}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -154,7 +150,11 @@
 				/>
 			</svg>
 		</a>
-		<a href="#creators" class="tab" class:tab-active={$page.url.hash.includes('creators')}
+		<a
+			href="/creators"
+			sveltekit:prefetch
+			class="tab"
+			class:tab-active={$page.url.pathname === 'creators'}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -170,7 +170,11 @@
 				/></svg
 			></a
 		>
-		<a href="#long-gifs" class="tab" class:tab-active={$page.url.hash.includes('long-gifs')}
+		<a
+			href="/reels"
+			sveltekit:prefetch
+			class="tab"
+			class:tab-active={$page.url.hash.pathname === 'reels'}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -186,7 +190,12 @@
 				/></svg
 			></a
 		>
-		<a href="#images" class="tab" class:tab-active={$page.url.hash.includes('images')}>
+		<a
+			href="/images"
+			sveltekit:prefetch
+			class="tab"
+			class:tab-active={$page.url.pathname === 'images'}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"

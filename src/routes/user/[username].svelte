@@ -35,13 +35,13 @@
 	export let gifs: string[]
 </script>
 
-<section class="p-6 md:p-60">
+<section class="p-6 space-y-6 md:p-60">
 	<!-- about user -->
 	<div class="max-w-sm mx-auto flex flex-col gap-4 items-center">
 		<div class="avatar">
 			<div class="w-36 mask mask-squircle text-xs">
 				<img
-					class="block bg-slate-600 w-full h-full object-cover object-center"
+					class="bg-slate-600"
 					src={user.profileImageUrl ||
 						'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
 					alt={(user.profileImageUrl && user.name) || 'No profile image'}
@@ -77,147 +77,147 @@
 			<!-- followers -->
 			<div class="text-center pr-5">
 				<p class="">{user.followers}</p>
-				<p class="text-sm text-info">Followers</p>
+				<p class="text-sm">Followers</p>
 			</div>
 			<div class="divider divider-horizontal" />
 			<!-- gifs -->
 			<div class="text-center pl-5">
 				<p class="">{user.gifs}</p>
-				<p class="text-sm text-info">Total gifs</p>
+				<p class="text-sm">Total gifs</p>
 			</div>
 		</div>
-		<p class="{user.description || 'hidden'} min-w-full">
-			{user.description}
-		</p>
-		<!-- social links -->
-		<div class="min-w-full flex items-center flex-wrap gap-x-4 gap-y-1">
-			<a
-				class="{user.socialUrl1 || 'hidden'} btn btn-outline btn-xs"
-				href={user.socialUrl1}
-				target="_blank"
+	</div>
+	<p class="{user.description || 'hidden'} min-w-full">
+		{user.description}
+	</p>
+	<!-- social links -->
+	<div class="min-w-full flex items-center flex-wrap gap-4">
+		<a
+			class="{user.socialUrl1 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl1}
+			target="_blank"
+		>
+			Porn hub
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Porn hub
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-			<a
-				class="{user.socialUrl2 || 'hidden'} flex items-center font-semibold text-pink-400"
-				href={user.socialUrl2}
-				target="_blank"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
+		<a
+			class="{user.socialUrl2 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl2}
+			target="_blank"
+		>
+			Twitter
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Twitter
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-			<a
-				class="{user.socialUrl3 || 'hidden'} flex items-center font-semibold text-pink-400"
-				href={user.socialUrl3}
-				target="_blank"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
+		<a
+			class="{user.socialUrl3 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl3}
+			target="_blank"
+		>
+			Instagram
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Instagram
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-			<a
-				class="{user.socialUrl4 || 'hidden'} flex items-center font-semibold text-pink-400"
-				href={user.socialUrl4}
-				target="_blank"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
+		<a
+			class="{user.socialUrl4 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl4}
+			target="_blank"
+		>
+			Many vids
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Many vids
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-			<a
-				class="{user.socialUrl5 || 'hidden'} flex items-center font-semibold text-pink-400"
-				href={user.socialUrl5}
-				target="_blank"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
+		<a
+			class="{user.socialUrl5 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl5}
+			target="_blank"
+		>
+			Reddit
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Reddit
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-			<a
-				class="{user.socialUrl6 || 'hidden'} flex items-center font-semibold text-pink-400"
-				href={user.socialUrl6}
-				target="_blank"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
+		<a
+			class="{user.socialUrl6 || 'hidden'} link link-accent flex items-center gap-2"
+			href={user.socialUrl6}
+			target="_blank"
+		>
+			Only fans
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-4 w-4 mt-1"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				Only fans
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-4 w-4 ml-1"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					/>
-				</svg>
-			</a>
-		</div>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+				/>
+			</svg>
+		</a>
 	</div>
 
 	<Heading title="Most used tags" />
@@ -236,6 +236,7 @@
 	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each gifs as gif}
 			<MasonryCard
+				type={gif.type}
 				username={gif.userName}
 				verified={gif.verified}
 				poster={gif.poster}

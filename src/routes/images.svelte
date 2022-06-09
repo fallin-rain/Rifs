@@ -35,7 +35,7 @@
 		>
 			{#each content.images as data}
 				<MasonryCard
-					image={true}
+					type={data.type}
 					src={data.urls.sd}
 					verified={data.user.verified}
 					username={data.user.username}

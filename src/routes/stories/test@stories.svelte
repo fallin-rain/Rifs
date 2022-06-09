@@ -16,24 +16,24 @@
 	import { lazyload } from '$lib/utils/lazyload'
 	import { onMount } from 'svelte'
 
+	export let stories
+
 	onMount(() =>
 		lazyload('[data-lazyvideo]', {
 			autoplay: true,
 			threshold: 0.2,
 		})
 	)
-	export let stories
+
+	function prevPage() {
+		history.back()
+	}
 </script>
 
-<div class="w-full h-screen grid min-h-screen place-items-center bg-black p-6">
-	<div class="space-y-4">
+<div class="w-full h-screen grid min-h-screen place-items-center bg-black p-3">
+	<div class="space-y-3">
 		<!-- exit -->
-		<a
-			href="/"
-			sveltekit:prefetch
-			class="w-max flex items-center gap-0.5 font-medium text-slate-400"
-		>
-			Close
+		<button on:click={prevPage} class="badge badge-outline">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -44,15 +44,11 @@
 			>
 				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 			</svg>
-		</a>
-		<div
-			id="noscrollbar"
-			class="flex h-[90vh] w-full snap-y snap-mandatory flex-col gap-4 overflow-y-scroll"
-		>
+			Close
+		</button>
+		<div id="noscrollbar" class="h-[90vh] carousel carousel-vertical rounded-box">
 			{#each stories as story}
-				<div
-					class="relative w-full h-full flex-shrink-0 snap-center overflow-hidden rounded-xl text-pink-400"
-				>
+				<div class="relative w-full h-full carousel-item text-accent">
 					<Video
 						id={story.id}
 						username={story.userName}

@@ -75,6 +75,7 @@
 		>
 			{#each trending as data}
 				<MasonryCard
+					type={data.type}
 					poster={data.urls.poster}
 					src={data.urls.vthumbnail}
 					verified={data.user.verified}

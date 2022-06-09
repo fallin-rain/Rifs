@@ -17,15 +17,10 @@
 	<Heading title="Your profile" />
 	{#if browser && JSON.parse($profileSetup).completed}
 		<div class="mx-auto flex max-w-sm flex-col items-center gap-4">
-			<div
-				class="bg-slate-200 shadow-md shadow-base-100 w-36 h-36 overflow-hidden rounded-2xl mx-auto"
-			>
-				<!-- svelte-ignore a11y-img-redundant-alt -->
-				<img
-					class="block w-full h-full object-cover object-top"
-					src={JSON.parse($profileSetup).userimageSrc}
-					alt="No profile image"
-				/>
+			<div class="avatar">
+				<div class="w-36 mask mask-squircle bg-slate-200">
+					<img src={JSON.parse($profileSetup).userimageSrc} alt="create your profile like this" />
+				</div>
 			</div>
 			<div class="text-center">
 				<h3

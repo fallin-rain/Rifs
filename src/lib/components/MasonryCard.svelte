@@ -8,7 +8,7 @@
 	export let id: string
 	export let height: string
 	export let width: string
-	export let image = false
+	export let type = 2 // type 2 is image
 
 	// profile controls
 	let saved = false
@@ -22,8 +22,8 @@
 	}
 </script>
 
-{#if image}
-	<div class="relative overflow-hidden rounded-xl text-pink-400">
+{#if type === 2}
+	<div class="relative overflow-hidden rounded-xl text-accent">
 		<img
 			class="block object-cover object-center"
 			{src}
@@ -95,7 +95,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="relative overflow-hidden rounded-xl text-pink-400">
+	<div class="relative overflow-hidden rounded-xl text-accent">
 		<!-- video -->
 		<!-- svelte-ignore a11y-media-has-caption -->
 		<Video {id} {username} {verified} {poster} {src} {height} {width} />

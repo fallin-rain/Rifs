@@ -26,11 +26,26 @@
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Video from '$lib/layouts/Video.svelte'
+	import { page } from '$app/stores'
+	import LinkBtn from '$lib/components/LinkBtn.svelte'
 
 	export let gif
 	export let user
 	export let tags
 	export let related_gifs
+
+	let count = 1
+
+	function download() {
+		const videoLink = document.querySelector('video')?.getAttribute('data-src') || '#'
+		const link = document.createElement('a')
+		link.setAttribute('href', videoLink)
+		link.setAttribute('download', 'rifs_' + new Date().getMilliseconds() + '_' + count++)
+		// Only for localhost as download doesn't work over http
+		if ($page.url.protocol === 'http:') link.setAttribute('target', '_blank')
+		link.click()
+		link.remove()
+	}
 
 	onMount(() => {
 		lazyload('[data-lazyvideo]', {
@@ -40,6 +55,15 @@
 </script>
 
 <div class="relative mx-auto block w-full overflow-hidden aspect-video bg-black text-accent">
+	{#if gif.type === 2}
+		<img
+			class="block object-cover"
+			src={gif.urls.hd}
+			alt={gif.user.username}
+			height={gif.height}
+			width={gif.width}
+		/>
+	{/if}
 	<Video
 		onlyControls={true}
 		src={gif.urls.hd}
@@ -87,7 +111,7 @@
 		</button>
 		<div class="divider divider-horizontal" />
 		<!-- downlaod -->
-		<button class="btn btn-xs btn-ghost">
+		<button on:click={download} class="btn btn-xs btn-ghost">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -187,4 +211,5 @@
 			/>
 		{/each}
 	</div>
+	<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
 </section>

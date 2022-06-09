@@ -168,7 +168,7 @@
 								<a
 									sveltekit:prefetch
 									href={'/search?search_text=' + searchResult?.text}
-									class="badge badge-outlinetext-sm font-medium"
+									class="badge badge-md"
 								>
 									{searchResult?.text}
 								</a>
@@ -200,7 +200,7 @@
 			{:else if searching}
 				<p class="text-center">Searching...</p>
 			{:else}
-				<p class="text-center text-warning">No results found!</p>
+				<p class="text-center">No results found!</p>
 			{/if}
 		</div>
 	{/if}
@@ -230,12 +230,13 @@
 			<option value="verified=y">Verified</option>
 			<option value="sound=y">Sounded</option>
 			<option value="long=y">1 minute</option>
-			<option value="ratio=v">Vertical</option>
+			<option value="ratio=v">9x16</option>
 			<option value="ratio=h">16x9</option>
 		</select>
 		<!-- Type -->
 		<select on:change={e => filter.set(e.target?.value)} class="select">
 			<option disabled selected value="">Type</option>
+			<option value="type=">Both</option>
 			<option value="type=g">gifs</option>
 			<option value="type=i">Images</option>
 		</select>
@@ -244,8 +245,9 @@
 	<div class="columns-1 lg:columns-3 xl:columns-4 gap-3 w-full mx-auto space-y-3">
 		{#each data.searchResults.gifs as gif}
 			<MasonryCard
+				type={gif.type}
 				poster={gif.urls.poster}
-				src={gif.urls.vthumbnail}
+				src={gif.urls.sd}
 				verified={gif.verified}
 				username={gif.userName}
 				id={gif.id}

@@ -72,7 +72,12 @@
 	style={paused ? 'opacity: 1;' : 'opacity: 0;'}
 	on:click={() => (paused = !paused)}
 >
-	<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20" fill="currentColor">
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		class="h-16 w-16 text-accent"
+		viewBox="0 0 20 20"
+		fill="currentColor"
+	>
 		<path
 			fill-rule="evenodd"
 			d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
@@ -156,7 +161,7 @@
 		{#if paused}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-pink-400 p-0.5 text-pink-800"
+				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -176,7 +181,7 @@
 		{:else}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-pink-400 p-0.5 text-pink-800"
+				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -194,12 +199,12 @@
 	<div class="relative -mt-2 w-full">
 		<div
 			id="buffer-bar"
-			class="absolute top-2/4 left-0 translate-y-[1.5px] h-1.5 rounded-full bg-pink-400 pointer-events-none"
+			class="absolute top-2/4 left-0 translate-y-[1.5px] h-1.5 rounded-full bg-accent pointer-events-none"
 			style="width: {a}%"
 		/>
 		<input
 			type="range"
-			class="h-1 appearance-none bg-slate-800"
+			class="translate-y-2 range range-accent"
 			min="0"
 			max={duration ? duration : '0'}
 			value={currentTime}
@@ -211,7 +216,7 @@
 		{#if muted}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-pink-400 p-0.5 text-pink-800"
+				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -232,7 +237,7 @@
 		{:else}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-pink-400 p-0.5 text-pink-800"
+				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -272,7 +277,7 @@
 	}
 
 	/* custom input range */
-	input[type='range'] {
+	/* input[type='range'] {
 		-webkit-appearance: none;
 		width: 100%;
 	}
@@ -314,7 +319,6 @@
 		height: 1.5rem;
 		cursor: pointer;
 
-		/* Hides the slider so custom styles can be added */
 		background: transparent;
 		border-color: transparent;
 		color: transparent;
@@ -339,5 +343,5 @@
 		border-radius: 999px;
 		background-color: rgb(244 114 182 / 1);
 		cursor: pointer;
-	}
+	} */
 </style>

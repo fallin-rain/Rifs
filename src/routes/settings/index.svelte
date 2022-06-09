@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Divider from '$lib/layouts/Divider.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
 
 	import { browser } from '$app/env'
 	import { profileSetup } from '$lib/stores/profileSetup'
 	import { autoplay } from '$lib/stores/autoplay'
+	import { first_time_visit } from '$lib/stores/persistWelcome'
 
 	let checked = false
 
@@ -29,7 +29,11 @@
 					{JSON.parse($profileSetup).username}
 				</h3>
 			</div>
-			<a href="/settings/profile" class="badge badge-secondary">Edit</a>
+			<a
+				href="/settings/profile"
+				on:click={() => first_time_visit.set('update')}
+				class="badge badge-secondary">Edit profile</a
+			>
 			<div class="mt-1.5 flex items-center justify-between divide-x divide-neutral">
 				<!-- your downloads -->
 				<div class="flex items-center gap-2 pr-6 text-center">

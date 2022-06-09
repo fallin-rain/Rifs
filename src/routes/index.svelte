@@ -42,7 +42,7 @@
 
 	let data = { trending, hotGifs, creators, reels, images }
 
-	$first_time_visit == 'yes' && browser && goto('/welcome')
+	$first_time_visit === 'yes' && goto('/welcome')
 
 	function cacheData() {
 		if (browser && sessionStorage.getItem('temp')) return
@@ -66,29 +66,30 @@
 <!-- TAILWIND REDESIGN HOMEPAGE -->
 <!-- https://play.tailwindcss.com/DNorBkRrQs -->
 
-{#if $first_time_visit !== 'yes'}
-	<!-- main content -->
-	<section class="mt-[50px] p-6 md:p-60">
-		<div
-			in:fly={{ y: 200, duration: 450 }}
-			class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6"
-		>
-			{#each trending as data}
-				<MasonryCard
-					type={data.type}
-					poster={data.urls.poster}
-					src={data.urls.vthumbnail}
-					verified={data.user.verified}
-					username={data.user.username}
-					id={data.id}
-					width={data.width}
-					height={data.height}
-				/>
-			{/each}
-		</div>
-		<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-	</section>
+{#if $first_time_visit !== 'visited'}
+	<div class="h-screen z-[999999] bg-base-300" />
 {/if}
+<!-- main content -->
+<section class="mt-[50px] p-6 md:p-60">
+	<div
+		in:fly={{ y: 200, duration: 450 }}
+		class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6"
+	>
+		{#each trending as data}
+			<MasonryCard
+				type={data.type}
+				poster={data.urls.poster}
+				src={data.urls.vthumbnail}
+				verified={data.user.verified}
+				username={data.user.username}
+				id={data.id}
+				width={data.width}
+				height={data.height}
+			/>
+		{/each}
+	</div>
+	<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
+</section>
 
 <style>
 	/* #overflow {

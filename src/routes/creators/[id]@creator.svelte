@@ -22,7 +22,6 @@
 	import { onMount } from 'svelte'
 	import { lazyload } from '$lib/utils/lazyload'
 
-	import Tags from '$lib/layouts/Tags.svelte'
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Video from '$lib/layouts/Video.svelte'
@@ -54,7 +53,10 @@
 	})
 </script>
 
-<div class="relative mx-auto block w-full overflow-hidden aspect-video bg-black text-accent">
+<div
+	id="video-container"
+	class="relative mx-auto block w-full overflow-hidden aspect-video bg-black text-accent"
+>
 	{#if gif.type === 2}
 		<img
 			class="block object-cover"
@@ -127,34 +129,6 @@
 				/>
 			</svg>
 		</button>
-		<div class="divider divider-horizontal" />
-		<!-- Fullscreen -->
-		<button
-			on:click={() => {
-				const video = document.querySelector('video')
-				// Controls are not appearning on fscn
-				// video?.requestFullscreen()
-				// video?.setAttribute('controls', 'true')
-
-				// if (video?.requestFullscreen) video?.removeAttribute('cotrols')
-			}}
-			class="btn btn-xs btn-ghost"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-				/>
-			</svg>
-		</button>
 	</div>
 
 	<div class="flex items-center justify-between">
@@ -163,7 +137,7 @@
 				href={'/user/' + user.username}
 				class="inline-flex items-center justify-center text-center text-accent text-lg font-semibold tracking-wide"
 			>
-				{user.name || 'No name'}
+				{user.username || 'No name'}
 				{#if user.verified}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +160,6 @@
 	</div>
 	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
-			<!-- <Tags linkPath={'/tags/related/'} {tag} /> -->
 			<a
 				sveltekit:prefetch
 				href={'/tags/related/' + tag}
@@ -201,6 +174,7 @@
 	<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
 		{#each related_gifs as data}
 			<MasonryCard
+				type={data.type}
 				username={data.userName}
 				verified={data.verified}
 				poster={data.urls.poster}

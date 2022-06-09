@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores'
+
 	export let width: string
 	export let height: string
 	export let id: string
@@ -12,6 +14,7 @@
 	let saved = false
 	let muted = true
 	let paused = true
+	let fullscreen = false
 	let showControls = false
 	let showControlsTimeout: NodeJS.Timeout | undefined
 	let duration: number
@@ -40,6 +43,13 @@
 
 	function buffer(e) {
 		a = (e.target.buffered.end(e.target.length) / duration) * 100
+	}
+
+	function toggleFullscreen() {
+		fullscreen
+			? document.exitFullscreen()
+			: document.querySelector('#video-container')?.requestFullscreen()
+		fullscreen = !fullscreen
 	}
 </script>
 
@@ -157,11 +167,14 @@
 		: 'transform: translateY(100px); opacity: 0;'}
 >
 	<!-- play/pause -->
-	<button on:click={() => (paused = !paused)}>
+	<button
+		class="flex-shrink-0 btn btn-xs btn-accent btn-circle"
+		on:click={() => (paused = !paused)}
+	>
 		{#if paused}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
+				class="h-5 w-5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -181,7 +194,7 @@
 		{:else}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
+				class="h-5 w-5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -212,11 +225,11 @@
 		/>
 	</div>
 	<!-- mute/unmute -->
-	<button on:click={() => (muted = !muted)}>
+	<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={() => (muted = !muted)}>
 		{#if muted}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
+				class="h-5 w-5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -237,7 +250,7 @@
 		{:else}
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0 rounded-full bg-accent text-neutral p-0.5"
+				class="h-5 w-5"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -251,6 +264,29 @@
 			</svg>
 		{/if}
 	</button>
+	<!-- full screen -->
+	{#if $page.url.pathname.includes('/creators/')}
+		<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={toggleFullscreen}>
+			{#if fullscreen}
+				Esc
+			{:else}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="w-5 h-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+					/>
+				</svg>
+			{/if}
+		</button>
+	{/if}
 </div>
 
 <style>

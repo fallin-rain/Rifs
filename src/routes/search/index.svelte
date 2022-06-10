@@ -95,7 +95,7 @@
 		<div class="input-group">
 			<input
 				bind:value={$search_text}
-				on:keypress={() => debounce()}
+				on:input={() => debounce()}
 				type="text"
 				placeholder="Search tags and creators"
 				class="input w-full focus:outline-none"

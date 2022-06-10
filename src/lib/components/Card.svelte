@@ -30,21 +30,21 @@
 	export let shared = true
 </script>
 
-<div data-card class="rounded-xl block bg-slate-800 max-w-sm mx-auto break-inside-avoid">
+<div data-card class="card bg-base-100 max-w-sm mx-auto break-inside-avoid">
 	<div class="flex flex-col p-4">
 		<a href={'/creators/' + id} class="flex w-full items-end justify-between">
 			<div class="flex flex-col">
 				<a
 					href={'/user/' + username}
 					sveltekit:prefetch
-					class="mb-1 flex items-center text-base font-semibold tracking-wide text-pink-400"
+					class="mb-1 flex items-center text-base font-semibold tracking-wide text-accent"
 				>
 					{profileName}
 					<!-- Only appears if creator is verified -->
 					{#if verified}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							class="h-4 w-4"
+							class="h-5 w-5"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -57,9 +57,7 @@
 						</svg>
 					{/if}
 				</a>
-				<div
-					class="flex flex-row-reverse justify-end items-center gap-3 text-xs font-semibold text-slate-400"
-				>
+				<div class="flex flex-row-reverse justify-end items-center gap-3 text-xs font-semibold">
 					{#if hasAudio}
 						<div class="flex items-center">
 							<svg
@@ -113,7 +111,7 @@
 					</div>
 				</div>
 			</div>
-			<time class="text-xs text-slate-400">{date}</time>
+			<time class="text-xs">{date}</time>
 		</a>
 		<!-- tags -->
 		{#if hasTags}
@@ -121,9 +119,8 @@
 				{#each tags as tag}
 					<a
 						sveltekit:prefetch
-						href={`/tags/related/${$count.toString()}/${tag}`}
-						class="px-2.5 py-1.5 rounded-full border border-pink-500 text-pink-300 text-xs leading-none tracking-wide"
-						>{tag}</a
+						href={`/tags/related/${tag}`}
+						class="py-2 text-2xs badge badge-outline badge-accent">{tag}</a
 					>
 				{/each}
 			</div>
@@ -134,82 +131,66 @@
 		<video class="block w-full h-full" muted controls loop {width} {height} {poster} {src} />
 	</div>
 	<!-- CTAs -->
-	<div class="flex justify-end items-center gap-4 p-4">
-		<div class="flex flex-row-reverse gap-4">
-			<a
-				href={src}
-				download={username + '.mp4'}
-				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
+	<div class="w-full flex justify-between items-center gap-4 p-4">
+		<button class="btn btn-xs btn-ghost">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				<span
-					class="relative rounded-full bg-gradient-to-br from-pink-600 to-red-800 px-5 py-2 text-pink-200"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-50"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-						/>
-					</svg>
-				</span>
-			</a>
-			<button
-				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+				/>
+			</svg>
+		</button>
+		<button
+			class="btn btn-xs btn-ghost"
+			on:click={async () => {
+				try {
+					await navigator.share(shareData)
+					shared = true
+					console.log('shared')
+				} catch (error) {
+					shared = false
+					console.error(error)
+				}
+			}}
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-pink-200">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-						/>
-					</svg>
-				</span>
-			</button>
-			<button
-				class="relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-pink-600 to-red-800 p-0.5 text-sm font-medium"
-				on:click={async () => {
-					try {
-						await navigator.share(shareData)
-						shared = true
-						console.log('shared')
-					} catch (error) {
-						shared = false
-						console.error(error)
-					}
-				}}
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+				/>
+			</svg>
+		</button>
+		<a href={src} download={username + '.mp4'} class="btn btn-xs btn-ghost">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-50"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
 			>
-				<span class="relative rounded-full bg-slate-800 px-5 py-2 text-pink-200">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						stroke-width="2"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-						/>
-					</svg>
-				</span>
-			</button>
-		</div>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+				/>
+			</svg>
+		</a>
 	</div>
 </div>

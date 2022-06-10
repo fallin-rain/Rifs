@@ -63,11 +63,8 @@
 	<title>Rifs</title>
 </svelte:head>
 
-<!-- TAILWIND REDESIGN HOMEPAGE -->
-<!-- https://play.tailwindcss.com/DNorBkRrQs -->
-
-{#if $first_time_visit !== 'visited'}
-	<div class="h-screen z-[999999] bg-base-300" />
+{#if $first_time_visit === 'yes'}
+	<div id="hidden" />
 {/if}
 <!-- main content -->
 <section class="mt-[50px] p-6 md:p-60">
@@ -92,64 +89,10 @@
 </section>
 
 <style>
-	/* #overflow {
-		scrollbar-color: rgba(233, 30, 99, 1) #0f172a;
-		scrollbar-width: thin;
-	}
-
-	#overflow::-webkit-scrollbar-track {
-		border-radius: 0px !important;
-		background-color: #0f172a !important;
-	}
-
-	#overflow::-webkit-scrollbar {
-		width: 10px !important;
-		border-radius: 0px !important;
-		background-color: #0f172a !important;
-	}
-
-	#overflow::-webkit-scrollbar-thumb {
-		border-radius: 10px !important;
-		background: rgb(232, 36, 90) !important;
-		background: -moz-linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		);
-		background: -webkit-linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		);
-		background: linear-gradient(
-			38deg,
-			rgba(232, 36, 90, 1) 0%,
-			rgba(232, 35, 92, 1) 0%,
-			rgba(233, 30, 99, 1) 31%,
-			rgba(232, 39, 83, 1) 31%,
-			rgba(229, 57, 53, 1) 100%
-		) !important;
-	} */
-	/* Hide scrollbar for Chrome, Safari and Opera */
-	section::-webkit-scrollbar {
-		display: none;
-	}
-
-	/* Hide scrollbar for IE, Edge and Firefox */
-	section {
-		-ms-overflow-style: none; /* IE and Edge */
-		scrollbar-width: none; /* Firefox */
-	}
-	#tab-bar {
-		transition: transform 450ms ease-out;
-	}
-	.hide {
-		transform: translateY(-200px);
+	#hidden {
+		position: absolute;
+		inset: 0;
+		background: #0c1322;
+		z-index: 999999;
 	}
 </style>

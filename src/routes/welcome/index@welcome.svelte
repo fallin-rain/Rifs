@@ -3,7 +3,7 @@
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 </script>
 
-<section class="min-h-screen flex flex-col items-center justify-between p-6 md:p-60">
+<section class="min-h-[90vh] flex flex-col items-center justify-between p-6 md:p-60">
 	<Heading title="Welcome to Rifs" />
 
 	<div class="text-center">
@@ -14,7 +14,7 @@
 		<p>Use this site responsibly. Enjoy!</p>
 	</div>
 
-	<div class="space-y-6 w-full">
+	<div class="space-y-3 w-full">
 		<a
 			href="/settings/profile"
 			sveltekit:prefetch

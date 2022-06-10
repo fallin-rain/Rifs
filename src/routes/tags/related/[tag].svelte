@@ -1,10 +1,6 @@
 <script context="module">
-	const log = console.debug
-
 	export async function load({ fetch, params }) {
-		if (!params.count) params.count = 10
-
-		const res = await fetch(`/api/related/${params.count}/${params.tag}`)
+		const res = await fetch('/api/related/' + params.tag)
 		const data = await res.json()
 
 		return {
@@ -37,15 +33,9 @@
 			threshold: 0.4,
 		})
 	})
-
-	function loadmore() {
-		if ($count >= 80) return
-
-		count.update(inc => (inc += 10))
-	}
 </script>
 
-<section id="tags">
+<section class="p-6 md:p-60">
 	<h1
 		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
 	>
@@ -69,12 +59,4 @@
 			/>
 		{/each}
 	</div>
-	<a
-		href={`/tags/related/${$count.toString()}/${$page.params.tag}`}
-		sveltekit:prefetch
-		sveltekit:noscroll
-		on:click={loadmore}
-		class="block w-max mx-auto mt-6 bg-slate-800 px-4 py-2 text-sm font-semibold rounded-lg"
-		>Load more</a
-	>
 </section>

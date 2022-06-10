@@ -159,16 +159,16 @@
 	</div>
 
 	{#if $search_text}
-		<div class="space-y-6 rounded-lg bg-base-100 p-6">
+		<div class="space-y-6 alert">
 			{#if searchResults.length > 0}
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 					{#each searchResults as searchResult}
 						{#if searchResult.type == 'tag'}
-							<div class="flex flex-wrap items-center y-3 gap-x-3 gap-y-4">
+							<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 								<a
 									sveltekit:prefetch
 									href={'/search?search_text=' + searchResult?.text}
-									class="badge badge-md"
+									class="badge badge-md badge-outline badge-accent"
 								>
 									{searchResult?.text}
 								</a>
@@ -192,7 +192,7 @@
 										/>
 									</div>
 								</div>
-								<h5 class="text-lg font-semibold text-primary">@{searchResult?.username}</h5>
+								<h5 class="text-lg font-semibold text-accent">@{searchResult?.username}</h5>
 							</a>
 						{/if}
 					{/each}

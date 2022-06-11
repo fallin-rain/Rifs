@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Toast from '$lib/layouts/Toast.svelte'
+	import Video from '$lib/layouts/Video.svelte'
 	import { count } from '$lib/stores/queryParams'
 	import VideoPlayer from 'svelte-video-player-kit'
 
@@ -19,7 +19,6 @@
 	export let height: string = ''
 	export let poster = ''
 	export let src = ''
-	export let autoplay = false
 
 	const shareData = {
 		title: 'Rifs',
@@ -120,15 +119,15 @@
 					<a
 						sveltekit:prefetch
 						href={`/tags/related/${tag}`}
-						class="py-2 text-2xs badge badge-outline badge-accent">{tag}</a
+						class="badge badge-sm badge-outline badge-accent p-3">{tag}</a
 					>
 				{/each}
 			</div>
 		{/if}
 	</div>
 	<!-- gif -->
-	<div class="w-full h-full overflow-hidden bg-slate-600 relative">
-		<video class="block w-full h-full" muted controls loop {width} {height} {poster} {src} />
+	<div class="w-full h-full overflow-hidden relative">
+		<Video nocontrols {width} {height} {poster} {src} />
 	</div>
 	<!-- CTAs -->
 	<div class="w-full flex justify-between items-center gap-4 p-4">

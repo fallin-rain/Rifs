@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores'
-
 	export let width: string
 	export let height: string
 	export let id: string
@@ -8,13 +6,12 @@
 	export let verified: boolean
 	export let poster: string
 	export let src: string
-	export let onlyControls = false
 
 	// video controls
 	let saved = false
 	let muted = true
 	let paused = true
-	let fullscreen = false
+	let isfullscreen = false
 	let showControls = false
 	let showControlsTimeout: NodeJS.Timeout | undefined
 	let duration: number
@@ -46,11 +43,12 @@
 	}
 
 	function toggleFullscreen() {
-		fullscreen
+		isfullscreen
 			? document.exitFullscreen()
 			: document.querySelector('#video-container')?.requestFullscreen()
-		fullscreen = !fullscreen
+		isfullscreen = !isfullscreen
 	}
+	document.fullscreen ? (isfullscreen = true) : (isfullscreen = false)
 </script>
 
 <!-- NOTE:
@@ -62,7 +60,7 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <video
 	class="block w-full min-w-[300px] h-full object-cover object-center"
-	data-lazyvideo
+	data-lazy="video"
 	data-poster={poster}
 	data-src={src}
 	{height}
@@ -96,7 +94,7 @@
 	</svg>
 </button>
 <!-- username -->
-{#if !onlyControls}
+{#if !$$restProps.nocontrols}
 	<div
 		id="username"
 		class="absolute inset-x-0 top-0 flex items-center justify-between p-3"
@@ -265,26 +263,28 @@
 		{/if}
 	</button>
 	<!-- full screen -->
-	<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={toggleFullscreen}>
-		{#if fullscreen}
-			Esc
-		{:else}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="w-5 h-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-				/>
-			</svg>
-		{/if}
-	</button>
+	{#if $$restProps.fullscreen}
+		<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={toggleFullscreen}>
+			{#if isfullscreen}
+				Esc
+			{:else}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="w-5 h-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+					/>
+				</svg>
+			{/if}
+		</button>
+	{/if}
 </div>
 
 <style>

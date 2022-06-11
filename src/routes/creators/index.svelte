@@ -15,7 +15,7 @@
 	} else rawdata = 'Not Loaded'
 
 	onMount(() => {
-		lazyload('[data-lazyvideo]', {
+		lazyload('[data-lazy]', {
 			threshold: 0.4,
 		})
 	})

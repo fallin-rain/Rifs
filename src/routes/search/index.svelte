@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	export async function load({ fetch, url }) {
-		const res = await fetch('/search/query' + url.search)
+		const res = await fetch('/api/search/query' + url.search)
 		const data = await res.json()
 
 		return {
@@ -16,6 +16,7 @@
 	import { onMount } from 'svelte'
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import { fly } from 'svelte/transition'
 	import { lazyload } from '$lib/utils/lazyload'
 	import { count, filter, order, search_text, type } from '$lib/stores/queryParams'
 
@@ -38,8 +39,6 @@
 	$: $page.url.searchParams.set('type', $type)
 	$: $page.url.searchParams.set('filter', $filter)
 
-	$: console.log($page.url.search)
-
 	async function searchQuery() {
 		searching = true
 
@@ -48,7 +47,7 @@
 		let inputVal = $search_text?.trim() || ''
 		let currentQuery = $page.url.searchParams.get('query')?.trim()
 
-		if (inputVal == currentQuery) return
+		// if (inputVal == currentQuery) return
 
 		await goto('/search?query=' + encodeURIComponent(inputVal), { keepfocus: true })
 
@@ -84,7 +83,7 @@
 	}
 
 	onMount(() => {
-		lazyload('[data-lazyvideo]', {
+		lazyload('[data-lazy]', {
 			threshold: 0.4,
 		})
 	})
@@ -159,7 +158,11 @@
 	</div>
 
 	{#if $search_text}
-		<div class="space-y-6 alert">
+		<div
+			in:fly={{ y: -100, duration: 250 }}
+			out:fly={{ y: -100, duration: 250 }}
+			class="space-y-6 alert"
+		>
 			{#if searchResults.length > 0}
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-4">
 					{#each searchResults as searchResult}
@@ -168,7 +171,7 @@
 								<a
 									sveltekit:prefetch
 									href={'/search?search_text=' + searchResult?.text}
-									class="badge badge-md badge-outline badge-accent"
+									class="badge badge-sm badge-outline badge-accent p-3"
 								>
 									{searchResult?.text}
 								</a>
@@ -206,7 +209,7 @@
 	{/if}
 
 	<Heading title="Popular tags" />
-	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
+	<div class="mt-6 h-12 flex items-center gap-x-3 gap-y-4 overflow-y-hidden overflow-x-scroll">
 		{#each data.searchResults.tags as tag}
 			<Tags linkPath={'/search?search_text='} {tag} />
 			<!-- <a href={'/search?search_text=' + tag} class="badge">{tag}</a> -->

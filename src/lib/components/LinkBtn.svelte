@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
 
-	export let href: any
+	export let href = ''
 	export let text = 'Load more'
 
 	const dispatch = createEventDispatcher()

@@ -23,10 +23,10 @@
 	<a
 		href="/"
 		sveltekit:prefetch
-		class="flex-1 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
+		class="flex-1 bg-gradient-to-br from-[#F471B5] to-red-600 bg-clip-text font-serif text-xl font-extrabold italic tracking-wide text-transparent"
 		>Rifs</a
 	>
-	<div class="text-sm space-x-2 text-slate-400">
+	<div>
 		<a
 			href="/tags"
 			sveltekit:prefetch
@@ -49,7 +49,7 @@
 			</svg>
 		</a>
 		<!-- VERIFIED link -->
-		<!-- <a href="#" class="btn btn-ghost"
+		<a href="#" class="btn btn-ghost"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -64,7 +64,7 @@
 					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 				/></svg
 			></a
-		> -->
+		>
 		<a
 			href="/stories/test"
 			sveltekit:prefetch
@@ -117,7 +117,7 @@
 	<div
 		id="tab-bar"
 		class:scroll-tab-bar={shouldHide}
-		class="fixed top-0 translate-y-[66px] w-full z-10 tabs justify-between p-2 border-b-2 border-neutral bg-base-100"
+		class="fixed top-0 translate-y-[65px] w-full z-10 tabs justify-between p-2 border-b-2 border-neutral bg-base-100"
 	>
 		<a href="/" sveltekit:prefetch class="tab" class:tab-active={$page.url.pathname === '/'}>
 			<svg
@@ -207,7 +207,8 @@
 			href="/"
 			sveltekit:prefetch
 			class="flex-shrink-0 btn btn-ghost"
-			class:btn-active={$page.url.pathname === '/'}
+			class:btn-active={tabBarOnRoutes.some(route => $page.url.pathname.includes(route)) ||
+				$page.url.pathname === '/'}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

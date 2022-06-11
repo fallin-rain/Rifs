@@ -24,38 +24,51 @@
 	import Card from '$lib/components/Card.svelte'
 	import { page } from '$app/stores'
 	import { count } from '$lib/stores/queryParams'
+	import Heading from '$lib/layouts/Heading.svelte'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
-	export let searchedTag
+	export /**
+	 * @type {any}
+	 */
+	let searchedTag
 	export let gifs
 
 	onMount(() => {
-		lazyload('[data-lazyvideo]', {
+		lazyload('[data-lazy]', {
 			threshold: 0.4,
 		})
 	})
+
+	$: console.log($page.url.pathname.split('/'))
 </script>
 
-<section class="p-6 md:p-60">
-	<h1
-		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-	>
-		{searchedTag} related posts
-	</h1>
+<div class="px-6 text-secondary breadcrumbs">
+	<ul>
+		<li class="capitalize">
+			<a sveltekit:prefetch href="/">Home</a>
+		</li>
+		<li class="capitalize">
+			<a sveltekit:prefetch href="/tags">{$page.url.pathname.split('/')[1]}</a>
+		</li>
+		<li class="capitalize">
+			<a sveltekit:prefetch href={$page.url.toString()}>{$page.url.pathname.split('/')[2]}</a>
+		</li>
+	</ul>
+</div>
+<section class="space-y-6 p-6 md:p-60">
+	<Heading title="{searchedTag} related posts" />
+
 	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each gifs as gif}
-			<Card
+			<MasonryCard
+				type={gif.type}
 				username={gif.userName}
-				profileName={gif.userName}
 				verified={gif.verified}
-				date={formatTS(gif.createDate)}
-				hasAudio={gif.hasAudio}
-				views={formatViews(gif.views)}
-				poster={gif.poster}
-				hasTags={gif.tags}
-				tags={gif.tags}
+				poster={gif.urls.poster}
 				src={gif.urls.sd}
-				autoplay={true}
 				id={gif.id}
+				width={gif.width}
+				height={gif.height}
 			/>
 		{/each}
 	</div>

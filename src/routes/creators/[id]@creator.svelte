@@ -47,7 +47,7 @@
 	}
 
 	onMount(() => {
-		lazyload('[data-lazyvideo]', {
+		lazyload('[data-lazy]', {
 			threshold: 0.4,
 		})
 	})
@@ -55,7 +55,9 @@
 
 <div
 	id="video-container"
-	class="relative mx-auto block w-full overflow-hidden aspect-video bg-black text-accent"
+	class="relative mx-auto block w-full overflow-hidden aspect-{gif.height >= 1800
+		? 'video'
+		: '[9/16] h-[70vh]'} bg-black text-accent"
 >
 	{#if gif.type === 2}
 		<img
@@ -67,15 +69,16 @@
 		/>
 	{/if}
 	<Video
-		onlyControls={true}
+		nocontrols={true}
 		src={gif.urls.hd}
 		poster={gif.urls.poster}
 		width={gif.width}
 		height={gif.height}
+		fullscreen={true}
 	/>
 </div>
 <section class="p-6 md:px-60 space-y-6">
-	<div class="w-full flex items-center justify-between text-accent">
+	<div class="w-full flex items-center justify-between">
 		<!-- share -->
 		<button class="btn btn-xs btn-ghost">
 			<svg
@@ -131,7 +134,7 @@
 		</button>
 	</div>
 
-	<div class="flex items-center justify-between">
+	<div class="flex items-center justify-between flex-wrap gap-3">
 		<div>
 			<a
 				href={'/user/' + user.username}
@@ -156,20 +159,34 @@
 			</a>
 			<p class="text-sm">@{user.username}</p>
 		</div>
-		<a href={'/user/' + user.username} class="btn btn-accent btn-xs">View profile</a>
+		<a href={'/user/' + user.username} class="btn btn-accent btn-sm">View profile</a>
 	</div>
 	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
 		{#each tags as tag}
 			<a
 				sveltekit:prefetch
 				href={'/tags/related/' + tag}
-				class="badge badge-accent badge-outline badge-md"
+				class="badge badge-accent badge-outline badge-sm p-3"
 			>
 				{tag}
 			</a>
 		{/each}
 	</div>
-	<div class="divider divider-horizontal" />
+
+	<div class="text-secondary breadcrumbs">
+		<ul>
+			<li class="capitalize">
+				<a sveltekit:prefetch href="/">Home</a>
+			</li>
+			<li class="capitalize">
+				<a sveltekit:prefetch href="/creators">{$page.url.pathname.split('/')[1]}</a>
+			</li>
+			<li class="capitalize">
+				<a sveltekit:prefetch href={$page.url.toString()}>{$page.url.pathname.split('/')[2]}</a>
+			</li>
+		</ul>
+	</div>
+
 	<Heading title="Related posts" />
 	<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">
 		{#each related_gifs as data}

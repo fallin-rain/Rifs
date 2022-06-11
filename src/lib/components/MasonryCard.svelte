@@ -26,7 +26,8 @@
 	<div class="relative overflow-hidden rounded-xl text-accent">
 		<img
 			class="block object-cover object-center"
-			{src}
+			data-lazy="image"
+			data-src={src}
 			alt="user's id is {id}"
 			{width}
 			{height}
@@ -97,7 +98,6 @@
 {:else}
 	<div class="relative overflow-hidden rounded-xl text-accent">
 		<!-- video -->
-		<!-- svelte-ignore a11y-media-has-caption -->
 		<Video {id} {username} {verified} {poster} {src} {height} {width} />
 	</div>
 {/if}

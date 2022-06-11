@@ -1,53 +1,52 @@
 <script>
+	import Alert from '$lib/components/Alert.svelte'
 	import LinkBtn from '$lib/components/LinkBtn.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
-	import { fly } from 'svelte/transition'
-	import { lazyload } from '$lib/utils/lazyload'
 	import { onMount } from 'svelte'
-	import { browser } from '$app/env'
+	import { fly } from 'svelte/transition'
+	import { cached } from '$lib/stores/cached'
+	import { lazyload } from '$lib/utils/lazyload'
 
-	let rawdata
-	let content
+	/**
+	 * @type {string}
+	 */
+	let data
 
 	function load() {
-		if (!(browser && sessionStorage.getItem('temp'))) return
+		if ($cached === 'not fetched') return
 
-		rawdata = browser && sessionStorage.getItem('temp')
-		content = JSON.parse(rawdata)
-
-		return content
+		data = JSON.parse($cached)
 	}
 	load()
 
 	onMount(() => {
-		lazyload('[data-lazyvideo]', {
+		lazyload('[data-lazy]', {
 			threshold: 0.4,
 		})
 	})
 </script>
 
-{#if content}
-	<section class="mt-[50px] p-6 space-y-6 md:p-60">
-		<div
-			in:fly={{ y: 200, duration: 450 }}
-			class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6"
+<section in:fly={{ y: 450, duration: 450 }} class="mt-[50px] p-6 space-y-6 md:p-60">
+	{#if $cached === 'not fetched'}
+		<Alert class="alert-warning" message="Oops! data haven't fetched yet!" />
+		<a sveltekit:prefetch href="/" class="btn btn-block btn-primary">Go to homepage to fetch data</a
 		>
-			{#each content.hotGifs as data}
+	{:else}
+		<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
+			{#each data.hotGifs as post}
 				<MasonryCard
-					type={data.type}
-					poster={data.urls.poster}
-					src={data.urls.vthumbnail}
-					verified={data.user.verified}
-					username={data.user.username}
-					id={data.id}
-					width={data.width}
-					height={data.height}
+					type={post.type}
+					poster={post.urls.poster}
+					src={post.urls.vthumbnail}
+					verified={post.user.verified}
+					username={post.user.username}
+					id={post.id}
+					width={post.width}
+					height={post.height}
 				/>
 			{/each}
 		</div>
 		<LinkBtn text={'Scroll to top'} on:action={() => window.scroll(0, 0)} />
-	</section>
-{:else}
-	No data
-{/if}
+	{/if}
+</section>

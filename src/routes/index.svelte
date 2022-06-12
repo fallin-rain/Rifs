@@ -9,7 +9,8 @@
 				fetched: true,
 				trending: [...data.horizontalGifs, ...data.verifiedGifs],
 				hotGifs: [...data.hotGifs, ...data.soundGifs],
-				creators: [...data.hotCreators, ...data.newCreators],
+				hotCreators: data.hotCreators,
+				newCreators: data.newCreators,
 				reels: [...data.verticalGifs, ...data.longGifs],
 				images: [...data.hotImages, ...data.verifiedImages],
 			},
@@ -18,10 +19,8 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { fly } from 'svelte/transition'
-	import { lazyload } from '$lib/utils/lazyload'
 	import { first_time_visit } from '$lib/stores/persistWelcome'
 
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
@@ -31,11 +30,12 @@
 	export let fetched
 	export let trending: string[]
 	export let hotGifs: string[]
-	export let creators: string[]
+	export let hotCreators: string[]
+	export let newCreators: string[]
 	export let reels: string[]
 	export let images: string[]
 
-	let data = { trending, hotGifs, creators, reels, images }
+	let data = { trending, hotGifs, hotCreators, newCreators, reels, images }
 
 	$first_time_visit === 'yes' && goto('/welcome')
 
@@ -47,12 +47,6 @@
 	}
 
 	if (fetched) cacheData()
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
 </script>
 
 <svelte:head>

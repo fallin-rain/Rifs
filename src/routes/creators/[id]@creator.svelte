@@ -19,9 +19,6 @@
 </script>
 
 <script>
-	import { onMount } from 'svelte'
-	import { lazyload } from '$lib/utils/lazyload'
-
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Video from '$lib/layouts/Video.svelte'
@@ -45,17 +42,11 @@
 		link.click()
 		link.remove()
 	}
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
 </script>
 
 <div
 	id="video-container"
-	class="relative mx-auto block w-full overflow-hidden aspect-{gif.height >= 1800
+	class="relative mx-auto block w-full overflow-hidden aspect-{gif.width >= 1000
 		? 'video'
 		: '[9/16] h-[70vh]'} bg-black text-accent"
 >

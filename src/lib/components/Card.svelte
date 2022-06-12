@@ -1,7 +1,5 @@
 <script lang="ts">
 	import Video from '$lib/layouts/Video.svelte'
-	import { count } from '$lib/stores/queryParams'
-	import VideoPlayer from 'svelte-video-player-kit'
 
 	export let date = ''
 	export let id = ''
@@ -11,6 +9,7 @@
 	export let views = ''
 	export let verified = false
 	export let hasAudio = false
+	export let description = ''
 	export let hasTags = false
 	export let tags: string[] = []
 
@@ -36,7 +35,7 @@
 				<a
 					href={'/user/' + username}
 					sveltekit:prefetch
-					class="mb-1 flex items-center text-base font-semibold tracking-wide text-accent"
+					class="mb-2 flex items-center text-base font-semibold tracking-wide text-accent"
 				>
 					{profileName}
 					<!-- Only appears if creator is verified -->
@@ -83,7 +82,7 @@
 							>
 								<path
 									fill-rule="evenodd"
-									d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+									d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4H4v2h1V9zm-1 4h1v2H4v-2z"
 									clip-rule="evenodd"
 								/>
 							</svg>
@@ -126,70 +125,78 @@
 		{/if}
 	</div>
 	<!-- gif -->
-	<div class="w-full h-full overflow-hidden relative">
+	<div class="w-full max-h-[550px] overflow-hidden relative">
 		<Video nocontrols {width} {height} {poster} {src} />
 	</div>
 	<!-- CTAs -->
-	<div class="w-full flex justify-between items-center gap-4 p-4">
-		<button class="btn btn-xs btn-ghost">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
+	<div class="w-full flex justify-between items-center gap-4 p-4 pl-1">
+		<div class="space-x-3">
+			<button class="btn btn-xs btn-ghost">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+					/>
+				</svg>
+			</button>
+			<button
+				class="btn btn-xs btn-ghost"
+				on:click={async () => {
+					try {
+						await navigator.share(shareData)
+						shared = true
+						console.log('shared')
+					} catch (error) {
+						shared = false
+						console.error(error)
+					}
+				}}
 			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-				/>
-			</svg>
-		</button>
-		<button
-			class="btn btn-xs btn-ghost"
-			on:click={async () => {
-				try {
-					await navigator.share(shareData)
-					shared = true
-					console.log('shared')
-				} catch (error) {
-					shared = false
-					console.error(error)
-				}
-			}}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+					/>
+				</svg>
+			</button>
+			<a href={src} download={username + '.mp4'} class="btn btn-xs btn-ghost">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-50"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+					/>
+				</svg>
+			</a>
+		</div>
+		<a
+			sveltekit:prefetch
+			href={'/user/' + username}
+			role="button"
+			class="btn btn-accent btn-outline btn-xs">View profile</a
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-				/>
-			</svg>
-		</button>
-		<a href={src} download={username + '.mp4'} class="btn btn-xs btn-ghost">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-50"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-				/>
-			</svg>
-		</a>
 	</div>
 </div>

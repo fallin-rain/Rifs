@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { lazyload } from '$lib/utils/lazyload'
+
 	export let width: string
 	export let height: string
 	export let id: string
@@ -17,8 +19,11 @@
 	let duration: number
 	let currentTime: number
 	let a: string | number
+	let canplay = false
 
-	function seekvideo(e) {
+	let savedposts: any[] = [{ id }]
+
+	function seekvideo(e: { target: { value: number } }) {
 		if (!duration) return
 
 		currentTime = e.target.value
@@ -27,7 +32,7 @@
 		showControlsTimeout = setInterval(() => (showControls = false), 2500)
 	}
 
-	function handleClick(e) {
+	function handleClick(e: { detail: number }) {
 		if (e.detail === 1) {
 			clearInterval(showControlsTimeout)
 			showControlsTimeout = setInterval(() => (showControls = false), 2500)
@@ -48,7 +53,14 @@
 			: document.querySelector('#video-container')?.requestFullscreen()
 		isfullscreen = !isfullscreen
 	}
-	document.fullscreen ? (isfullscreen = true) : (isfullscreen = false)
+	$: document.fullscreen ? (isfullscreen = true) : (isfullscreen = false)
+
+	//TODO: Fix save post
+	function savePost() {
+		savedposts = [{ id }, ...savedposts]
+
+		console.log(savedposts)
+	}
 </script>
 
 <!-- NOTE:
@@ -59,218 +71,64 @@
 <!-- video -->
 <!-- svelte-ignore a11y-media-has-caption -->
 <video
+	use:lazyload={{
+		threshold: 0.4,
+	}}
 	class="block w-full min-w-[300px] h-full object-cover object-center"
 	data-lazy="video"
 	data-poster={poster}
 	data-src={src}
 	{height}
 	{width}
-	loop
 	bind:currentTime
 	bind:duration
 	bind:muted
 	bind:paused
-	on:click={handleClick}
 	on:progress={e => buffer(e)}
+	on:canplay={() => (canplay = true)}
 />
-<!-- absolute play/pause -->
-<button
-	id="absolute-playpause"
-	class="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
-	style={paused ? 'opacity: 1;' : 'opacity: 0;'}
-	on:click={() => (paused = !paused)}
+
+<div
+	on:click={handleClick}
+	class="absolute top-0 left-0 flex flex-col items-center justify-between w-full h-full"
 >
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		class="h-16 w-16 text-accent"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-	>
-		<path
-			fill-rule="evenodd"
-			d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-			clip-rule="evenodd"
-		/>
-	</svg>
-</button>
-<!-- username -->
-{#if !$$restProps.nocontrols}
-	<div
-		id="username"
-		class="absolute inset-x-0 top-0 flex items-center justify-between p-3"
-		style={showControls || paused
-			? 'transform: translateY(0px); opacity: 1;'
-			: 'transform: translateY(-100px); opacity: 0;'}
-	>
-		<a
-			href={'/creators/' + id}
-			sveltekit:prefetch
-			class="flex w-max items-center gap-1 font-bold tracking-wide truncate"
+	<!-- username -->
+	{#if $$restProps.nocontrols}
+		<div class="w-full p-3 bg-transparent pointer-events-none" />
+	{:else}
+		<div
+			id="username"
+			class="w-full flex items-center justify-between p-3"
+			style={showControls || paused
+				? 'transform: translateY(0px); opacity: 1;'
+				: 'transform: translateY(-100px); opacity: 0;'}
 		>
-			{username}
-			{#if verified}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="mt-1 h-4 w-4"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			{/if}
-		</a>
-		<!-- save -->
-		<button>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-6 w-6 flex-shrink-0"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
+			<a
+				href={'/creators/' + id}
+				sveltekit:prefetch
+				class="link link-hover flex gap-1 font-bold tracking-wide text-accent"
 			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-				/>
-			</svg>
-			{#if saved}
+				{username}
+				{#if verified}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="mt-1 h-4 w-4"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{/if}
+			</a>
+			<!-- save -->
+			<button on:click={savePost} class="btn btn-ghost btn-xs btn-circle">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-6 w-6 flex-shrink-0"
-					viewBox="0 0 20 20"
-					fill="currentColor"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			{/if}
-		</button>
-	</div>
-{/if}
-<!-- video controls -->
-<div
-	id="controls"
-	class="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-3"
-	style={showControls || paused
-		? 'transform: translateY(0px); opacity: 1;'
-		: 'transform: translateY(100px); opacity: 0;'}
->
-	<!-- play/pause -->
-	<button
-		class="flex-shrink-0 btn btn-xs btn-accent btn-circle"
-		on:click={() => (paused = !paused)}
-	>
-		{#if paused}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-				/>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-		{:else}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
-				/>
-			</svg>
-		{/if}
-	</button>
-	<!-- progress bar -->
-	<div class="relative -mt-2 w-full">
-		<div
-			id="buffer-bar"
-			class="absolute top-2/4 left-0 translate-y-[1.5px] h-1.5 rounded-full bg-accent pointer-events-none"
-			style="width: {a}%"
-		/>
-		<input
-			type="range"
-			class="translate-y-2 range range-accent"
-			min="0"
-			max={duration ? duration : '0'}
-			value={currentTime}
-			on:input={seekvideo}
-		/>
-	</div>
-	<!-- mute/unmute -->
-	<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={() => (muted = !muted)}>
-		{#if muted}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-					clip-rule="evenodd"
-				/>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-				/>
-			</svg>
-		{:else}
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="h-5 w-5"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-				stroke-width="2"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-				/>
-			</svg>
-		{/if}
-	</button>
-	<!-- full screen -->
-	{#if $$restProps.fullscreen}
-		<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={toggleFullscreen}>
-			{#if isfullscreen}
-				Esc
-			{:else}
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="w-5 h-5"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke="currentColor"
@@ -279,12 +137,197 @@
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+						d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+					/>
+				</svg>
+				{#if saved}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6 flex-shrink-0"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{/if}
+			</button>
+		</div>
+	{/if}
+	<!-- absolute play/pause -->
+	<button
+		id="absolute-playpause"
+		class="btn btn-circle btn-ghost btn-xl"
+		style={paused ? 'opacity: 1;' : 'opacity: 0;'}
+		on:click={() => (paused = !paused)}
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-12 w-12 text-accent"
+			class:hidden={!canplay}
+			viewBox="0 0 20 20"
+			fill="currentColor"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+				clip-rule="evenodd"
+			/>
+		</svg>
+		<!-- loading -->
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-12 w-12 animate-spin"
+			class:hidden={canplay}
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			stroke-width="2"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+			/>
+		</svg>
+	</button>
+
+	<!-- video controls -->
+	<div
+		id="controls"
+		class="w-full flex items-center justify-between gap-3 p-3"
+		style={showControls || paused
+			? 'transform: translateY(0px); opacity: 1;'
+			: 'transform: translateY(100px); opacity: 0;'}
+	>
+		<!-- play/pause -->
+		<button
+			class="flex-shrink-0 btn btn-xs btn-accent btn-circle"
+			on:click={() => (paused = !paused)}
+		>
+			{#if paused}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+					/>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+					/>
+				</svg>
+			{:else}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
 					/>
 				</svg>
 			{/if}
 		</button>
-	{/if}
+		<!-- progress bar -->
+		<div class="relative -mt-2 w-full">
+			<div
+				id="buffer-bar"
+				class="absolute top-2/4 left-0 translate-y-[1.5px] h-1.5 rounded-full bg-accent pointer-events-none"
+				style="width: {a}%"
+			/>
+			<input
+				type="range"
+				class="translate-y-2 range range-accent"
+				min="0"
+				max={duration ? duration : '0'}
+				value={currentTime}
+				on:input={seekvideo}
+			/>
+		</div>
+		<!-- mute/unmute -->
+		<button
+			class="flex-shrink-0 btn btn-xs btn-accent btn-circle"
+			on:click={() => (muted = !muted)}
+		>
+			{#if muted}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+						clip-rule="evenodd"
+					/>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+					/>
+				</svg>
+			{:else}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					stroke-width="2"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+					/>
+				</svg>
+			{/if}
+		</button>
+		<!-- full screen -->
+		{#if $$restProps.fullscreen}
+			<button class="flex-shrink-0 btn btn-xs btn-accent btn-circle" on:click={toggleFullscreen}>
+				{#if isfullscreen}
+					Esc
+				{:else}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="w-5 h-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+						/>
+					</svg>
+				{/if}
+			</button>
+		{/if}
+	</div>
 </div>
 
 <style>

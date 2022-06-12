@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Video from '$lib/layouts/Video.svelte'
+	import { lazyload } from '$lib/utils/lazyload'
 
 	export let poster: string
 	export let src: string
@@ -25,6 +26,10 @@
 {#if type === 2}
 	<div class="relative overflow-hidden rounded-xl text-accent">
 		<img
+			use:lazyload={{
+				threshold: 0,
+				margin: '-100px',
+			}}
 			class="block object-cover object-center"
 			data-lazy="image"
 			data-src={src}
@@ -96,7 +101,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="relative overflow-hidden rounded-xl text-accent">
+	<div id="masonry-card" class="relative overflow-hidden rounded-xl text-accent">
 		<!-- video -->
 		<Video {id} {username} {verified} {poster} {src} {height} {width} />
 	</div>

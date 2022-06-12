@@ -1,50 +1,27 @@
-//@ts-nocheck
-export function lazyload(selector: string, params) {
-	if (typeof IntersectionObserver === 'undefined') return
-
-	params.autoplay = params.autoplay || false
-	params.margin = params.margin || '0px'
-	params.threshold = params.threshold || 0
+export function lazyload(
+	node: HTMLMediaElement | HTMLImageElement,
+	options: { threshold: number; autoplay?: boolean; margin?: string }
+) {
+	options.autoplay = options.autoplay || false
+	options.margin = options.margin || '0px'
+	options.threshold = options.threshold || 0
 
 	const observer = new IntersectionObserver(
 		entries => {
-			entries.forEach(entry => {
-				const target = entry.target
+			if (entries[0].isIntersecting) {
+				if (node.dataset.lazy === 'image') node.src = node.dataset.src
 
-				if (!entry.isIntersecting) return
-				if (target.dataset.lazy === 'image') target.src = target.dataset.src
+				if (node.src != node.dataset.src) node.src = node.dataset.src
+				if (node.poster != node.dataset.poster) node.poster = node.dataset.poster
 
-				target.src = target.dataset.src
-				target.poster = target.dataset.poster
-
-				if (params.autoplay) target.play()
-
-				observer.unobserve(target)
-			})
+				if (options.autoplay) node.play()
+			}
+			node.pause()
 		},
 		{
-			rootMargin: params.margin,
-			threshold: params.threshold,
+			rootMargin: options.margin,
+			threshold: options.threshold,
 		}
 	)
-
-	const newObserver = new IntersectionObserver(
-		entries => {
-			entries.forEach(entry => {
-				const target = entry.target
-
-				if (entry.isIntersecting) return
-				if (target.dataset.lazy === 'video') target.pause()
-			})
-		},
-		{
-			rootMargin: params.margin,
-			threshold: params.threshold,
-		}
-	)
-
-	document.querySelectorAll(selector).forEach(card => {
-		observer.observe(card)
-		newObserver.observe(card)
-	})
+	observer.observe(node)
 }

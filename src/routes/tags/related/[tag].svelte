@@ -16,14 +16,7 @@
 </script>
 
 <script>
-	import { formatTS } from '$lib/utils/formatTS'
-	import { formatViews } from '$lib/utils/formatViews'
-	import { lazyload } from '$lib/utils/lazyload'
-	import { onMount } from 'svelte'
-
-	import Card from '$lib/components/Card.svelte'
 	import { page } from '$app/stores'
-	import { count } from '$lib/stores/queryParams'
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
@@ -32,14 +25,6 @@
 	 */
 	let searchedTag
 	export let gifs
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
-
-	$: console.log($page.url.pathname.split('/'))
 </script>
 
 <div class="px-6 text-secondary breadcrumbs">

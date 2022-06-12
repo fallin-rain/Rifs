@@ -3,10 +3,8 @@
 	import LinkBtn from '$lib/components/LinkBtn.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 
-	import { onMount } from 'svelte'
 	import { fly } from 'svelte/transition'
 	import { cached } from '$lib/stores/cached'
-	import { lazyload } from '$lib/utils/lazyload'
 
 	/**
 	 * @type {string}
@@ -19,12 +17,6 @@
 		data = JSON.parse($cached)
 	}
 	load()
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
 </script>
 
 <section in:fly={{ y: 450, duration: 450 }} class="mt-[50px] p-6 space-y-6 md:p-60">

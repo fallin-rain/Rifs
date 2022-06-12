@@ -15,20 +15,10 @@
 </script>
 
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte'
-	import MasonryCard from '$lib/components/MasonryCard.svelte'
-	import Heading from '$lib/layouts/Heading.svelte'
 	import Tags from '$lib/layouts/Tags.svelte'
+	import Heading from '$lib/layouts/Heading.svelte'
+	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import { formatTS } from '$lib/utils/formatTS'
-	import { formatViews } from '$lib/utils/formatViews'
-	import { lazyload } from '$lib/utils/lazyload'
-	import { onMount } from 'svelte'
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
 
 	export let user: string
 	export let tags: string[]

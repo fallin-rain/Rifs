@@ -13,17 +13,8 @@
 
 <script>
 	import Video from '$lib/layouts/Video.svelte'
-	import { lazyload } from '$lib/utils/lazyload'
-	import { onMount } from 'svelte'
 
 	export let stories
-
-	onMount(() =>
-		lazyload('[data-lazy]', {
-			autoplay: true,
-			threshold: 0.2,
-		})
-	)
 
 	function prevPage() {
 		history.back()

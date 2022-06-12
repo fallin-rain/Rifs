@@ -13,11 +13,9 @@
 	### TAILWIND NEW REDESIGN QUERY PARAMS
 	https://play.tailwindcss.com/CNWhvlah6i -->
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 	import { fly } from 'svelte/transition'
-	import { lazyload } from '$lib/utils/lazyload'
 	import { count, filter, order, search_text, type } from '$lib/stores/queryParams'
 
 	import Tags from '$lib/layouts/Tags.svelte'
@@ -81,12 +79,6 @@
 
 		count.update(inc => (inc += 20))
 	}
-
-	onMount(() => {
-		lazyload('[data-lazy]', {
-			threshold: 0.4,
-		})
-	})
 </script>
 
 <section class="space-y-6 p-6 pb-24">
@@ -217,7 +209,7 @@
 	</div>
 	<div class="divider" />
 	<Heading title="Recent posts" />
-	<p>The select options are work in progress.</p>
+	<p class="text-xs text-secondary">The select options are work in progress.</p>
 	<div class="w-full max-w-md flex items-center justify-start flex-wrap gap-3">
 		<!-- Order -->
 		<select on:change={e => order.set(e.target?.value)} class="select">
@@ -240,7 +232,7 @@
 		<select on:change={e => filter.set(e.target?.value)} class="select">
 			<option disabled selected value="">Type</option>
 			<option value="type=">Both</option>
-			<option value="type=g">gifs</option>
+			<option value="type=g">Gifs</option>
 			<option value="type=i">Images</option>
 		</select>
 	</div>

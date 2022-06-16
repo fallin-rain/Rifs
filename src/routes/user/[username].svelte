@@ -29,9 +29,9 @@
 	<!-- about user -->
 	<div class="max-w-sm mx-auto flex flex-col gap-4 items-center">
 		<div class="avatar">
-			<div class="w-36 mask mask-squircle text-xs">
+			<div class="w-36 mask mask-squircle">
 				<img
-					class="bg-slate-600"
+					class="bg-slate-600 text-xs"
 					src={user.profileImageUrl ||
 						'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
 					alt={(user.profileImageUrl && user.name) || 'No profile image'}
@@ -39,9 +39,9 @@
 			</div>
 		</div>
 
-		<div class="text-center">
+		<div class="text-center space-y-3">
 			<h3
-				class="flex max-h-min text-center items-center justify-center text-lg font-semibold tracking-wide text-accent"
+				class="flex max-h-min text-center items-center justify-center text-lg font-semibold tracking-wide"
 			>
 				{user.name || 'No name'}
 				{#if user.verified}
@@ -60,7 +60,7 @@
 					</svg>
 				{/if}
 			</h3>
-			<p class="text-sm">@{user.username}</p>
+			<p class="text-sm text-accent">@{user.username}</p>
 			<span class="text-sm">Since <time>{formatTS(user.creationtime)}</time></span>
 		</div>
 		<div class="flex items-center justify-between">
@@ -81,16 +81,16 @@
 		{user.description}
 	</p>
 	<!-- social links -->
-	<div class="min-w-full flex items-center flex-wrap gap-4">
+	<div class="min-w-full flex items-center flex-wrap gap-6">
 		<a
-			class="{user.socialUrl1 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl1 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl1}
 			target="_blank"
 		>
-			Porn hub
+			PornHub
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -104,14 +104,14 @@
 			</svg>
 		</a>
 		<a
-			class="{user.socialUrl2 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl2 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl2}
 			target="_blank"
 		>
 			Twitter
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -125,14 +125,14 @@
 			</svg>
 		</a>
 		<a
-			class="{user.socialUrl3 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl3 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl3}
 			target="_blank"
 		>
 			Instagram
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -146,14 +146,14 @@
 			</svg>
 		</a>
 		<a
-			class="{user.socialUrl4 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl4 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl4}
 			target="_blank"
 		>
-			Many vids
+			ManyVids
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -167,14 +167,14 @@
 			</svg>
 		</a>
 		<a
-			class="{user.socialUrl5 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl5 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl5}
 			target="_blank"
 		>
 			Reddit
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -188,14 +188,14 @@
 			</svg>
 		</a>
 		<a
-			class="{user.socialUrl6 || 'hidden'} link link-accent flex items-center gap-2"
+			class="{user.socialUrl6 || 'hidden'} link link-hover link-secondary flex items-center gap-1"
 			href={user.socialUrl6}
 			target="_blank"
 		>
-			Only fans
+			OnlyFans
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				class="h-4 w-4 mt-1"
+				class="h-4 w-4"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"
@@ -211,17 +211,13 @@
 	</div>
 
 	<Heading title="Most used tags" />
-	<div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4">
+	<div class="mt-6 h-12 flex items-center gap-x-3 gap-y-4 overflow-y-hidden overflow-x-scroll">
 		{#each tags as tag}
 			<Tags linkPath={'/tags/related/'} {tag} />
 		{/each}
 	</div>
 
-	<h1
-		class="mb-6 bg-gradient-to-br from-pink-500 to-red-600 bg-clip-text font-serif text-2xl font-extrabold italic tracking-wide text-transparent"
-	>
-		Recent posts
-	</h1>
+	<Heading title="Recent posts" />
 	<!-- user's posts -->
 	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each gifs as gif}

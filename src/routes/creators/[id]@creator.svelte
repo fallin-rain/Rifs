@@ -24,6 +24,7 @@
 	import Video from '$lib/layouts/Video.svelte'
 	import { page } from '$app/stores'
 	import LinkBtn from '$lib/components/LinkBtn.svelte'
+	import Breadcrumb from '$lib/components/Breadcrumb.svelte'
 
 	export let gif
 	export let user
@@ -164,19 +165,7 @@
 		{/each}
 	</div>
 
-	<div class="text-secondary breadcrumbs">
-		<ul>
-			<li class="capitalize">
-				<a sveltekit:prefetch href="/">Home</a>
-			</li>
-			<li class="capitalize">
-				<a sveltekit:prefetch href="/creators">{$page.url.pathname.split('/')[1]}</a>
-			</li>
-			<li class="capitalize">
-				<a sveltekit:prefetch href={$page.url.toString()}>{$page.url.pathname.split('/')[2]}</a>
-			</li>
-		</ul>
-	</div>
+	<Breadcrumb />
 
 	<Heading title="Related posts" />
 	<div class="mt-6 columns-1 lg:columns-3 2xl:columns-4 gap-6 w-full mx-auto space-y-6">

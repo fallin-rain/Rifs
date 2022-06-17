@@ -34,7 +34,7 @@
 					class="bg-slate-600 text-xs"
 					src={user.profileImageUrl ||
 						'https://avatars.dicebear.com/api/initials/' + user.name + '.svg?backgroundColors=pink'}
-					alt={(user.profileImageUrl && user.name) || 'No profile image'}
+					alt="Profile"
 				/>
 			</div>
 		</div>

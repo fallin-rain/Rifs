@@ -19,7 +19,7 @@
 	load()
 </script>
 
-<section in:fly={{ y: 450, duration: 450 }} class="mt-[50px] p-6 space-y-6 md:p-60">
+<section in:fly={{ y: 450, duration: 450 }} class="mt-28 p-6 space-y-6 md:p-60">
 	{#if $cached === 'not fetched'}
 		<Alert class="alert-warning" message="Oops! data haven't fetched yet!" />
 		<a sveltekit:prefetch href="/" class="btn btn-block btn-primary">Go to homepage to fetch data</a

@@ -28,7 +28,7 @@
 		<img
 			use:lazyload={{
 				threshold: 0,
-				margin: '-100px',
+				margin: '500px',
 			}}
 			class="block object-cover object-center"
 			data-lazy="image"

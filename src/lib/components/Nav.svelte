@@ -206,7 +206,7 @@
 		<a
 			href="/"
 			sveltekit:prefetch
-			class="flex-shrink-0 btn btn-ghost btn-circle btn-sm"
+			class="flex-shrink-0 btn btn-ghost"
 			class:btn-active={tabBarOnRoutes.some(route => $page.url.pathname.includes(route)) ||
 				$page.url.pathname === '/'}
 		>
@@ -229,7 +229,7 @@
 		<a
 			href="/search"
 			sveltekit:prefetch
-			class="flex-shrink-0 btn btn-ghost btn-circle btn-sm"
+			class="flex-shrink-0 btn btn-ghost"
 			class:btn-active={$page.url.pathname === '/search'}
 		>
 			<svg
@@ -251,7 +251,7 @@
 		<a
 			href="/creators"
 			sveltekit:prefetch
-			class="flex-shrink-0 btn btn-ghost btn-circle btn-sm"
+			class="flex-shrink-0 btn btn-ghost"
 			class:btn-active={$page.url.pathname === '/creators'}
 		>
 			<svg

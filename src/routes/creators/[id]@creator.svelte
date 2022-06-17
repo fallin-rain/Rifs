@@ -22,7 +22,6 @@
 	import Heading from '$lib/layouts/Heading.svelte'
 	import MasonryCard from '$lib/components/MasonryCard.svelte'
 	import Video from '$lib/layouts/Video.svelte'
-	import { page } from '$app/stores'
 	import LinkBtn from '$lib/components/LinkBtn.svelte'
 	import Breadcrumb from '$lib/components/Breadcrumb.svelte'
 
@@ -31,15 +30,12 @@
 	export let tags
 	export let related_gifs
 
-	let count = 1
-
 	function download() {
 		const videoLink = document.querySelector('video')?.getAttribute('data-src') || '#'
 		const link = document.createElement('a')
-		link.setAttribute('href', videoLink)
-		link.setAttribute('download', 'rifs_' + new Date().getMilliseconds() + '_' + count++)
-		// Only for localhost as download doesn't work over http
-		if ($page.url.protocol === 'http:') link.setAttribute('target', '_blank')
+		link.href = videoLink
+		link.download = 'rifs_' + new Date().getMilliseconds()
+		link.target = '_blank'
 		link.click()
 		link.remove()
 	}
@@ -59,15 +55,16 @@
 			height={gif.height}
 			width={gif.width}
 		/>
+	{:else}
+		<Video
+			nocontrols={true}
+			src={gif.urls.hd}
+			poster={gif.urls.poster}
+			width={gif.width}
+			height={gif.height}
+			fullscreen={true}
+		/>
 	{/if}
-	<Video
-		nocontrols={true}
-		src={gif.urls.hd}
-		poster={gif.urls.poster}
-		width={gif.width}
-		height={gif.height}
-		fullscreen={true}
-	/>
 </div>
 <section class="p-6 md:px-60 space-y-6">
 	<div class="w-full flex items-center justify-between">

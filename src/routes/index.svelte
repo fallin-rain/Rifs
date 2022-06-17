@@ -57,7 +57,7 @@
 	<div id="hidden" />
 {/if}
 <!-- main content -->
-<section in:fly={{ y: 450, duration: 450 }} class="mt-[50px] p-6 space-y-6 md:p-60">
+<section in:fly={{ y: 450, duration: 450 }} class="mt-28 p-6 space-y-6 md:p-60">
 	<div class="columns-1 lg:columns-3 2xl:columns-4 gap-3 w-full mx-auto space-y-6">
 		{#each trending as post}
 			<MasonryCard

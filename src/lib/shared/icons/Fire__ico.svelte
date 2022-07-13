@@ -22,3 +22,29 @@
 		/>
 	</svg>
 </div>
+
+<style>
+	.animateSpin {
+		animation: spin 1.5s ease-out normal;
+	}
+	@keyframes spin {
+		0% {
+			transform: rotate(0);
+		}
+		10% {
+			transform: scale(0.78);
+		}
+		15% {
+			transform: scale(1);
+		}
+		25% {
+			transform: rotate(20deg);
+		}
+		75% {
+			transform: rotate(-10deg);
+		}
+		100% {
+			transform: rotate(0);
+		}
+	}
+</style>
